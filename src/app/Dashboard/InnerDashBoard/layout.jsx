@@ -39,7 +39,7 @@ export default function InnerDashboardLayout({ children }) {
   if (!user && !loading) {
     window.location = "/";
   }
-  const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [sidebarOpen, setSidebarOpen] = useState(true);
   const ref = useRef();
 
   const tooglesidebar = () => {

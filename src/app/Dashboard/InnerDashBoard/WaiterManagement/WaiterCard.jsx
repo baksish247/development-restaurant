@@ -40,7 +40,7 @@ function WaiterCard({ item, handleSwitchChange }) {
   };
 
   return (
-    <div className={`${isChecked ? 'bg-white' : 'bg-zinc-200/70'} shadow-md shadow-black/20 border w-full p-4 rounded-lg`}>
+    <div className={`${isChecked ? 'bg-white' : 'bg-zinc-200/70'} shadow-md  shadow-black/20 border w-[95%] mx-auto p-4 rounded-lg`}>
       <div className="flex justify-between items-center">
         <div className="flex items-center gap-4">
           <Image

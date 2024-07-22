@@ -17,7 +17,7 @@ function Sidebar({ sidebarOpen, refs, tooglesidebar, user }) {
         ref={refs}
         className={`${
           sidebarOpen ? "translate-x-0" : "-translate-x-64"
-        } transform transition-transform z-30 duration-500 fixed z-50 top-0 left-0 h-screen`}
+        } transform transition-transform z-30 duration-500 fixed  top-0 left-0 h-screen`}
       >
         <aside className="w-64 bg-[#440129] bg-opacity-90 backdrop-blur-sm text-white p-6 border border-white border-opacity-20 shadow-lg h-full">
           <button
@@ -64,14 +64,14 @@ function Sidebar({ sidebarOpen, refs, tooglesidebar, user }) {
 
               <Link
                 className="mb-4 bg-[#fff9ea] text-[#441029] text-base p-2 rounded-lg opacity-90 hover:bg-[#441029] hover:text-[#fff9ea] flex justify-start  space-x-1 items-center"
-                href="/Dashboard/InnerDashBoard/TableManagement"
+                href="/Dashboard/InnerDashBoard/Billing"
               >
                 <LiaFileInvoiceDollarSolid /> <span>Biling</span>
               </Link>
 
               <Link
                 className="mb-4 bg-[#fff9ea] text-[#441029] text-base p-2 rounded-lg opacity-90 hover:bg-[#441029] hover:text-[#fff9ea] flex justify-start space-x-1 items-center"
-                href="/Dashboard/InnerDashBoard/TableManagement"
+                href="/Dashboard/InnerDashBoard/Analytics"
               >
                 <IoAnalyticsSharp />
                 <span>Analytics</span>
@@ -79,7 +79,7 @@ function Sidebar({ sidebarOpen, refs, tooglesidebar, user }) {
 
               <Link
                 className="mb-4 bg-[#fff9ea] text-[#441029] text-base p-2 rounded-lg opacity-90 hover:bg-[#441029] hover:text-[#fff9ea] flex justify-start  space-x-1 items-center"
-                href="/Dashboard/InnerDashBoard/TableManagement"
+                href="/Dashboard/InnerDashBoard/InventoryManagement"
               >
                 <MdOutlineInventory2 />
                 <span>Inventory Details</span>
@@ -87,7 +87,7 @@ function Sidebar({ sidebarOpen, refs, tooglesidebar, user }) {
 
               <Link
                 className="mb-4 bg-[#fff9ea] text-[#441029] text-base p-2 rounded-lg opacity-90 hover:bg-[#441029] hover:text-[#fff9ea] flex justify-start  space-x-1 items-center"
-                href="/innerdashboard/profile"
+                href="/Dashboard/InnerDashBoard/Settings"
               >
                 <VscSettingsGear />
                 <span>Settings</span>

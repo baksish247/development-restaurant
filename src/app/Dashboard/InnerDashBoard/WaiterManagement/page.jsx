@@ -79,6 +79,7 @@ function Page() {
         </div>
       ) : filteredWaiters.length > 0 ? (
         filteredWaiters.map((item) => (
+          
           <WaiterCard
             key={item._id}
             item={item}
