@@ -1,5 +1,6 @@
 import { Poppins } from "next/font/google";
 import "./globals.css";
+import "./fonts.css";
 import { AuthProvider } from "./Context/AuthContext";
 import NextTopLoader from 'nextjs-toploader';
 
