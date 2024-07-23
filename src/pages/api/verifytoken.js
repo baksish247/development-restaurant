@@ -19,8 +19,8 @@ const handler = async (req, res) => {
     const decoded = jwt.verify(token, process.env.JWT_SECRET_KEY);
     return res.status(200).json({ success: true, decoded });
   } catch (error) {
-    console.error("Token verification failed:", error);
-    return res.status(401).json({ success: false, message: "Invalid token" });
+    //console.error("Token verification failed:", error);
+    return res.status(201).json({ success: false, message: "Invalid token" });
   }
 };
 
