@@ -10,7 +10,7 @@ export default function InnerDashboardLayout({ children }) {
   const router = useRouter();
   const pathname = usePathname();
   const { user, loading } = useAuth();
-  const [title, settitle] = useState("Welcome")
+  const [title, settitle] = useState("Welcome");
   useEffect(() => {
     const path = pathname.split("/").pop();
     changetitle(path);
@@ -29,6 +29,9 @@ export default function InnerDashboardLayout({ children }) {
         break;
       case "TableManagement":
         settitle("Table Management");
+        break;
+      case "Settings":
+        settitle("Settings");
         break;
       // Add more cases as needed
       default:
@@ -71,8 +74,12 @@ export default function InnerDashboardLayout({ children }) {
             changetitle={changetitle}
             sidebarOpen={sidebarOpen}
           />
-          <SidebarProvider sidebarOpen={sidebarOpen} tooglesidebar={tooglesidebar}>{children}</SidebarProvider>
-          
+          <SidebarProvider
+            sidebarOpen={sidebarOpen}
+            tooglesidebar={tooglesidebar}
+          >
+            {children}
+          </SidebarProvider>
         </main>
       </div>
     </div>

@@ -3,6 +3,9 @@ import React, { useState } from "react";
 import axios from "axios";
 // import { RiArrowDropRightLine } from "react-icons/ri";
 import Switch from "../WaiterManagement/Switch";
+import vegicon from '../../../assets/images/vegicon.png';
+import nonvegicon from '../../../assets/images/nonvegicon.png';
+import Image from "next/image";
 
 function MenuItemCard({ item, onStatusChange }) {
   const [loading, setLoading] = useState(false);
@@ -52,6 +55,7 @@ function MenuItemCard({ item, onStatusChange }) {
             </div>
           )}
         </div>
+        <Image src={item.subcategory.toLowerCase()==='veg'?vegicon:nonvegicon} height={20} width={20}/>
         {/* <span className="text-sm inline-flex items-center cursor-pointer text-[#441029] hover:text-[#661638] duration-300">
           Details
           <RiArrowDropRightLine className="text-lg" />

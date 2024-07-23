@@ -9,6 +9,7 @@ import { LuChefHat } from "react-icons/lu";
 import { MdOutlineMenuBook } from "react-icons/md";
 import { MdOutlineInventory2 } from "react-icons/md";
 import { VscSettingsGear } from "react-icons/vsc";
+import { TfiHome } from "react-icons/tfi";
 
 function Sidebar({ sidebarOpen, refs, tooglesidebar, user }) {
   return (
@@ -29,9 +30,10 @@ function Sidebar({ sidebarOpen, refs, tooglesidebar, user }) {
           <div className=" flex flex-col py-10 justify-center items-center">
             <Image
               src={avater}
-              className="mix-blend-screen"
-              height={180}
-              width={180}
+              className="mix-blend-screen "
+              height={100}
+              width={100}
+              priority
               alt="pic"
             />
             <p className="text-lg font-semibold">{user?.name}</p>
@@ -39,6 +41,14 @@ function Sidebar({ sidebarOpen, refs, tooglesidebar, user }) {
 
           <nav>
             <div>
+              {" "}
+              <Link
+                className="mb-4 bg-[#fff9ea] text-[#441029] text-base p-2 rounded-lg opacity-90 hover:bg-[#441029] hover:text-[#fff9ea] flex justify-start  space-x-1 items-center"
+                href="/Dashboard"
+              >
+                <TfiHome />
+                <span>Home</span>
+              </Link>
               <Link
                 className="mb-4 bg-[#fff9ea] text-[#441029] text-base p-2 rounded-lg opacity-90 hover:bg-[#441029] hover:text-[#fff9ea] flex justify-start  space-x-1 items-center"
                 href="/Dashboard/InnerDashBoard/TableManagement"
@@ -46,7 +56,6 @@ function Sidebar({ sidebarOpen, refs, tooglesidebar, user }) {
                 <MdTableRestaurant />
                 <span>Table Management</span>
               </Link>
-
               <Link
                 className="mb-4 bg-[#fff9ea] text-[#441029] text-base p-2 rounded-lg opacity-90 hover:bg-[#441029] hover:text-[#fff9ea] flex justify-start  space-x-1 items-center"
                 href="/Dashboard/InnerDashBoard/WaiterManagement"
@@ -61,14 +70,12 @@ function Sidebar({ sidebarOpen, refs, tooglesidebar, user }) {
                 <MdOutlineMenuBook />
                 <span>Restaurant Menu</span>
               </Link>
-
               <Link
                 className="mb-4 bg-[#fff9ea] text-[#441029] text-base p-2 rounded-lg opacity-90 hover:bg-[#441029] hover:text-[#fff9ea] flex justify-start  space-x-1 items-center"
                 href="/Dashboard/InnerDashBoard/Billing"
               >
                 <LiaFileInvoiceDollarSolid /> <span>Biling</span>
               </Link>
-
               <Link
                 className="mb-4 bg-[#fff9ea] text-[#441029] text-base p-2 rounded-lg opacity-90 hover:bg-[#441029] hover:text-[#fff9ea] flex justify-start space-x-1 items-center"
                 href="/Dashboard/InnerDashBoard/Analytics"
@@ -76,7 +83,6 @@ function Sidebar({ sidebarOpen, refs, tooglesidebar, user }) {
                 <IoAnalyticsSharp />
                 <span>Analytics</span>
               </Link>
-
               <Link
                 className="mb-4 bg-[#fff9ea] text-[#441029] text-base p-2 rounded-lg opacity-90 hover:bg-[#441029] hover:text-[#fff9ea] flex justify-start  space-x-1 items-center"
                 href="/Dashboard/InnerDashBoard/InventoryManagement"
@@ -84,7 +90,6 @@ function Sidebar({ sidebarOpen, refs, tooglesidebar, user }) {
                 <MdOutlineInventory2 />
                 <span>Inventory Details</span>
               </Link>
-
               <Link
                 className="mb-4 bg-[#fff9ea] text-[#441029] text-base p-2 rounded-lg opacity-90 hover:bg-[#441029] hover:text-[#fff9ea] flex justify-start  space-x-1 items-center"
                 href="/Dashboard/InnerDashBoard/Settings"

@@ -43,7 +43,7 @@ function TopBar({ title, tooglesidebar, sidebarOpen }) {
           />
         </span>
         <div>
-        <p>{title}</p>
+        <p className="tracking-wider">{title}</p>
         <div  className="w-full h-1 bg-gradient-to-r from-[#c34e86] rounded-full"/></div>
       </div>
 
