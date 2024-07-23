@@ -37,7 +37,7 @@ function LoginPage() {
         toast.dismiss(); // Remove the loading toast
         if (success) {
           toast.success("Logged in successfully");
-          window.location = '/Dashboard';
+          window.location = "/Dashboard";
         } else {
           toast.error("Login failed");
         }
@@ -47,7 +47,11 @@ function LoginPage() {
     });
 
   if (loading) {
-    return <div>Loading...</div>;
+    return (
+      <div className="flex justify-center items-center mt-40">
+        <span className="loader"></span>
+      </div>
+    );
   }
 
   if (user) {
@@ -62,7 +66,7 @@ function LoginPage() {
           <div className="flex relative justify-center">
             <Image
               src={icontop}
-              className="mix-blend-difference"
+              className="mix-blend-difference h-40 w-40"
               height={100}
               width={150}
               alt="icon-difference"
@@ -71,7 +75,7 @@ function LoginPage() {
             <Image
               src={logo}
               alt="logoicon"
-              className="mix-blend-multiply absolute top-[3.8rem] h-6 w-20"
+              className="mix-blend-multiply absolute top-[3.9rem] h-6 w-20"
               priority
               height={1000}
               width={1000}

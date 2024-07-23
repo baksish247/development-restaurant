@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import React, { useEffect, useState } from "react";
 import MenuItemCard from "./MenuItemCard";
 import { useAuth } from "@/app/Context/AuthContext";
@@ -39,10 +39,20 @@ function Menupage() {
   };
 
   if (loading) {
-    return <div>Loading...</div>;
+    return (
+      <div className="flex justify-center items-center mt-40">
+        <span className="loader"></span>
+      </div>
+    );
   }
 
-  const categories = ["starters", "main course", "desserts", "beverages", "breads"];
+  const categories = [
+    "starters",
+    "main course",
+    "desserts",
+    "beverages",
+    "breads",
+  ];
 
   return (
     <div className="lg:p-10 p-4 space-y-4">
@@ -51,9 +61,16 @@ function Menupage() {
           <p className="font-semibold text-xl capitalize">{category}</p>
           <div className="justify-items-center items-center grid lg:grid-cols-4 grid-cols-1 gap-6">
             {foodItems
-              .filter((item) => item.category?.toLowerCase() === category.toLowerCase())
+              .filter(
+                (item) =>
+                  item.category?.toLowerCase() === category.toLowerCase()
+              )
               .map((item) => (
-                <MenuItemCard key={item._id} item={item} onStatusChange={handleStatusChange} />
+                <MenuItemCard
+                  key={item._id}
+                  item={item}
+                  onStatusChange={handleStatusChange}
+                />
               ))}
           </div>
         </React.Fragment>
