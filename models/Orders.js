@@ -33,6 +33,18 @@ const orders = new mongoose.Schema({
     },
     order_status:{
         type: String,
+    },
+    waiter_id:{
+        type: String,
+    },
+    waiter_name:{
+        type: String,
+    },
+    served_at:{
+        type:Date
+    },
+    estimated_time_to_serve:{
+        type:Date
     }
 }, { timestamps: true })
 

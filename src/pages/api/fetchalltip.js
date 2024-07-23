@@ -1,5 +1,5 @@
 import connDB from "../../../middleware/connDB";
-import Transaction from "../../../model/Transaction";
+import Transaction from "../../../models/Transaction";
 const handler = async (req, res) => {
   try {
     if (req.method === "POST") {

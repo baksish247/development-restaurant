@@ -1,6 +1,6 @@
 // pages/api/deleteFoodItem.js
 import connDB from "../../../middleware/connDB";
-import FoodItems from "../../../model/FoodItems";
+import FoodItems from "../../../models/FoodItems";
 
 const handler = async (req, res) => {
   if (req.method === "DELETE") {

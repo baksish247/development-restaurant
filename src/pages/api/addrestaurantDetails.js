@@ -1,5 +1,5 @@
 import connDB from "../../../middleware/connDB";
-import RestaurantDetails from "../../../model/RestaurantDetails";
+import RestaurantDetails from "../../../models/RestaurantDetails";
 
 const handler = async (req, res) => {
   try {

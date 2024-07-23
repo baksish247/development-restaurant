@@ -4,6 +4,7 @@ import TopBar from "../DashboardComponents/TopBar";
 import Sidebar from "./Sidebar";
 import { useAuth } from "@/app/Context/AuthContext";
 import { usePathname, useRouter } from "next/navigation";
+import { SidebarProvider } from "@/app/Context/SidebarContext";
 
 export default function InnerDashboardLayout({ children }) {
   const router = useRouter();
@@ -70,7 +71,8 @@ export default function InnerDashboardLayout({ children }) {
             changetitle={changetitle}
             sidebarOpen={sidebarOpen}
           />
-          {children}
+          <SidebarProvider sidebarOpen={sidebarOpen} tooglesidebar={tooglesidebar}>{children}</SidebarProvider>
+          
         </main>
       </div>
     </div>

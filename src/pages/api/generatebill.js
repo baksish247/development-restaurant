@@ -1,6 +1,6 @@
 import connDB from "../../../middleware/connDB";
-import CompletedOrders from "../../../model/CompletedOrders";
-import Orders from "../../../model/Orders";
+import CompletedOrders from "../../../models/CompletedOrders";
+import Orders from "../../../models/Orders";
 
 const handler = async (req, res) => {
   if (req.method === "POST") {

@@ -1,6 +1,6 @@
 import connDB from "../../../middleware/connDB";
-import FoodItems from "../../../model/FoodItems";
-import RestaurantItems from "../../../model/RestaurantItems";
+import FoodItems from "../../../models/FoodItems";
+import RestaurantItems from "../../../models/RestaurantItems";
 
 const handler = async (req, res) => {
   if (req.method === "POST") {

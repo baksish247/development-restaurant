@@ -1,5 +1,5 @@
 import connDB from "../../../middleware/connDB";
-import Waiter_credentials from "../../../model/Waiter_credentials";
+import Waiter_credentials from "../../../models/Waiter_credentials";
 import bcrypt from "bcrypt";
 import nodemailer from "nodemailer";
 

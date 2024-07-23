@@ -1,5 +1,5 @@
 import connDB from "../../../middleware/connDB";
-import Waiter_credentials from "../../../model/Waiter_credentials";
+import Waiter_credentials from "../../../models/Waiter_credentials";
 
 const handler = async (req, res) => {
   try {

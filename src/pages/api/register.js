@@ -1,5 +1,5 @@
 import connDB from "../../.././middleware/connDB";
-import Restaurant_credentials from "../../../model/Restaurant_credentials";
+import Restaurant_credentials from "../../../models/Restaurant_credentials";
 import bcrypt from "bcrypt";
 
 const handler = async (req, res) => {

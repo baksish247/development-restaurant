@@ -1,5 +1,5 @@
 import connDB from "../../../middleware/connDB";
-import RestaurantDetails from "../../../model/RestaurantDetails";
+import RestaurantDetails from "../../../models/RestaurantDetails";
 
 const handler = async (req, res) => {
   try {
@@ -8,16 +8,16 @@ const handler = async (req, res) => {
       //console.log(restaurantid);
       const restaurant = await RestaurantDetails.findOne({ restaurantid });
       //console.log(restaurant);
-      if (restaurant) res.json({ success: true, data: restaurant });
-      else throw new Error();
+      if (restaurant) {res.status(200).json({ success: true, data: restaurant });}
+      else {throw new Error();}
 
       //res.status(200).json({ success: true, data: restaurant });
     } else {
-      res.status(405).json({ success: false, message: "Method not allowed" });
+      res.status(201).json({ success: false, message: "Method not allowed" });
     }
   } catch (err) {
     //console.error(err);
-    res.status(500).json({ success: false, message: "Server Error" });
+    res.status(202).json({ success: false, message: "Server Error" });
   }
 };
 export default connDB(handler);

@@ -1,5 +1,5 @@
 import connDB from "../../../middleware/connDB";
-import OrderFoodItems from "../../../model/OrderFoodItems";
+import OrderFoodItems from "../../../models/OrderFoodItems";
 import mongoose from "mongoose";
 
 const handler = async (req, res) => {

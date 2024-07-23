@@ -16,7 +16,7 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body className={`${poppins.className} font-poppins`}>
         <AuthProvider>
-        <NextTopLoader showSpinner={false} color="#441029" crawlSpeed={100}
+        <NextTopLoader showSpinner={false} color="#AB0059" crawlSpeed={100}
   height={3}/>
           {children}
         </AuthProvider>

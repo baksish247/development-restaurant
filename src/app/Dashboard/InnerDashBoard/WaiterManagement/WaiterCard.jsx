@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import avater from '../../../assets/images/avater.png';
 import Switch from './Switch';
 import { RiArrowDropRightLine, RiCloseCircleLine } from 'react-icons/ri';
+import { CiEdit } from "react-icons/ci";
 import axios from 'axios';
 
 function WaiterCard({ item, handleSwitchChange }) {
@@ -75,11 +76,17 @@ function WaiterCard({ item, handleSwitchChange }) {
           ) : (
             waiterDetails && (
               <>
-                <h3 className="text-lg font-bold mb-2">Waiter Details</h3>
+                {/* <h3 className="text-lg font-bold mb-2">Waiter Details</h3> */}
+                <div className="flex text-[#441029] hover:text-white transition-colors duration-300 ml-auto items-center px-4 rounded-lg bg-white hover:bg-[#441029] cursor-pointer border border-stone-400 drop-shadow-md py-1 w-fit justify-end">
+                  <CiEdit />
+                  &nbsp;Edit
+                </div>
+                <div className="md:grid md:grid-cols-2 justify-items-stretch">
                 <p><strong>Name:</strong> {waiterDetails.username}</p>
                 <p><strong>Email:</strong> {waiterDetails.email}</p>
                 <p><strong>Phone:</strong> {waiterDetails.phone}</p>
                 <p><strong>Assigned Tables:</strong> {waiterDetails?.assignedTables?.join(', ')}</p>
+                </div>
               </>
             )
           )}

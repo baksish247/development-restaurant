@@ -1,6 +1,6 @@
 import connDB from "../../../middleware/connDB";
-import Orders from "../../../model/Orders";
-import SingleOrders from "../../../model/SingleOrders";
+import Orders from "../../../models/Orders";
+import SingleOrders from "../../../models/SingleOrders";
 
 
 const handler = async (req, res) => {
