@@ -1,9 +1,34 @@
-import React from "react";
+"use client"
+import React, { useState } from "react";
 import TimeAgo from "react-timeago";
-function TableCard({ table }) {
-  console.log(table.orderdetails);
+import ViewOrder from "./ViewOrderModal";
+function TableCard({ table , nooftables,cgst,sgst,restaurantid,restaurantname, restaurantphoneNo, restaurantaddress, fetchorder}) {
+  const restaurantinfo={
+    nooftables:nooftables,
+    cgst:cgst,
+    sgst:sgst,
+    restaurantid:restaurantid,
+    restaurantname:restaurantname,
+    restaurantphoneNo:restaurantphoneNo,
+    restaurantaddress:restaurantaddress
+  }
+  const [openViewModal, setopenViewModal] = useState(false);
+  const [selectedOrder, setselectedOrder] = useState(null);
+
+  const openViewOrderModal = () => {
+    setopenViewModal(true);
+    setselectedOrder(table.orderdetails[0]);
+    console.log(table.orderdetails[0]);
+  };
+
+  const closeViewOrderModal = () => {
+    setopenViewModal(false);
+    setselectedOrder(null);
+  };
+
   return (
-    <div
+    <div>
+    <div onClick={openViewOrderModal}
       className={` border-2 rounded-lg h-28 w-44 ${
         table.orderdetails[0]?.order_status == "updated"
           ? "bg-amber-100 border-amber-500 border-dashed"
@@ -16,7 +41,7 @@ function TableCard({ table }) {
           : table.orderdetails[0]?.order_status == "billgenerated"
           ? "bg-gray-200 border-gray-500 border-dashed"
           : "bg-white border-slate-300 "
-      }   relative flex flex-col`}
+      }   relative flex flex-col cursor-pointer`}
     >
       <div
         className={`flex-none border-b-2 ${
@@ -61,6 +86,9 @@ function TableCard({ table }) {
           </div>
         </div>
       )}
+      
+    </div>
+    {openViewModal && table.orderdetails.order_status != "empty" &&<ViewOrder onClose={closeViewOrderModal} selectedOrder={selectedOrder} restaurantinfo={restaurantinfo} fetchorder={fetchorder}/>}
     </div>
   );
 }

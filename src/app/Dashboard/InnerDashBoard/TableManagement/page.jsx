@@ -17,7 +17,9 @@ function page() {
   }, [loading, user, router]);
 
   if (loading) {
-    return <>Loading...</>;
+    return <div className="flex justify-center items-center mt-40">
+    <span className="loader"></span>
+  </div>;
   }
   return (
     

@@ -1,14 +1,13 @@
 import connDB from "../../../middleware/connDB";
 import CompletedOrders from "../../../models/CompletedOrders";
-import { FoodItems } from "../../../models/FoodItems";
-import SingleOrders from "../../../models/SingleOrders";
-import OrderFoodItems from "../../../models/OrderFoodItems";
+import FoodItems from "../../../models/FoodItems";
+
 
 const handler = async (req, res) => {
   try {
     if (req.method === "POST") {
       const { restaurant_id } = req.body;
-      //console.log(restaurant_id)
+      console.log(restaurant_id)
       const orders = await CompletedOrders.find({restaurant_id,order_status:"paid"})
         .populate({
           path: 'order_items',
@@ -24,7 +23,7 @@ const handler = async (req, res) => {
         if(orders.length > 0) {
       res.status(200).json({ success: true, data: orders });
         } else {
-        res.status(404).json({ success: false, data: "No orders found" });
+        res.status(201).json({ success: false, data: "No orders found" });
       }
     }
   } catch (error) {
