@@ -8,9 +8,12 @@ function Page() {
   const [filter, setFilter] = useState("all");
   const [loading, setLoading] = useState(true);
 
-  const handleSwitchChange = async(id, newState) => {
+  const handleSwitchChange = async (id, newState) => {
     try {
-      const { data } = await axios.post("/api/waiterattendance", { waiterId: id, ispresent: newState });
+      const { data } = await axios.post("/api/waiterattendance", {
+        waiterId: id,
+        ispresent: newState,
+      });
       if (data.success) {
         setWaiters((prevWaiters) =>
           prevWaiters.map((waiter) =>
@@ -21,7 +24,10 @@ function Page() {
         console.error("Failed to update waiter status:", data.error);
       }
     } catch (error) {
-      console.error("Error occurred while updating waiter status:", error.message);
+      console.error(
+        "Error occurred while updating waiter status:",
+        error.message
+      );
     }
   };
 
@@ -79,7 +85,6 @@ function Page() {
         </div>
       ) : filteredWaiters.length > 0 ? (
         filteredWaiters.map((item) => (
-          
           <WaiterCard
             key={item._id}
             item={item}
