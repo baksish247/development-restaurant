@@ -36,7 +36,7 @@ function MenuItemCard({ item, onStatusChange }) {
     <div className="bg-white drop-shadow-lg shadow-slate-400 rounded-lg border min-h-24 w-[250px] p-2">
       <div className="grid grid-cols-4 justify-items-stretch items-center my-2">
         <h3
-          className="font-semibold text-xl text-zinc-800 col-span-3 truncate"
+          className="font-semibold text-base text-zinc-800 col-span-3 truncate"
           title={item.name}
         >
           {item.name}

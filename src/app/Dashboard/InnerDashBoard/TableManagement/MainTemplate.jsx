@@ -36,7 +36,11 @@ function MainTemplate({ user }) {
         const res_orders = await axios.post("/api/fetchallordersbyid", {
           restaurant_id: user.restaurantid,
         });
-        if (res_orders.data.success) {
+        const reservedtables=await axios.post("/api/fetchreservedtables",{restaurant_id: user.restaurantid});
+
+        if (res_orders.data.success && reservedtables.data.success) {
+          console.log(reservedtables.data.data.reserved_tables)
+          const reservetables=reservedtables.data.data.reserved_tables;
           const fetchedOrders = res_orders.data.data;
           setorders(fetchedOrders);
           const updatedTablesArray = tablesArray.map(table => {
@@ -48,8 +52,20 @@ function MainTemplate({ user }) {
               orderdetails: ordersForTable.length > 0 ? ordersForTable : {order_status:"empty"},
             };
           });
+          const finalTablesArray = updatedTablesArray.map(table => {
+            const reservedTable = reservetables.find(
+              reserved => parseInt(reserved.table_number) === table.number
+            );
+            if (reservedTable) {
+              return {
+                ...table,
+                orderdetails: { order_status: "reserved" },
+              };
+            }
+            return table; // Keep the existing orderdetails if no match in reservetables
+          });
 
-          setalltables(updatedTablesArray);
+          setalltables(finalTablesArray);
           setaddedorder(true);
         }
       }
