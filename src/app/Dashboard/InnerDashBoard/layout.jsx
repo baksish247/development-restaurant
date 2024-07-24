@@ -9,8 +9,22 @@ import { SidebarProvider } from "@/app/Context/SidebarContext";
 export default function InnerDashboardLayout({ children }) {
   const router = useRouter();
   const pathname = usePathname();
-  const { user, loading } = useAuth();
   const [title, settitle] = useState("Welcome");
+  const { user, loading } = useAuth();
+
+  useEffect(() => {
+    if (!loading && !user) {
+      router.push("/");
+    }
+  }, [loading, user, router]);
+
+  if (loading || !user) {
+    return (
+      <div className="flex justify-center items-center min-h-screen">
+        <span className="loader"></span>
+      </div>
+    );
+  }
   useEffect(() => {
     const path = pathname.split("/").pop();
     changetitle(path);

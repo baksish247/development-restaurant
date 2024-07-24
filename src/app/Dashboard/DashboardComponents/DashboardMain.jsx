@@ -1,31 +1,37 @@
 "use client";
 import { useAuth } from "@/app/Context/AuthContext";
 import React, { useEffect } from "react";
-import TopBar from "./TopBar";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import avater from "../../assets/images/avater.gif";
 import Link from "next/link";
 import DashboardCard from "./DashboardCard";
 import { Logout } from "@/app/Components/LoginComponent/utils/loginhelpers";
+import { toast, Toaster } from "react-hot-toast";
 
 function DashboardMain() {
   const { user, loading } = useAuth();
-  //console.log(user , loading);
   const router = useRouter();
 
   useEffect(() => {
     if (!loading && !user) {
-      router.push("/");
+      toast.error("Action not allowed\nplease login");
+        router.push("/");
+      
     }
   }, [loading, user, router]);
 
-  if (loading) {
-    return <>Loading...</>;
+  if (loading || !user) {
+    return (
+      <div className="flex justify-center items-center min-h-screen">
+        <span className="loader"></span>
+      </div>
+    );
   }
 
   return (
     <>
+      <Toaster />
       <nav className="lg:flex justify-between lg:px-20 items-center p-2">
         <div className="flex justify-start space-x-2 items-center">
           <Image
@@ -43,7 +49,7 @@ function DashboardMain() {
               Past Orders
             </li>
           </Link>
-          <Link className="cursor-pointer" href={"/"}>
+          <Link className="cursor-pointer" href={"/Support"}>
             <li className="font-medium text-lg custom-underline">Support</li>
           </Link>
 

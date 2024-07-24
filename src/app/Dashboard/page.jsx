@@ -1,12 +1,10 @@
-
-import React from 'react'
-import DashboardMain from './DashboardComponents/DashboardMain'
+import React from "react";
+import DashboardMain from "./DashboardComponents/DashboardMain";
 
 export default function page() {
-
   return (
     <div>
-      <DashboardMain/>
+      <DashboardMain />
     </div>
-  )
+  );
 }
