@@ -28,6 +28,9 @@ const restaurantItemsSchema = new mongoose.Schema(
     },
     phone:{
       type:String,
+    },
+    reserved_tables:{
+      type:[Object],
     }
   },
   { timestamps: true }

@@ -23,7 +23,7 @@ function FinalBill({
   const hours = date.getHours().toString().padStart(2, "0");
   const minutes = date.getMinutes().toString().padStart(2, "0");
   const seconds = date.getSeconds().toString().padStart(2, "0");
-  //console.log(restaurantinfo);
+  console.log(restaurantinfo);
   const hasFetchedBill = useRef(false);
   const [orderbill, setorderbill] = useState();
   const [qrcode, setqrcode] = useState("");
@@ -169,10 +169,10 @@ function FinalBill({
   return (
     <>
       {orderbill && (
-        <div>
+        <div className="mx-4">
           <div
             id="invoice"
-            className=" bg-white -mx-3 py-8 mt-8 p-4 shadow-md border-2 border-gray-300"
+            className=" bg-white -mx-3 py-8 mt-10 p-4 shadow-md border-2 border-gray-300"
           >
             <Toaster />
             <h6 className="font-bold text-center mb-4 text-xl">
@@ -246,63 +246,57 @@ function FinalBill({
               ))}
             </div>
             <div className="flex justify-between mb-2">
-              <p className="text-sm">Total Amount: </p>
+              <p className="text-sm">SUB TOTAL: </p>
               <p className="text-sm">
                 {parseFloat(selectedOrder.initial_bill).toFixed(2)}
               </p>
             </div>
-            <div className="flex justify-between mb-2">
+            {parseFloat(orderbill?.discountamount)>0.0 && <div><div className="flex justify-between mb-2">
               <p className="text-sm">
-                Discount ({discountPercentage}%)
+                DISCOUNT @ ({orderbill.discountpercent}%)
               </p>
               <p className="text-sm">
-                -{parseFloat(orderbill?.discountamount).toFixed(2)}
+                {parseFloat(orderbill?.discountamount).toFixed(2)}
               </p>
             </div>
             <div className="flex justify-between mb-2">
-              <p className="text-sm">Net Amount</p>
+              <p className="text-sm">NET AMOUNT</p>
               <p className="text-sm">
-                {(
+              {(
                   parseFloat(selectedOrder.initial_bill) -
                   parseFloat(orderbill?.discountamount)
                 ).toFixed(2)}
               </p>
+            </div></div>}
+            <div className="flex justify-between mb-2">
+              <p className="text-sm">
+                CGST @ ({restaurantinfo.cgst}%)
+              </p>
+              <p className="text-sm">
+                {orderbill?.cgstamount}
+              </p>
             </div>
             <div className="flex justify-between mb-2">
               <p className="text-sm">
-                Add CGST ({restaurantinfo.cgst}%)
+                SGST @ ({restaurantinfo.sgst}%)
               </p>
               <p className="text-sm">
-                +{parseFloat(orderbill?.cgstamount).toFixed(2)}
+                {orderbill?.sgstamount}
               </p>
             </div>
-            <div className="flex justify-between mb-2">
-              <p className="text-sm">
-                Add SGST ({restaurantinfo.sgst}%)
-              </p>
-              <p className="text-sm">
-                +{parseFloat(orderbill?.sgstamount).toFixed(2)}
-              </p>
-            </div>
+            <div className="border-b-2 border-gray-300 border-dashed mb-2"></div>
             <div className="flex justify-between mb-2">
               <p className="text-sm font-bold">
-                Grand Total
+                GRAND TOTAL
               </p>
               <p className="text-sm font-bold">
-                {parseFloat(orderbill?.total_bill).toFixed(2)}
+              ₹ {orderbill?.total_bill}
               </p>
             </div>
-            <div className="flex justify-between mb-2">
-              <p className="text-sm">
-                Payment Mode:
-              </p>
-              <p className="text-sm">
-                {selectedOrder.paymentmode?.toUpperCase()}
-              </p>
-            </div>
-            <div className="border-b-2 border-gray-300 border-dashed mb-4"></div>
-            <p className="text-center text-sm font-bold mb-4">
-              THANK YOU! VISIT AGAIN
+            <div className="border-b-2 border-gray-300 border-dashed mb-8"></div>
+            {/* <div className="text-center text-sm my-4">GSTIN No. : {restaurantinfo.gstin}</div> */}
+            <p className="text-center text-[.8rem]">
+              Like our services? Scan to treat our team.
             </p>
             <div className="flex justify-center">
               <img
@@ -311,10 +305,15 @@ function FinalBill({
                 className="h-[8rem] w-[8rem]"
               />
             </div>
-            <p className="text-center text-sm">
-              Scan this QR code to pay tips.
+            
+            <p className="text-center text-sm font-light mb-1 mt-4">
+              THANK YOU! VISIT AGAIN
+            </p>
+            <p className="text-center text-sm font-light mb-4">
+              HAVE A NICE DAY!
             </p>
           </div>
+          
           <div className="flex justify-between my-4">
             <button
               // onClick={handleDownload}
@@ -331,20 +330,20 @@ function FinalBill({
               <span>Print Bill</span>
             </button>
           </div>
-          <div className="flex justify-start items-center">
+          <div className="flex justify-between items-center">
             <input
               type="tel"
               value={customerphone_no}
               onChange={(e)=>setcustomerphone_no(e.target.value)}
               placeholder="Customer's Phone Number"
-              className="px-4 py-2 border border-gray-400 rounded-md focus:outline-none focus:ring-2 focus:ring-gray-400 mr-2"
+              className="px-4 w-60 py-2 border border-gray-400 rounded-md focus:outline-none focus:ring-2 focus:ring-gray-400 mr-2"
             />
             <button
               onClick={sendbilltophone}
               className="flex items-center space-x-1 px-4 py-2 border border-gray-400 bg-gray-100 rounded-md hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-400"
             >
               {/* <SimCardDownload className="mr-2" /> */}
-              <span>Send Bill to Phone</span>
+              <span>Send e-bill</span>
             </button>
           </div>
         </div>
