@@ -48,6 +48,9 @@ const completedOrders = new mongoose.Schema({
     },
     order_status:{
         type: String,
+    },
+    payment_method:{
+        type:String
     }
 }, { timestamps: true })
 

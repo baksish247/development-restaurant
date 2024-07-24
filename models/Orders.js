@@ -45,6 +45,9 @@ const orders = new mongoose.Schema({
     },
     estimated_time_to_serve:{
         type:Date
+    },
+    customer_phone:{
+        type: String,
     }
 }, { timestamps: true })
 
