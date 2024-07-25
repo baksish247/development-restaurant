@@ -43,7 +43,7 @@ function MainTemplate({ user }) {
           const fetchedOrders = res_orders.data.data;
           setorders(fetchedOrders);
           const updatedTablesArray = tablesArray.map(table => {
-            const ordersForTable = fetchedOrders.filter(
+            const ordersForTable = fetchedOrders?.filter(
               order => parseInt(order.table_number) === table.number
             );
             return {
@@ -51,8 +51,8 @@ function MainTemplate({ user }) {
               orderdetails: ordersForTable.length > 0 ? ordersForTable : {order_status:"empty"},
             };
           });
-          const finalTablesArray = updatedTablesArray.map(table => {
-            const reservedTable = reservetables.find(
+          const finalTablesArray = updatedTablesArray?.map(table => {
+            const reservedTable = reservetables?.find(
               reserved => parseInt(reserved.table_number) === table.number
             );
             if (reservedTable) {
@@ -63,7 +63,8 @@ function MainTemplate({ user }) {
             }
             return table; // Keep the existing orderdetails if no match in reservetables
           });
-
+          console.log(updatedTablesArray)
+          console.log(finalTablesArray)
           setalltables(finalTablesArray);
           setaddedorder(true);
         }
@@ -85,7 +86,7 @@ function MainTemplate({ user }) {
 
   return (
     <div className={`${sidebarOpen?"lg:px-2":"lg-px-20"} grid mx-4 grid-cols-2 md:grid-cols-4 md:gap-4 xl:grid-cols-6 xl:gap-6 gap-4 justify-items-center mt-10`}>
-      {addedorder && alltables.map((item, i) => (
+      {addedorder && alltables?.map((item, i) => (
         <div  key={i}><TableCard table={item} nooftables={nooftables} cgst={cgst} sgst={sgst} restaurantid={user.restaurantid} restaurantname={restaurantname} restaurantphoneNo={restaurantphoneNo} restaurantaddress={restaurantaddress} fetchorder={fetchorder}/></div>
       ))}
     </div>

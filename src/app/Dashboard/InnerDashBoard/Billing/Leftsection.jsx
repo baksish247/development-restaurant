@@ -3,7 +3,6 @@ import React from "react";
 import TableCards from "./TableCard";
 
 function Leftsection({ orders, setordertobill }) {
-  console.log(orders);
   return (
     <div className="p-4">
       <div className="flex justify-between items-center mb-4">
@@ -13,7 +12,7 @@ function Leftsection({ orders, setordertobill }) {
         </button>
       </div>
       <div className="space-y-2 max-h-[500px] pb-4 overflow-auto justify-items-center items-center mt-4">
-        {orders?.length ? (
+        {orders?.length>0 ? (
           orders.map((item, i) => (
             <TableCards
               setordertobill={setordertobill}
@@ -23,7 +22,7 @@ function Leftsection({ orders, setordertobill }) {
             />
           ))
         ) : (
-          <div className="text-gray-500 mt-20">No orders yet</div>
+          <div className="text-gray-500 text-center text-3xl mt-20">No orders yet....</div>
         )}
       </div>
     </div>
