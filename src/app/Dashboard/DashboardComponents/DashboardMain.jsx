@@ -39,6 +39,7 @@ function DashboardMain() {
             width={100}
             src={avater}
             alt="avater"
+            unoptimized
             className="h-16 w-16 border-2 rounded-full"
           />
           <p className="text-2xl font-semibold">Hello, {user?.name}</p>

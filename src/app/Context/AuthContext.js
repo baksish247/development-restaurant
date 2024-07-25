@@ -1,7 +1,6 @@
 "use client";
 import { createContext, useContext, useState, useEffect } from "react";
 import axios from "axios";
-import jwt from "jsonwebtoken";
 
 const AuthContext = createContext(null);
 
@@ -10,8 +9,9 @@ export const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    let isMounted = true;
+
     const token = localStorage.getItem("accessToken");
-    //console.log(token);
 
     const verifyToken = async (token) => {
       try {
@@ -25,17 +25,23 @@ export const AuthProvider = ({ children }) => {
 
     if (token) {
       verifyToken(token).then(decoded => {
-        if (decoded) {
-          setUser(decoded);
-        } else {
-          setUser(null);
-          localStorage.removeItem("accessToken");
+        if (isMounted) {
+          if (decoded) {
+            setUser(decoded);
+          } else {
+            setUser(null);
+            localStorage.removeItem("accessToken");
+          }
+          setLoading(false);
         }
-        setLoading(false);
       });
     } else {
       setLoading(false);
     }
+
+    return () => {
+      isMounted = false;
+    };
   }, []);
 
   return (

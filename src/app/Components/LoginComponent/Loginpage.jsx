@@ -12,6 +12,7 @@ import { useAuth } from "@/app/Context/AuthContext";
 
 function LoginPage() {
   const { user, loading } = useAuth();
+  console.log(user, loading);
   const router = useRouter();
   const [isSubmitting, setIsSubmitting] = useState(false);
 

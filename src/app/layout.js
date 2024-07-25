@@ -2,9 +2,12 @@ import { Poppins } from "next/font/google";
 import "./globals.css";
 import "./fonts.css";
 import { AuthProvider } from "./Context/AuthContext";
-import NextTopLoader from 'nextjs-toploader';
+import NextTopLoader from "nextjs-toploader";
 
-const poppins = Poppins({ subsets: ["latin"], weight: ["400","600", "700","800","800"] });
+const poppins = Poppins({
+  subsets: ["latin"],
+  weight: ["400", "600", "700", "800"],
+});
 
 export const metadata = {
   title: "Create Next App",
@@ -15,11 +18,13 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={`${poppins.className} font-poppins`}>
-        <AuthProvider>
-        <NextTopLoader showSpinner={false} color="#AB0059" crawlSpeed={100}
-  height={3}/>
-          {children}
-        </AuthProvider>
+        <NextTopLoader
+          showSpinner={false}
+          color="#AB0059"
+          crawlSpeed={100}
+          height={3}
+        />
+        <AuthProvider>{children}</AuthProvider>
       </body>
     </html>
   );
