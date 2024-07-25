@@ -7,18 +7,34 @@ import axios from "axios";
 function Page() {
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [order, setOrder] = useState({});
+  const [orderindex, setorderindex] = useState(null)
+  const [restaurantinfo, setrestaurantinfo] = useState({})
   const setordertobill = (index) => {
-    setOrder(orders[index]);
+    setorderindex(index);
+    console.log(orders[index])
   };
 
   const fetchAllOrders = async (resid) => {
     try {
-      const { data } = await axios.post("/api/fetchallordersbyid", {
-        restaurant_id: resid,
+      const res_details = await axios.post("/api/getrestaurantdetails", {
+        restaurantid: resid,
       });
-      setOrders(data?.data || []);
-      setLoading(false); // Set loading to false once data is received
+      if (res_details.data.success) {
+        console.log(res_details.data.data);
+        setrestaurantinfo({
+          cgst: res_details.data.data.cgst,
+          sgst: res_details.data.data.sgst,
+          restaurantid: resid,
+          restaurantname: res_details.data.data.restaurantname,
+          restaurantphoneNo: res_details.data.data.restaurantphoneNo,
+          restaurantaddress: res_details.data.data.restaurantaddress,
+        });
+        const { data } = await axios.post("/api/fetchallordersbyid", {
+          restaurant_id: resid,
+        });
+        setOrders(data?.data || []);
+        setLoading(false); // Set loading to false once data is received
+      }
     } catch (error) {
       console.error("Error fetching orders:", error);
       setLoading(false); // Ensure loading is false even if there's an error
@@ -51,7 +67,7 @@ function Page() {
         <div className="h-[460px] w-[2px] bg-slate-700/30" />
       </div>
       <div className="col-span-5 flex flex-col ">
-        <BillviewSection key={order} order={order} />
+        <BillviewSection key={orderindex} orders={orders} orderindex={orderindex} restaurantinfo={restaurantinfo} fetchorder={fetchAllOrders}/>
       </div>
     </div>
   );

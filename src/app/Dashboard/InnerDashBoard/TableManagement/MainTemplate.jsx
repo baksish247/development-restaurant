@@ -39,7 +39,6 @@ function MainTemplate({ user }) {
         const reservedtables=await axios.post("/api/fetchreservedtables",{restaurant_id: user.restaurantid});
 
         if (res_orders.data.success && reservedtables.data.success) {
-          console.log(reservedtables.data.data.reserved_tables)
           const reservetables=reservedtables.data.data.reserved_tables;
           const fetchedOrders = res_orders.data.data;
           setorders(fetchedOrders);
