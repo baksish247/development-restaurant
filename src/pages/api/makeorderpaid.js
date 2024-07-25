@@ -5,9 +5,16 @@ import Orders from "../../../models/Orders";
 const handler=async(req,res)=>{
     if(req.method==='POST'){
         try {
-            //console.log(req.body)
-            const{order_id}=req.body;
-            const a=await CompletedOrders.findOneAndUpdate({order_id},{order_status:"paid"});
+            const{order_id,paymentType,
+                cashAmount,
+                onlineAmount}=req.body;
+                const payment_method={
+                    paymentType,
+                    cashAmount,
+                    onlineAmount
+                }
+            const a=await CompletedOrders.findOneAndUpdate({order_id},{order_status:"paid",payment_method:payment_method});
+
             if(a){
                 const b=await Orders.findOneAndDelete({order_id});
                     if(b){

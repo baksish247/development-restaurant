@@ -12,7 +12,7 @@ function Leftsection({ orders, setordertobill }) {
           Create an order
         </button>
       </div>
-      <div className="space-y-4 max-h-[500px] overflow-auto justify-items-center items-center mt-4">
+      <div className="space-y-2 max-h-[500px] pb-4 overflow-auto justify-items-center items-center mt-4">
         {orders?.length ? (
           orders.map((item, i) => (
             <TableCards

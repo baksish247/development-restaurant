@@ -50,7 +50,7 @@ const completedOrders = new mongoose.Schema({
         type: String,
     },
     payment_method:{
-        type:String
+        type:Object
     }
 }, { timestamps: true })
 
