@@ -8,8 +8,8 @@ function BillviewSection({ orders, orderindex, restaurantinfo, fetchorder }) {
   // Check if order is an empty object or undefined
 
   const order = orders[orderindex];
-  console.log(restaurantinfo);
-  console.log(order);
+  // console.log(restaurantinfo);
+  // console.log(order);
   const isOrderEmpty = !order || Object.keys(order).length === 0;
   const [openeditModal, setopeneditModal] = useState(false);
   const closeEditModal = () => {

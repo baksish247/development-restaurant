@@ -155,7 +155,7 @@ const handler = async (req, res) => {
     }
 
     // Check if the item exists in the local menu
-    let localItem = await FoodItems.findOne({ name });
+    let localItem = await FoodItems.findOne({ name ,restaurant_id});
 
     if (localItem) {
       // Update existing item
@@ -179,6 +179,7 @@ const handler = async (req, res) => {
       // Create new item
       const newFoodItem = new FoodItems({
         name,
+        restaurant_id,
         description,
         price,
         category,

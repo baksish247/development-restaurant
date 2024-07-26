@@ -74,7 +74,7 @@ function Sidebar({ sidebarOpen, refs, tooglesidebar, user }) {
                 className="mb-4 bg-[#fff9ea] text-[#441029] text-base p-2 rounded-lg opacity-90 hover:bg-[#441029] hover:text-[#fff9ea] flex justify-start  space-x-1 items-center"
                 href="/Dashboard/InnerDashBoard/Billing"
               >
-                <LiaFileInvoiceDollarSolid /> <span>Biling</span>
+                <LiaFileInvoiceDollarSolid /> <span>Billing</span>
               </Link>
               <Link
                 className="mb-4 bg-[#fff9ea] text-[#441029] text-base p-2 rounded-lg opacity-90 hover:bg-[#441029] hover:text-[#fff9ea] flex justify-start space-x-1 items-center"
@@ -89,6 +89,13 @@ function Sidebar({ sidebarOpen, refs, tooglesidebar, user }) {
               >
                 <MdOutlineInventory2 />
                 <span>Inventory Details</span>
+              </Link>
+              <Link
+                className="mb-4 bg-[#fff9ea] text-[#441029] text-base p-2 rounded-lg opacity-90 hover:bg-[#441029] hover:text-[#fff9ea] flex justify-start  space-x-1 items-center"
+                href="/Dashboard/InnerDashBoard/PastOrders"
+              >
+                <MdOutlineInventory2 />
+                <span>Past Orders</span>
               </Link>
               <Link
                 className="mb-4 bg-[#fff9ea] text-[#441029] text-base p-2 rounded-lg opacity-90 hover:bg-[#441029] hover:text-[#fff9ea] flex justify-start  space-x-1 items-center"

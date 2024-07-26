@@ -5,6 +5,9 @@ const foodItemsSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
+    restaurant_id: {
+        type: String,
+    },
     description: {
         type: String,
     },

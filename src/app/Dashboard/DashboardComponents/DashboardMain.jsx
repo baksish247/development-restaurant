@@ -8,6 +8,12 @@ import Link from "next/link";
 import DashboardCard from "./DashboardCard";
 import { Logout } from "@/app/Components/LoginComponent/utils/loginhelpers";
 import { toast, Toaster } from "react-hot-toast";
+import billing_img from "../../assets/images/billing.jpg"
+import restaurant_menu_img from "../../assets/images/restaurant_menu.jpg"
+import table_management_img from "../../assets/images/table_management.jpg"
+import waiter_management_img from "../../assets/images/waiter_management.jpg"
+import inventory_management_img from "../../assets/images/inventory_management.jpg"
+import analytics_img from "../../assets/images/analytics.jpg"
 
 function DashboardMain() {
   const { user, loading } = useAuth();
@@ -45,7 +51,7 @@ function DashboardMain() {
           <p className="text-2xl font-semibold">Hello, {user?.name}</p>
         </div>
         <ul className="flex justify-center space-x-10">
-          <Link className="cursor-pointer" href={"/"}>
+          <Link className="cursor-pointer" href={"/Dashboard/InnerDashBoard/PastOrders"}>
             <li className="font-medium text-lg custom-underline">
               Past Orders
             </li>
@@ -68,7 +74,7 @@ function DashboardMain() {
           <DashboardCard
             isactive={true}
             imgurl={
-              "https://rishikeshcamps.in/wp-content/uploads/2023/05/restaarant.jpg"
+              table_management_img
             }
             label={"Table Management"}
             url={"/Dashboard/InnerDashBoard/TableManagement"}
@@ -76,7 +82,7 @@ function DashboardMain() {
           <DashboardCard
             isactive={true}
             imgurl={
-              "https://rishikeshcamps.in/wp-content/uploads/2023/05/restaarant.jpg"
+              waiter_management_img
             }
             label={"Waiter Management"}
             url={"/Dashboard/InnerDashBoard/WaiterManagement"}
@@ -85,7 +91,7 @@ function DashboardMain() {
           <DashboardCard
             isactive={true}
             imgurl={
-              "https://rishikeshcamps.in/wp-content/uploads/2023/05/restaarant.jpg"
+              restaurant_menu_img
             }
             label={"Restaurant Menu"}
             url={"/Dashboard/InnerDashBoard/RestaurantMenu"}
@@ -93,15 +99,15 @@ function DashboardMain() {
           <DashboardCard
             isactive={true}
             imgurl={
-              "https://rishikeshcamps.in/wp-content/uploads/2023/05/restaarant.jpg"
+              billing_img
             }
             label={"Billing"}
-            url={"/Dashboard/InnerDashBoard/TableManagement"}
+            url={"/Dashboard/InnerDashBoard/Billing"}
           />
           <DashboardCard
             isactive={false}
             imgurl={
-              "https://rishikeshcamps.in/wp-content/uploads/2023/05/restaarant.jpg"
+              analytics_img
             }
             label={"Analytics"}
             url={"/Dashboard/InnerDashBoard/TableManagement"}
@@ -109,7 +115,7 @@ function DashboardMain() {
           <DashboardCard
             isactive={false}
             imgurl={
-              "https://rishikeshcamps.in/wp-content/uploads/2023/05/restaarant.jpg"
+              inventory_management_img
             }
             label={"Inventory Management"}
             url={"/Dashboard/InnerDashBoard/TableManagement"}

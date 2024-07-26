@@ -1,11 +1,12 @@
 // pages/api/deleteFoodItem.js
 import connDB from "../../../middleware/connDB";
 import FoodItems from "../../../models/FoodItems";
+import GlobalMenu from "../../../models/GlobalMenu";
 import RestaurantItems from "../../../models/RestaurantItems";
 
 const handler = async (req, res) => {
   if (req.method === "POST") {
-    const { id } = req.body;
+    const { id ,restaurant_id,name} = req.body;
     console.log(id);
 
     try {
@@ -17,11 +18,11 @@ const handler = async (req, res) => {
       }
 
       // Remove the reference from RestaurantItems
-      await RestaurantItems.updateMany(
-        { food_items: id },
+      await RestaurantItems.findOneAndUpdate(
+        { restaurant_id: restaurant_id},
         { $pull: { food_items: id } }
       );
-
+      await GlobalMenu.findOneAndUpdate({name:name},{$pull:{restaurant_ids:restaurant_id}})
       res.status(200).json({ success: true, message: "Food item deleted and reference removed" });
     } catch (error) {
       console.error(error);

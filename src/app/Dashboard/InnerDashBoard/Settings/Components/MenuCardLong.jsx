@@ -6,7 +6,7 @@ import vegicon from "../../../../assets/images/vegicon.png";
 import nonvegicon from "../../../../assets/images/nonvegicon.png";
 import Image from "next/image";
 
-function MenuCardLong({ item, onItemAdded, onItemDeleted, onItemEdited }) {
+function MenuCardLong({ item, onItemAdded, onItemDeleted, onItemEdited ,restaurant_id}) {
   const [loading, setLoading] = useState(false);
 
   const handleAddItem = async () => {
@@ -33,7 +33,7 @@ function MenuCardLong({ item, onItemAdded, onItemDeleted, onItemEdited }) {
       setLoading(true);
    
       try {
-        const { data } = await axios.post("/api/deleteFoodItem", { id: item._id });
+        const { data } = await axios.post("/api/deleteFoodItem", { id: item._id ,restaurant_id:restaurant_id, name:item.name});
         if (data.success) {
           onItemDeleted(item._id); // Notify parent of the item deletion
         } else {

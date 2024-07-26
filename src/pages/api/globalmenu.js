@@ -3,7 +3,6 @@ import GlobalMenu from "../../../models/GlobalMenu";
 
 const handler = async (req, res) => {
   const { restaurantId } = req.body;
-  console.log(restaurantId);
   try {
     const globalMenuItems = await GlobalMenu.find({
       restaurant_ids: { $ne: restaurantId },

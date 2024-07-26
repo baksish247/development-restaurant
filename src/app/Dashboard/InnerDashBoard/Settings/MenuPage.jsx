@@ -137,6 +137,7 @@ function MenuPage() {
                     item={item}
                     onItemDeleted={handleDeleteItem}
                     onItemEdited={handleEditItem}
+                    restaurant_id={restaurantid}
                   />
                 ))}
               </div>
