@@ -13,7 +13,7 @@ const handler = async (req, res) => {
       } else {
         res
           .status(201)
-          .json({ success: false, error: "No menu found for this restaurant" });
+          .json({ success: false, error: "Restaurant not found" });
       }
     } catch (e) {
       res
