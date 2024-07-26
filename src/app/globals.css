@@ -66,7 +66,8 @@ body {
   display: none;
 }
 
-/* Hide scrollbar for other browsers (Firefox, Edge, etc.) */
+/* Hide scrollbar for other browsers (Firefox, Ed\
+ge, etc.) */
 .noscrollbar {
   -ms-overflow-style: none;  /* IE and Edge */
   scrollbar-width: none;  /* Firefox */

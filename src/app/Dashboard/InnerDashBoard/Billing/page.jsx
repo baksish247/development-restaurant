@@ -3,15 +3,19 @@ import React, { useEffect, useState } from "react";
 import Leftsection from "./Leftsection";
 import BillviewSection from "./BillviewSection";
 import axios from "axios";
+import { FaTimes } from "react-icons/fa";
 
 function Page() {
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [orderindex, setorderindex] = useState(null)
-  const [restaurantinfo, setrestaurantinfo] = useState({})
+  const [orderindex, setorderindex] = useState(null);
+  const [restaurantinfo, setrestaurantinfo] = useState({});
+  const [isPanelOpen, setIsPanelOpen] = useState(false);
+
   const setordertobill = (index) => {
     setorderindex(index);
-    console.log(orders[index])
+    setIsPanelOpen(true); // Open the side panel when an order is selected
+    console.log(orders[index]);
   };
 
   const fetchAllOrders = async (resid) => {
@@ -59,16 +63,45 @@ function Page() {
   }
 
   return (
-    <div className="px-10 grid grid-cols-11 gap-10 min-h-[70vh]">
-      <div className="col-span-5 flex flex-col ">
-        <Leftsection orders={orders} setordertobill={setordertobill} />
+    <div className="relative min-h-[70vh]">
+      <div className="px-4 lg:px-10 grid grid-cols-1 lg:grid-cols-11 gap-4 lg:gap-10">
+        <div className="lg:col-span-5 flex flex-col">
+          <Leftsection orders={orders} setordertobill={setordertobill} />
+        </div>
+        <div className="hidden lg:flex justify-center items-center lg:col-span-1">
+          <div className="h-[460px] w-[2px] bg-slate-700/30" />
+        </div>
+        <div className="hidden lg:flex lg:col-span-5 flex-col">
+          <BillviewSection
+            key={orderindex}
+            orders={orders}
+            orderindex={orderindex}
+            restaurantinfo={restaurantinfo}
+            fetchorder={fetchAllOrders}
+          />
+        </div>
       </div>
-      <div className="flex justify-center items-center col-span-1">
-        <div className="h-[460px] w-[2px] bg-slate-700/30" />
-      </div>
-      <div className="col-span-5 flex flex-col ">
-        <BillviewSection key={orderindex} orders={orders} orderindex={orderindex} restaurantinfo={restaurantinfo} fetchorder={fetchAllOrders}/>
-      </div>
+
+      {/* Side panel for small screens */}
+      {isPanelOpen && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-end z-50 lg:hidden">
+          <div className="bg-white w-3/4 h-full shadow-lg p-4 relative">
+            <button
+              onClick={() => setIsPanelOpen(false)}
+              className="absolute top-4 right-4 text-gray-500 hover:text-gray-700"
+            >
+              <FaTimes />
+            </button>
+            <BillviewSection
+              key={orderindex}
+              orders={orders}
+              orderindex={orderindex}
+              restaurantinfo={restaurantinfo}
+              fetchorder={fetchAllOrders}
+            />
+          </div>
+        </div>
+      )}
     </div>
   );
 }

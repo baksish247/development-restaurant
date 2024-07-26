@@ -28,10 +28,12 @@ function MenuCardLong({ item, onItemAdded, onItemDeleted, onItemEdited }) {
   };
 
   const handleDeleteItem = async () => {
+    console.log(item);
     if (confirm("Are you sure you want to delete this item?")) {
       setLoading(true);
+   
       try {
-        const { data } = await axios.post("/api/deleteitem", { id: item._id });
+        const { data } = await axios.post("/api/deleteFoodItem", { id: item._id });
         if (data.success) {
           onItemDeleted(item._id); // Notify parent of the item deletion
         } else {
@@ -54,7 +56,7 @@ function MenuCardLong({ item, onItemAdded, onItemDeleted, onItemEdited }) {
       <div className="flex justify-center items-center">
         <img 
           src={item?.image} 
-          className="w-[200px] h-[150px] object-cover rounded-md" 
+          className="w-full h-[150px] object-cover rounded-md" 
           alt={item.name} 
         />
       </div>

@@ -4,6 +4,7 @@ import RestaurantItems from "../../../models/RestaurantItems";
 
 const handler = async (req, res) => {
   if (req.method === "POST") {
+    console.log(req.body);
     const {
       restaurant_id,
       restaurant_name,
@@ -17,46 +18,76 @@ const handler = async (req, res) => {
     } = req.body;
 
     try {
-      // Create a new food item
-      const newFoodItem = new FoodItems({
+      // Check if the item already exists
+      let existingFoodItem = await FoodItems.findOne({
         name,
-        description,
-        price,
-        category,
-        subcategory,
-        image,
-        available_status,
       });
 
-      const savedFoodItem = await newFoodItem.save();
-      //console.log(savedFoodItem);
+      if (existingFoodItem) {
+        // Update the existing item
+        existingFoodItem.description = description;
+        existingFoodItem.price = price;
+        existingFoodItem.category = category;
+        existingFoodItem.subcategory = subcategory;
+        existingFoodItem.image = image;
+        existingFoodItem.available_status = available_status;
 
-      if (savedFoodItem) {
-        // Find the restaurant and update the food items array
-        const updatedRestaurant = await RestaurantItems.findOneAndUpdate(
-          { restaurant_id },
-          { $push: { food_items: savedFoodItem._id } },
-          { new: true, upsert: true }
-        );
-        //console.log(updatedRestaurant);
+        const updatedFoodItem = await existingFoodItem.save();
 
-        if (updatedRestaurant) {
-          res.status(201).json({
+        if (updatedFoodItem) {
+          res.status(200).json({
             success: true,
-            message: "Food item added successfully",
-            data: savedFoodItem,
+            message: "Food item updated successfully",
+            data: updatedFoodItem,
           });
         } else {
           res.status(500).json({
             success: false,
-            message: "Failed to update restaurant with new food item",
+            message: "Failed to update food item",
           });
         }
       } else {
-        res.status(500).json({
-          success: false,
-          message: "Failed to save food item",
+        // Create a new food item
+        const newFoodItem = new FoodItems({
+          name,
+          description,
+          price,
+          category,
+          subcategory,
+          image,
+          available_status,
         });
+
+        const savedFoodItem = await newFoodItem.save();
+        //console.log(savedFoodItem);
+
+        if (savedFoodItem) {
+          // Find the restaurant and update the food items array
+          const updatedRestaurant = await RestaurantItems.findOneAndUpdate(
+            { restaurant_id },
+            { $push: { food_items: savedFoodItem._id } },
+            { new: true, upsert: true }
+          );
+          //console.log(updatedRestaurant);
+
+          if (updatedRestaurant) {
+            res.status(201).json({
+              success: true,
+              message: "Food item added successfully",
+              data: savedFoodItem,
+            });
+          } else {
+            res.status(500).json({
+              success: false,
+              message: "Failed to update restaurant with new food item",
+            });
+          }
+        } else {
+          res.status(500).json({
+            success: false,
+            message: "Failed to save food item",
+          });
+        }
       }
     } catch (error) {
       res.status(500).json({
@@ -71,4 +102,5 @@ const handler = async (req, res) => {
     });
   }
 };
+
 export default connDB(handler);

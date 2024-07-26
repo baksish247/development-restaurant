@@ -14,7 +14,7 @@ function Leftsection({ orders, setordertobill }) {
       </div>
       <div className="space-y-2 max-h-[500px] pb-4 overflow-auto justify-items-center items-center mt-4">
         {orders?.length ? (
-          orders.map((item, i) => (
+          orders?.map((item, i) => (
             <TableCards
               setordertobill={setordertobill}
               index={i}

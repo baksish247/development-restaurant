@@ -3,8 +3,9 @@ import connDB from "../../../middleware/connDB";
 import FoodItems from "../../../models/FoodItems";
 
 const handler = async (req, res) => {
-  if (req.method === "DELETE") {
+  if (req.method === "POST") {
     const { id } = req.body;
+    console.log(id);
 
     try {
       await FoodItems.findByIdAndDelete(id);

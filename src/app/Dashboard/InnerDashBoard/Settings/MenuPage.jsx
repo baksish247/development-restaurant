@@ -11,9 +11,11 @@ function MenuPage() {
     user: { restaurantid },
   } = useAuth();
   const [foodItems, setFoodItems] = useState([]);
+  const [editmode, seteditmode] = useState(false)
   const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const[edititem,setedititem] = useState();
 
   useEffect(() => {
     const fetchFoodItems = async () => {
@@ -32,14 +34,36 @@ function MenuPage() {
     };
 
     fetchFoodItems();
-  }, [restaurantid]);
+  }, []);
 
   const handleAddItem = () => {
     setIsModalOpen(true);
   };
 
   const handleCloseModal = () => {
+    setedititem();
+    seteditmode(false);
     setIsModalOpen(false);
+  };
+  const handleItemAdded = () => {
+    // Fetch the updated list of food items
+    const fetchFoodItems = async () => {
+      setLoading(true);
+      try {
+        const { data } = await axios.post("/api/fetchmenubyid", {
+          restaurant_id: restaurantid,
+        });
+        if (data.success) {
+          setFoodItems(data.data.food_items);
+        }
+      } catch (error) {
+        console.error("Error fetching food items:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchFoodItems();
   };
 
   const handleDeleteItem = (id) => {
@@ -47,6 +71,10 @@ function MenuPage() {
   };
 
   const handleEditItem = (id) => {
+    setedititem(foodItems.filter(it=> it._id === id)[0]);
+    seteditmode(true);
+    setIsModalOpen(true);
+    
     console.log("Edit item:", id);
   };
 
@@ -71,9 +99,9 @@ function MenuPage() {
   const categoriesOrder = [
     "starters",
     "main course",
+    "breads",
     "desserts",
     "beverages",
-    "breads",
   ];
 
   const categorizedItems = categoriesOrder
@@ -88,7 +116,7 @@ function MenuPage() {
   return (
     <div className="relative lg:p-6 p-4">
       <div className="flex justify-end relative w-fit ml-auto ">
-        <FaSearch className="absolute text-gray-500 left-2 z-20 top-3" />
+        <FaSearch className="absolute text-gray-500 left-2 z-10 top-3" />
         <input
           type="text"
           placeholder="Search..."
@@ -98,21 +126,33 @@ function MenuPage() {
         />
       </div>
       <div className="space-y-4">
-        {categorizedItems.map(({ category, items }) => (
-          <React.Fragment key={category}>
-            <p className="font-semibold text-xl capitalize">{category}</p>
-            <div className="justify-items-center items-center grid lg:grid-cols-4 grid-cols-1 gap-6">
-              {items.map((item) => (
-                <MenuCardLong
-                  key={item._id}
-                  item={item}
-                  onItemDeleted={handleDeleteItem}
-                  onItemEdited={handleEditItem}
-                />
-              ))}
-            </div>
-          </React.Fragment>
-        ))}
+        {categorizedItems.length > 0 ? (
+          categorizedItems?.map(({ category, items }) => (
+            <React.Fragment key={category}>
+              <p className="font-semibold text-xl capitalize">{category}</p>
+              <div className="justify-items-center items-center grid lg:grid-cols-4 grid-cols-1 gap-6">
+                {items.map((item) => (
+                  <MenuCardLong
+                    key={item._id}
+                    item={item}
+                    onItemDeleted={handleDeleteItem}
+                    onItemEdited={handleEditItem}
+                  />
+                ))}
+              </div>
+            </React.Fragment>
+          ))
+        ) : (
+          <div className="flex flex-col justify-center items-center">
+            <p className=" ">No orders found</p>
+            <button
+              onClick={handleAddItem}
+              className=" outline-dashed mt-4 p-2 rounded outline-[#441029] text-[#441029] hover:text-white transition-colors duration-300  hover:bg-[#441029]"
+            >
+              + Add items
+            </button>
+          </div>
+        )}
       </div>
       <button
         onClick={handleAddItem}
@@ -120,7 +160,13 @@ function MenuPage() {
       >
         <FaPlus className="text-lg" />
       </button>
-      <AddItemModal isOpen={isModalOpen} onClose={handleCloseModal} />
+      <AddItemModal
+      edit={editmode}
+        isOpen={isModalOpen}
+        onItemAdded={handleItemAdded}
+        items={edititem}
+        onClose={handleCloseModal}
+      />
     </div>
   );
 }

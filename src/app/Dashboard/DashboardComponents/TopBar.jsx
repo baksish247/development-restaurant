@@ -24,7 +24,7 @@ function TopBar({ title, tooglesidebar, sidebarOpen }) {
 
   return (
     <nav
-      className={`lg:flex justify-between items-center py-4 px-4 bg-white z-20 pr-10 sticky top-0 transition-shadow duration-300 ${
+      className={`lg:flex justify-between items-center py-4 lg:px-4 bg-white z-20 lg:pr-10 sticky top-0 transition-shadow duration-300 ${
         hasScrolled ? "shadow-md" : ""
       }`}
     >
@@ -44,9 +44,10 @@ function TopBar({ title, tooglesidebar, sidebarOpen }) {
         </span>
         <div>
         <p className="tracking-wider">{title}</p>
-        <div  className="w-full h-1 bg-gradient-to-r from-[#c34e86] rounded-full"/></div>
+        {/* <div  className="w-full h-1 bg-gradient-to-r from-[#c34e86] rounded-full"/> */}
+        </div>
       </div>
-
+ 
       <ul className="flex justify-center space-x-10">
         <Link className="cursor-pointer" href={"/"}>
           <li className="font-medium text-lg custom-underline">Support</li>

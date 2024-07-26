@@ -84,7 +84,7 @@ function MainTemplate({ user }) {
   }
 
   return (
-    <div className={`${sidebarOpen?"lg:px-2":"lg-px-20"} grid mx-4 grid-cols-2 md:grid-cols-4 md:gap-4 xl:grid-cols-6 xl:gap-6 gap-4 justify-items-center mt-10`}>
+    <div className={`${sidebarOpen?"lg:px-2":"lg:px-20"} grid mx-2 lg:mx-4 grid-cols-2 md:grid-cols-4 md:gap-4 xl:grid-cols-6 xl:gap-6 gap-4 justify-items-center mt-10`}>
       {addedorder && alltables.map((item, i) => (
         <div  key={i}><TableCard table={item} nooftables={nooftables} cgst={cgst} sgst={sgst} restaurantid={user.restaurantid} restaurantname={restaurantname} restaurantphoneNo={restaurantphoneNo} restaurantaddress={restaurantaddress} fetchorder={fetchorder}/></div>
       ))}
