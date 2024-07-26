@@ -18,9 +18,9 @@ function Sidebar({ sidebarOpen, refs, tooglesidebar, user }) {
         ref={refs}
         className={`${
           sidebarOpen ? "translate-x-0" : "-translate-x-64"
-        } transform transition-transform z-30 duration-500 fixed  top-0 left-0 h-screen`}
+        } transform transition-transform z-30 duration-500 fixed  top-0 left-0 h-screen mb-10 overflow-y-hidden`}
       >
-        <aside className="w-64 bg-[#440129] bg-opacity-90 backdrop-blur-sm text-white p-6 border border-white border-opacity-20 shadow-lg h-full">
+        <aside className="w-64 noscrollbar overflow-y-auto bg-[#440129] bg-opacity-90 backdrop-blur-sm text-white p-6 border border-white border-opacity-20 shadow-lg h-full">
           <button
             onClick={tooglesidebar}
             className="absolute top-4 right-4 text-white"
