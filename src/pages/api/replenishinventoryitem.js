@@ -28,6 +28,7 @@ const handler = async (req, res) => {
       item.purchase_history.push(details);
       item.on_hand_amount = updatedAmount.toString();
       const u=await item.save();
+      console.log(u);
       if(u){
       res.status(200).json({ success: true, data: u });
       }

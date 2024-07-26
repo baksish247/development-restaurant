@@ -5,10 +5,40 @@ import toast, { Toaster } from "react-hot-toast";
 import { IoMdClose } from "react-icons/io";
 import axios from "axios";
 
-function UpdateItemModal({ onClose, item}) {
+function UpdateItemModal({ onClose, item, fetchitems}) {
   console.log(item);
+  const [amount, setamount] = useState("")
   
-    const handleupdateamount=async()=>{}
+    const handleupdateamount=async()=>{
+        toast.loading("Updating amount")
+        try{
+            if(parseFloat(amount)>0){
+                const res=await axios.post('/api/replenishinventoryitem',{
+                    item_id:item._id,
+                    amount:amount
+                })
+                console.log(res);
+                if(res.data.success){
+                    toast.dismiss();
+                    fetchitems();
+                    toast.success("Stock updated successfully.");
+                    setTimeout(() => {
+                        onClose();
+                    }, 1000);
+                }
+                else{
+                    toast.dismiss();
+                    toast.error("Failed to update stock.")
+                    setTimeout(() => {
+                        onClose();
+                    }, 1000);
+                }
+            }
+        }catch(e){
+            toast.error("Invalid amount. Please enter a positive number.")
+        }
+        
+    }
  
 
   return (
@@ -48,9 +78,9 @@ function UpdateItemModal({ onClose, item}) {
         
       </div>
       <hr className="border-[1px] border-dotted border-black my-4" />
-      <div className="font-semibold">Enter re-stock amount:</div>
+      <div className="font-semibold">Enter re-stock amount (in kgs):</div>
       <p className="text-[0.7rem] mb-4">(Only enter the amount you are currently adding to your inventory )</p>
-      <input type="number" min={0} className="w-full border border-black"/>
+      <input type="number" value={amount} onChange={(e)=>{setamount(e.target.value)}} min={0} className="w-full border border-gray-500 rounded-lg px-4 h-10"/>
       <div className="flex justify-end mt-4 space-x-4">
         <button
           onClick={handleupdateamount}
