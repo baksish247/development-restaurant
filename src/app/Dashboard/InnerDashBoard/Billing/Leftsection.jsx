@@ -1,13 +1,26 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import TableCards from "./TableCard";
+import CreateOrderModle from "./CreateNewOrder/CreateOrderModle";
 
 function Leftsection({ orders, setordertobill }) {
+  const [opencreateorderflag, setopencreateorderflag] = useState(false)
+  const OpenCreateOrderMoodle =()=>{
+    // Open Create Order modal
+    setopencreateorderflag(true);
+  }
+  const CloseCreateOrderMoodle =()=>{
+    // Open Create Order modal
+    setopencreateorderflag(false);
+  }
+  
+  
+
   return (
     <div className="p-4">
       <div className="flex justify-between items-center mb-4">
         <h1 className="font-semibold text-xl">Orders</h1>
-        <button className="bg-[#441029] hover:bg-[#631543] transition-colors duration-200 drop-shadow text-white px-4 py-2 rounded">
+        <button onClick={OpenCreateOrderMoodle} className="bg-[#441029] hover:bg-[#631543] transition-colors duration-200 drop-shadow text-white px-4 py-2 rounded">
           Create an order
         </button>
       </div>
@@ -25,6 +38,7 @@ function Leftsection({ orders, setordertobill }) {
           <div className="text-gray-500 text-center text-3xl mt-20">No orders yet....</div>
         )}
       </div>
+      {opencreateorderflag && <CreateOrderModle onClose={CloseCreateOrderMoodle} openflag={opencreateorderflag}/>}
     </div>
   );
 }

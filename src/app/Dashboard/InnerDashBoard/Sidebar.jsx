@@ -13,7 +13,7 @@ import { TfiHome } from "react-icons/tfi";
 
 function Sidebar({ sidebarOpen, refs, tooglesidebar, user }) {
   return (
-    <div className={`${sidebarOpen ? "lg:w-64" : ""}`}>
+    <div className={`${sidebarOpen ? "lg:w-64" : ""} z-50`}>
       <div
         ref={refs}
         className={`${

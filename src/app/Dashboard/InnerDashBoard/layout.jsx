@@ -74,7 +74,7 @@ export default function InnerDashboardLayout({ children }) {
 
   return (
     <div>
-      <div className="flex">
+      <div className="flex ">
         <Sidebar
           refs={ref}
           user={user}
