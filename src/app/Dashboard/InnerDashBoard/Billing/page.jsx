@@ -17,6 +17,13 @@ function Page() {
     setIsPanelOpen(true); // Open the side panel when an order is selected
     console.log(orders[index]);
   };
+  const fetchorders = async (resid) => {
+    const { data } = await axios.post("/api/fetchallordersbyid", {
+      restaurant_id: resid,
+    });
+    setOrders(data?.data || []);
+    setLoading(false);
+  };
 
   const fetchAllOrders = async (resid) => {
     try {
@@ -66,7 +73,7 @@ function Page() {
     <div className="relative min-h-[70vh]">
       <div className="px-4 lg:px-10 grid grid-cols-1 lg:grid-cols-11 gap-4 lg:gap-10">
         <div className="lg:col-span-5 flex flex-col">
-          <Leftsection orders={orders} setordertobill={setordertobill} />
+          <Leftsection fetchorders={fetchorders} orders={orders} setordertobill={setordertobill} />
         </div>
         <div className="hidden lg:flex justify-center items-center lg:col-span-1">
           <div className="h-[460px] w-[2px] bg-slate-700/30" />
