@@ -20,6 +20,11 @@ const AddItemModal = ({ items, edit, isOpen, onClose, onItemAdded }) => {
   const [imageUrl, setImageUrl] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
 
+  // State for inventory ingredients
+  const [inventoryItems, setInventoryItems] = useState([]);
+  const [selectedIngredient, setSelectedIngredient] = useState("");
+  const [ingredientQuantity, setIngredientQuantity] = useState("");
+
   useEffect(() => {
     if (user) {
       setIsLoading(true);
@@ -35,6 +40,18 @@ const AddItemModal = ({ items, edit, isOpen, onClose, onItemAdded }) => {
         })
         .finally(() => {
           setIsLoading(false);
+        });
+
+      // Fetch inventory items
+      axios
+        .post("/api/inventory", { restaurantId: user.restaurantid })
+        .then((response) => {
+          if (response.data.success) {
+            setInventoryItems(response.data.data);
+          }
+        })
+        .catch((error) => {
+          console.error("Error fetching inventory items:", error);
         });
     }
   }, []);
@@ -118,6 +135,10 @@ const AddItemModal = ({ items, edit, isOpen, onClose, onItemAdded }) => {
         subcategory: itemType,
         description: itemDescription,
         image: itemImage,
+        ingredients: {
+          ingredient: selectedIngredient,
+          quantity: ingredientQuantity,
+        },
       });
 
       // Notify parent component
@@ -131,6 +152,8 @@ const AddItemModal = ({ items, edit, isOpen, onClose, onItemAdded }) => {
       setItemDescription("");
       setItemImage("");
       setImageUrl("");
+      setSelectedIngredient("");
+      setIngredientQuantity("");
       setErrorMessage("");
       onClose();
     } catch (error) {
@@ -195,7 +218,7 @@ const AddItemModal = ({ items, edit, isOpen, onClose, onItemAdded }) => {
             </div>
           </div>
         )}
-        <div className={`${edit ? 'w-full p-4' : 'w-2/3 pl-4'}`}>
+        <div className={`${edit ? "w-full p-4" : "w-2/3 pl-4"}`}>
           <form onSubmit={handleSubmit} className="space-y-4">
             <div className="border-dashed border-2 border-gray-400 p-8 text-center cursor-pointer">
               <label htmlFor="itemImageInput" className="cursor-pointer">
@@ -266,6 +289,27 @@ const AddItemModal = ({ items, edit, isOpen, onClose, onItemAdded }) => {
               value={itemDescription}
               onChange={(e) => setItemDescription(e.target.value)}
             />
+            <div className="grid grid-cols-3 gap-4">
+              <select
+                className="w-full px-4 py-2 border rounded-md"
+                value={selectedIngredient}
+                onChange={(e) => setSelectedIngredient(e.target.value)}
+              >
+                <option value="">Select Ingredient</option>
+                {inventoryItems.map((ingredient) => (
+                  <option key={ingredient._id} value={ingredient.name}>
+                    {ingredient.name}
+                  </option>
+                ))}
+              </select>
+              <input
+                type="text"
+                placeholder="Quantity in kg"
+                className="w-full px-4 py-2 border rounded-md"
+                value={ingredientQuantity}
+                onChange={(e) => setIngredientQuantity(e.target.value)}
+              />
+            </div>
             {errorMessage && <div className="text-red-500">{errorMessage}</div>}
             <button
               type="submit"

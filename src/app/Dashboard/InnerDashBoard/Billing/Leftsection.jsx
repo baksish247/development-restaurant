@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import TableCards from "./TableCard";
 import CreateOrderModle from "./CreateNewOrder/CreateOrderModle";
 
-function Leftsection({ orders, setordertobill }) {
+function Leftsection({ orders, setordertobill,fetchorders }) {
   const [opencreateorderflag, setopencreateorderflag] = useState(false)
   const OpenCreateOrderMoodle =()=>{
     // Open Create Order modal
@@ -38,7 +38,7 @@ function Leftsection({ orders, setordertobill }) {
           <div className="text-gray-500 text-center text-3xl mt-20">No orders yet....</div>
         )}
       </div>
-      {opencreateorderflag && <CreateOrderModle onClose={CloseCreateOrderMoodle} openflag={opencreateorderflag}/>}
+      {opencreateorderflag && <CreateOrderModle fetchorders={fetchorders} onClose={CloseCreateOrderMoodle} openflag={opencreateorderflag}/>}
     </div>
   );
 }

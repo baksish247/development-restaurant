@@ -29,7 +29,7 @@ function ItemViewCard({ item }) {
     dispatch(removeItem({ _id: item._id }));
   };
   const handleUpdateQuantity = (quantity) => {
-    console.log(quantity);
+    //console.log(quantity);
     if (quantity < 0) {
       dispatch(updateQuantity({ _id: item._id, quantity: 0 }));
     } else if (quantity > 50) {
@@ -41,12 +41,12 @@ function ItemViewCard({ item }) {
 
   const cartItem = cart.items.find((cartItem) => cartItem._id === item._id);
 
-  console.log(item);
+  // console.log(item);
   const [itemName, setItemName] = useState("");
   return (
     <div
       key={item._id}
-      className={`border-b border-gray-300 py-2 cursor-pointer flex justify-between items-center pr-1 `}
+      className={`border-b border-gray-300 py-2 cursor-pointer flex justify-between space-x-4 items-center pr-1 `}
     >
       <div>
         <p className="font-semibold">{item.name}</p>
