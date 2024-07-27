@@ -1,6 +1,6 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import { FaTimes } from "react-icons/fa";
+import { FaTimes, FaPlus, FaTrash } from "react-icons/fa";
 import axios from "axios";
 import { useAuth } from "@/app/Context/AuthContext";
 import Spinner from "./Spinner"; // Assuming you have a Spinner component
@@ -20,10 +20,30 @@ const AddItemModal = ({ items, edit, isOpen, onClose, onItemAdded }) => {
   const [imageUrl, setImageUrl] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
 
+  const [loading, setLoading] = useState(true);
+
   // State for inventory ingredients
   const [inventoryItems, setInventoryItems] = useState([]);
-  const [selectedIngredient, setSelectedIngredient] = useState("");
-  const [ingredientQuantity, setIngredientQuantity] = useState("");
+  const [ingredients, setIngredients] = useState([{ ingredient: "", quantity: "" }]);
+
+  const fetchInventoryItemsNames = async () => {
+    try {
+      const { data } = await axios.post("/api/fetchinventoryitems", {
+        restaurant_id: user.restaurantid,
+      });
+      if (data.success) {
+        const itemsNames = data.data.filter(item=>item.type==='Measurable').map((item) => ({
+          id: item._id,
+          name: item.item_name,
+        }));
+        setInventoryItems(itemsNames);
+      }
+    } catch (error) {
+      console.error("Error fetching inventory items names:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   useEffect(() => {
     if (user) {
@@ -42,19 +62,9 @@ const AddItemModal = ({ items, edit, isOpen, onClose, onItemAdded }) => {
           setIsLoading(false);
         });
 
-      // Fetch inventory items
-      axios
-        .post("/api/inventory", { restaurantId: user.restaurantid })
-        .then((response) => {
-          if (response.data.success) {
-            setInventoryItems(response.data.data);
-          }
-        })
-        .catch((error) => {
-          console.error("Error fetching inventory items:", error);
-        });
+      fetchInventoryItemsNames();
     }
-  }, []);
+  }, [user]);
 
   useEffect(() => {
     if (items) {
@@ -117,6 +127,22 @@ const AddItemModal = ({ items, edit, isOpen, onClose, onItemAdded }) => {
     };
   };
 
+  const handleAddIngredient = () => {
+    setIngredients([...ingredients, { ingredient: "", quantity: "" }]);
+  };
+
+  const handleRemoveIngredient = (index) => {
+    const newIngredients = ingredients.filter((_, i) => i !== index);
+    setIngredients(newIngredients);
+  };
+
+  const handleIngredientChange = (index, field, value) => {
+    const newIngredients = ingredients.map((ingredient, i) =>
+      i === index ? { ...ingredient, [field]: value } : ingredient
+    );
+    setIngredients(newIngredients);
+  };
+
   const handleSubmit = async (event) => {
     event.preventDefault();
     const restaurant_id = user.restaurantid;
@@ -135,10 +161,7 @@ const AddItemModal = ({ items, edit, isOpen, onClose, onItemAdded }) => {
         subcategory: itemType,
         description: itemDescription,
         image: itemImage,
-        ingredients: {
-          ingredient: selectedIngredient,
-          quantity: ingredientQuantity,
-        },
+        ingredients,
       });
 
       // Notify parent component
@@ -152,8 +175,7 @@ const AddItemModal = ({ items, edit, isOpen, onClose, onItemAdded }) => {
       setItemDescription("");
       setItemImage("");
       setImageUrl("");
-      setSelectedIngredient("");
-      setIngredientQuantity("");
+      setIngredients([{ ingredient: "", quantity: "" }]);
       setErrorMessage("");
       onClose();
     } catch (error) {
@@ -181,7 +203,7 @@ const AddItemModal = ({ items, edit, isOpen, onClose, onItemAdded }) => {
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 backdrop-blur-sm flex items-center justify-center z-50">
-      <div className="bg-white rounded-lg p-8 relative shadow-lg max-w-4xl w-full h-fit flex">
+      <div className="bg-white rounded-lg p-8 relative shadow-lg max-w-4xl w-full  h-fit flex">
         <button
           onClick={onClose}
           className="absolute top-4 right-4 text-gray-500 hover:text-gray-700"
@@ -218,7 +240,7 @@ const AddItemModal = ({ items, edit, isOpen, onClose, onItemAdded }) => {
             </div>
           </div>
         )}
-        <div className={`${edit ? "w-full p-4" : "w-2/3 pl-4"}`}>
+        <div className={`${edit ? "w-full p-4" : "w-2/3 pl-4"} max-h-[500px] overflow-y-auto`}>
           <form onSubmit={handleSubmit} className="space-y-4">
             <div className="border-dashed border-2 border-gray-400 p-8 text-center cursor-pointer">
               <label htmlFor="itemImageInput" className="cursor-pointer">
@@ -289,27 +311,43 @@ const AddItemModal = ({ items, edit, isOpen, onClose, onItemAdded }) => {
               value={itemDescription}
               onChange={(e) => setItemDescription(e.target.value)}
             />
-            <div className="grid grid-cols-3 gap-4">
-              <select
-                className="w-full px-4 py-2 border rounded-md"
-                value={selectedIngredient}
-                onChange={(e) => setSelectedIngredient(e.target.value)}
-              >
-                <option value="">Select Ingredient</option>
-                {inventoryItems.map((ingredient) => (
-                  <option key={ingredient._id} value={ingredient.name}>
-                    {ingredient.name}
-                  </option>
-                ))}
-              </select>
-              <input
-                type="text"
-                placeholder="Quantity in kg"
-                className="w-full px-4 py-2 border rounded-md"
-                value={ingredientQuantity}
-                onChange={(e) => setIngredientQuantity(e.target.value)}
-              />
-            </div>
+            {ingredients.map((ingredient, index) => (
+              <div key={index} className="flex justify-center items-center gap-4">
+                <select
+                  className="w-[45%] px-4 py-2 border text-black rounded-md"
+                  value={ingredient.ingredient}
+                  onChange={(e) => handleIngredientChange(index, "ingredient", e.target.value)}
+                >
+                  <option value="">Select Ingredient</option>
+                  {inventoryItems.map((inventoryItem) => (
+                    <option key={inventoryItem.id} value={inventoryItem.id}>
+                      {inventoryItem.name}
+                    </option>
+                  ))}
+                </select>
+                <input
+                  type="text"
+                  placeholder="Quantity in kg"
+                  className="w-[45%] px-4 py-2 border rounded-md"
+                  value={ingredient.quantity}
+                  onChange={(e) => handleIngredientChange(index, "quantity", e.target.value)}
+                />
+                <button
+                  type="button"
+                  onClick={() => handleRemoveIngredient(index)}
+                  className="text-red-500 hover:text-red-700"
+                >
+                  <FaTrash />
+                </button>
+              </div>
+            ))}
+            <button
+              type="button"
+              onClick={handleAddIngredient}
+              className="w-full px-4 py-2 border rounded-md text-blue-500 hover:text-blue-700 flex items-center justify-center gap-2"
+            >
+              <FaPlus /> Add Ingredient
+            </button>
             {errorMessage && <div className="text-red-500">{errorMessage}</div>}
             <button
               type="submit"

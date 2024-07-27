@@ -15,6 +15,8 @@ import ItemViewCard from "./ItemViewCard";
 import { MdDelete } from "react-icons/md";
 import { toast, Toaster } from "react-hot-toast";
 import { v4 as uuidv4 } from "uuid";
+import { HiShoppingBag } from "react-icons/hi";
+import {FaPlateWheat} from 'react-icons/fa6'
 
 const CreateOrderMoodle = ({ openflag, onClose, fetchorders }) => {
   const { user } = useAuth();
@@ -220,18 +222,18 @@ const CreateOrderMoodle = ({ openflag, onClose, fetchorders }) => {
                   setOrderMode("parcel");
                   setTimeout(() => handlePlaceOrder("parcel"), 0); // Ensure the state is updated
                 }}
-                className="bg-blue-500 text-white font-bold py-2 px-4 rounded"
+                className="bg-orange-500 text-white flex space-x-1 justify-center items-center  font-bold py-2 px-4 rounded"
               >
-                Parcel
+              <HiShoppingBag className="size-5"/><span>Parcel</span>
               </button>
               <button
                 onClick={() => {
                   setOrderMode("dinein");
                   setTimeout(() => handlePlaceOrder("dinein"), 0); // Ensure the state is updated
                 }}
-                className="bg-rose-500 text-white font-bold py-2 px-4 rounded"
+                className="bg-amber-500 flex justify-center space-x-2 items-center  text-white font-bold py-2 px-4 rounded"
               >
-                Dine In
+               <FaPlateWheat className="size-4"/><span>Dine In</span>
               </button>
             </div>
           </div>

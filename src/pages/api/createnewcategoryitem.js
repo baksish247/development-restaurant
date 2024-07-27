@@ -105,7 +105,6 @@
 
 // export default connDB(handler);
 
-
 import connDB from "../../../middleware/connDB";
 import FoodItems from "../../../models/FoodItems";
 import RestaurantItems from "../../../models/RestaurantItems";
@@ -128,7 +127,9 @@ const handler = async (req, res) => {
     subcategory,
     image,
     available_status,
+    ingredients,
   } = req.body;
+  console.log(ingredients);
 
   try {
     // Check if the item exists in the global menu
@@ -155,7 +156,7 @@ const handler = async (req, res) => {
     }
 
     // Check if the item exists in the local menu
-    let localItem = await FoodItems.findOne({ name ,restaurant_id});
+    let localItem = await FoodItems.findOne({ name, restaurant_id });
 
     if (localItem) {
       // Update existing item
@@ -186,6 +187,7 @@ const handler = async (req, res) => {
         subcategory,
         image,
         available_status,
+        ingredients: ingredients,
       });
 
       const savedFoodItem = await newFoodItem.save();
@@ -212,4 +214,3 @@ const handler = async (req, res) => {
 };
 
 export default connDB(handler);
-

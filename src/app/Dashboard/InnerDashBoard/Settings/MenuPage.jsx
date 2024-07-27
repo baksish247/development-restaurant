@@ -11,11 +11,28 @@ function MenuPage() {
     user: { restaurantid },
   } = useAuth();
   const [foodItems, setFoodItems] = useState([]);
-  const [editmode, seteditmode] = useState(false)
+  const [editmode, seteditmode] = useState(false);
   const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const[edititem,setedititem] = useState();
+  const [edititem, setedititem] = useState();
+
+  const fetchInventoryItemsNames = async () => {
+    try {
+      const { data } = await axios.post("/api/fetchinventoryitems", {
+        restaurant_id: restaurantid,
+      });
+      if (data.success) {
+        console.log("inventory items names:", data.data);
+        const items_names = data.data.map((item) => item.item_name);
+        console.log(items_names);
+        return items_names;
+      }
+    } catch (error) {
+      console.error("Error fetching inventory items names:", error);
+      return [];
+    }
+  };
 
   useEffect(() => {
     const fetchFoodItems = async () => {
@@ -45,8 +62,8 @@ function MenuPage() {
     seteditmode(false);
     setIsModalOpen(false);
   };
+
   const handleItemAdded = () => {
-    // Fetch the updated list of food items
     const fetchFoodItems = async () => {
       setLoading(true);
       try {
@@ -71,11 +88,9 @@ function MenuPage() {
   };
 
   const handleEditItem = (id) => {
-    setedititem(foodItems.filter(it=> it._id === id)[0]);
+    setedititem(foodItems.filter((it) => it._id === id)[0]);
     seteditmode(true);
     setIsModalOpen(true);
-    
-    console.log("Edit item:", id);
   };
 
   const handleSearchChange = (event) => {
@@ -162,11 +177,12 @@ function MenuPage() {
         <FaPlus className="text-lg" />
       </button>
       <AddItemModal
-      edit={editmode}
+        edit={editmode}
         isOpen={isModalOpen}
         onItemAdded={handleItemAdded}
         items={edititem}
         onClose={handleCloseModal}
+        fetchInventoryItemsNames={fetchInventoryItemsNames}
       />
     </div>
   );
