@@ -1,5 +1,6 @@
 // pages/api/addInventoryAndRestaurantItem.js
 import connDB from "../../../middleware/connDB";
+import GlobalInventory from "../../../models/GlobalInventory";
 import InventoryItems from "../../../models/InventoryItems";
 import RestaurantInventory from "../../../models/RestaurantInventory";
 
@@ -15,15 +16,24 @@ const handler = async (req, res) => {
         on_hand_amount,
         last_purchase_date,
         last_purchase_amount,
-        purchase_history,
         type,
       } = req.body;
-
+      let code;
+      const purchase_history=[{
+        purhasedate: last_purchase_date,
+      purchaseamount: last_purchase_amount,
+      amountbeforepurchase: "0"
+      }]
+      if(item_code==null || item_code==undefined)
+      {
+        const currentTimeInMillis = Date.now();
+        code=item_name.charAt(0)+currentTimeInMillis % 10000;
+      }
       // Create and save new inventory item
       const newItem = new InventoryItems({
         restaurant_id,
         item_name,
-        item_code,
+        item_code:item_code?item_code:code,
         item_group,
         item_photo,
         on_hand_amount,
@@ -34,18 +44,31 @@ const handler = async (req, res) => {
       });
 
       await newItem.save();
+      const global = await GlobalInventory.findOne({ item_name: item_name });
+      if (!global) {
+        const globalitem = new GlobalInventory({
+          item_name,
+          item_code:item_code?item_code:code,
+          item_group,
+          item_photo,
+          type,
+        });
+        await globalitem.save();
+      }
 
-      const restaurantInventory = await RestaurantInventory.findOne({ restaurant_id });
+      const restaurantInventory = await RestaurantInventory.findOne({
+        restaurant_id,
+      });
       if (!restaurantInventory) {
         const newRestaurantInventory = new RestaurantInventory({
           restaurant_id,
           items: [newItem._id],
         });
-        const u=await newRestaurantInventory.save();
+        const u = await newRestaurantInventory.save();
         res.status(200).json({ success: true, data: u });
       } else {
         restaurantInventory.items.push(newItem._id);
-        const u=await restaurantInventory.save();
+        const u = await restaurantInventory.save();
         res.status(200).json({ success: true, data: u });
       }
     } else {
@@ -53,7 +76,13 @@ const handler = async (req, res) => {
     }
   } catch (error) {
     console.error("Error occurred:", error.message);
-    res.status(201).json({ success: false, error: "Error occurred while adding item to inventory and restaurant inventory" });
+    res
+      .status(201)
+      .json({
+        success: false,
+        error:
+          "Error occurred while adding item to inventory and restaurant inventory",
+      });
   }
 };
 

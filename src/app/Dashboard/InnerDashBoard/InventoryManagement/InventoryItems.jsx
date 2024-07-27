@@ -4,6 +4,7 @@ import { FaEdit, FaTrashAlt } from "react-icons/fa";
 import { AiOutlineArrowDown } from "react-icons/ai";
 import axios from "axios";
 import UpdateItemModal from "./UpdateItemAmountModal";
+import AddNewItem from "./AddNewItem";
 
 const InventoryItems = ({ user }) => {
   const [items, setitems] = useState([]);
@@ -13,6 +14,8 @@ const InventoryItems = ({ user }) => {
   const [totalPages, settotalPages] = useState(0);
   const [updateModal, setupdateModal] = useState(false);
   const [selecteditem, setselecteditem] = useState({});
+  const [search, setsearch] = useState("")
+  const [addnew, setaddnew] = useState(false)
   const openUpdateModal = (item) => {
     setselecteditem(item);
     setupdateModal(true);
@@ -20,6 +23,9 @@ const InventoryItems = ({ user }) => {
   const onClose = () => {
     setupdateModal(false);
   };
+  const closeaddnew=()=>{
+    setaddnew(false);
+  }
   const handlePrevPage = () => {
     setCurrentPage((prevPage) => Math.max(prevPage - 1, 1));
   };
@@ -58,6 +64,13 @@ const InventoryItems = ({ user }) => {
     fetchitems();
   }, []);
 
+  const handleSearchChange = (e) => setsearch(e.target.value);
+
+  const filteredItems = currentItems.filter((items) => {
+    const matchesSearch = items.item_name.toLowerCase().includes(search.toLowerCase()) || items.item_group.toLowerCase().includes(search.toLowerCase());
+    return matchesSearch;
+  });
+
   if (loading) {
     return (
       <div className="flex justify-center items-center mt-40">
@@ -71,13 +84,14 @@ const InventoryItems = ({ user }) => {
       <div className=" overflow-x-hidden">
         <div className="p-1.5 min-w-full inline-block align-middle">
           <div className="border rounded-lg divide-y divide-gray-200">
-            <div className="py-3 px-4">
+            <div className="py-3 px-4 flex items-center justify-between">
               <div className="relative max-w-xs">
                 <label className="sr-only">Search</label>
                 <input
                   type="text"
                   name="hs-table-with-pagination-search"
                   id="hs-table-with-pagination-search"
+                  onChange={(e)=>handleSearchChange(e)}
                   className="py-2 px-3 ps-9 block w-full border-gray-200 shadow-md rounded-lg text-sm focus:z-10 focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none"
                   placeholder="Search for items"
                 />
@@ -98,7 +112,9 @@ const InventoryItems = ({ user }) => {
                     <path d="m21 21-4.3-4.3"></path>
                   </svg>
                 </div>
+                
               </div>
+              <div className=""><button className="px-4 py-1 border rounded-lg shadow-md hover:bg-gray-200 border-black" onClick={(e)=>{setaddnew(true)}}>Add new +</button></div>
             </div>
             <div className="lg:overflow-hidden  overflow-x-auto">
               <table className="min-w-full divide-y divide-gray-200">
@@ -155,7 +171,7 @@ const InventoryItems = ({ user }) => {
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-gray-200">
-                  {currentItems.map((item, index) => (
+                  {filteredItems.map((item, index) => (
                     <tr key={index}>
                       <td className="px-6 py-4 text-center whitespace-nowrap text-sm font-medium text-gray-800">
                         {item.item_code}
@@ -245,6 +261,7 @@ const InventoryItems = ({ user }) => {
           fetchitems={fetchitems}
         />
       )}
+      {addnew && <AddNewItem onClose={closeaddnew} fetchitems={fetchitems} currentInventoryItems ={items} restaurant_id={user.restaurantid}/>}
     </div>
   );
 };

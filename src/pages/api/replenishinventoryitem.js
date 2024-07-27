@@ -10,7 +10,6 @@ const handler = async (req, res) => {
       const date = new Date();
       const options = { day: "numeric", month: "long", year: "numeric" };
       const formattedDate = date.toLocaleDateString("en-GB", options);
-      console.log(formattedDate);
 
       const item = await InventoryItems.findById(item_id);
       if (!item) {
@@ -28,7 +27,6 @@ const handler = async (req, res) => {
       item.purchase_history.push(details);
       item.on_hand_amount = updatedAmount.toString();
       const u=await item.save();
-      console.log(u);
       if(u){
       res.status(200).json({ success: true, data: u });
       }
