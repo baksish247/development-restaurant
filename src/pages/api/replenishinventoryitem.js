@@ -37,7 +37,6 @@ const handler = async (req, res) => {
       res.status(201).json({ success: false, error: "Method not allowed" });
     }
   } catch (error) {
-    console.error("Error occurred:", error.message);
     res
       .status(201)
       .json({ success: false, error: "Error occurred while updating items" });

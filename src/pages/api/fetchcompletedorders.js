@@ -7,7 +7,7 @@ const handler = async (req, res) => {
   try {
     if (req.method === "POST") {
       const { restaurant_id } = req.body;
-      console.log(restaurant_id)
+      //console.log(restaurant_id)
       const orders = await CompletedOrders.find({restaurant_id,order_status:"paid"})
         .populate({
           path: 'order_items',

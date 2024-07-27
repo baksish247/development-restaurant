@@ -42,7 +42,6 @@ const handler = async (req, res) => {
         purchase_history,
         type,
       });
-
       await newItem.save();
       const global = await GlobalInventory.findOne({ item_name: item_name });
       if (!global) {

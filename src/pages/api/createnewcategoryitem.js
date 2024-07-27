@@ -167,6 +167,7 @@ const handler = async (req, res) => {
         subcategory,
         image,
         available_status,
+        ingredients: ingredients,
       });
 
       await localItem.save();

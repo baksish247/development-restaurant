@@ -3,11 +3,11 @@ import toast, { Toaster } from "react-hot-toast";
 import axios from "axios";
 import { IoMdClose } from "react-icons/io";
 
-function MakeOrderPaid({ order,onClose, fetchorder, restaurantinfo}) {
+function MakeOrderPaid({ order, onClose, fetchorder, restaurantinfo }) {
   const [paymentType, setPaymentType] = useState("");
   const [cashAmount, setCashAmount] = useState("");
   const [onlineAmount, setOnlineAmount] = useState("");
-  console.log(order)
+  console.log(order);
   const handleConfirmPayment = async () => {
     if (!paymentType) {
       toast.error("Please select a payment type");
@@ -20,25 +20,37 @@ function MakeOrderPaid({ order,onClose, fetchorder, restaurantinfo}) {
     toast.loading("Processing payment...");
     try {
       const response = await axios.post("/api/makeorderpaid", {
-        order_id:order.order_id,
+        order_id: order.order_id,
         paymentType,
         cashAmount: paymentType === "hybrid" ? cashAmount : null,
         onlineAmount: paymentType === "hybrid" ? onlineAmount : null,
       });
-      console.log(response)
+      console.log(response);
       if (response.data.success) {
-        toast.dismiss();
-        toast.success("Payment processed successfully");
-        fetchorder(restaurantinfo.restaurantid);
-        setTimeout(() => {
+        const res = await axios.post("/api/updateinventoryafterpaid", {
+          order_id: order.order_id,
+        });
+        if (res.data.success) {
           toast.dismiss();
-          onClose();
-        }, 1000);
-      }else if(response.data.error=="Not Found") {
+          toast.success("Mark paid and Inventory updated successfully");
+          fetchorder(restaurantinfo.restaurantid);
+          setTimeout(() => {
+            toast.dismiss();
+            onClose();
+          }, 1000);
+        } else {
+          toast.dismiss();
+          toast("Payment processed successfully. Failed to update inventory");
+          fetchorder(restaurantinfo.restaurantid);
+          setTimeout(() => {
+            toast.dismiss();
+            onClose();
+          }, 1000);
+        }
+      } else if (response.data.error == "Not Found") {
         toast.dismiss();
         toast.error("Please generate bill first , then update payment method");
-      } 
-      else {
+      } else {
         toast.dismiss();
         toast.error("Payment processing failed");
       }
@@ -60,7 +72,9 @@ function MakeOrderPaid({ order,onClose, fetchorder, restaurantinfo}) {
           </button>
           <div>
             <Toaster />
-            <h2 className="text-lg text-center font-semibold py-1">Make Payment</h2>
+            <h2 className="text-lg text-center font-semibold py-1">
+              Make Payment
+            </h2>
             <hr className="mb-4 mt-1 border-[0.1px] border-black" />
             <div className="flex flex-col space-y-8">
               <div className="flex flex-col">

@@ -29,9 +29,9 @@ const sendEmail = async (email, username, password) => {
 
   try {
     await transporter.sendMail(mailOptions);
-    console.log("Email sent successfully");
+    //console.log("Email sent successfully");
   } catch (error) {
-    console.error("Error sending email:", error);
+    //console.error("Error sending email:", error);
   }
 };
 
@@ -39,7 +39,7 @@ const handler = async (req, res) => {
   try {
     if (req.method === "POST") {
       const { formData, id ,waiterId} = req.body;
-      console.log(formData);
+      //console.log(formData);
       if(waiterId){
         const update=await Waiter_credentials.findByIdAndUpdate(waiterId,{username: formData.name,
           phoneNo: formData.phoneno,
@@ -81,7 +81,7 @@ const handler = async (req, res) => {
         res.status(201).json({ success: false, error: "Could not save waiter" });
       }}
       else{
-        console.log(formData.profession)
+        // console.log(formData.profession)
         const newChef = new Waiter_credentials({
           username: formData.name,
           phoneNo: formData.phoneno,

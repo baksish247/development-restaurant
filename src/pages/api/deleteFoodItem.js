@@ -7,7 +7,7 @@ import RestaurantItems from "../../../models/RestaurantItems";
 const handler = async (req, res) => {
   if (req.method === "POST") {
     const { id ,restaurant_id,name} = req.body;
-    console.log(id);
+    //console.log(id);
 
     try {
       // Delete the food item from FoodItems

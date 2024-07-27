@@ -105,19 +105,19 @@ function DashboardMain() {
             url={"/Dashboard/InnerDashBoard/Billing"}
           />
           <DashboardCard
+            isactive={true}
+            imgurl={
+              inventory_management_img
+            }
+            label={"Inventory Management"}
+            url={"/Dashboard/InnerDashBoard/InventoryManagement"}
+          />
+          <DashboardCard
             isactive={false}
             imgurl={
               analytics_img
             }
             label={"Analytics"}
-            url={"/Dashboard/InnerDashBoard/TableManagement"}
-          />
-          <DashboardCard
-            isactive={false}
-            imgurl={
-              inventory_management_img
-            }
-            label={"Inventory Management"}
             url={"/Dashboard/InnerDashBoard/TableManagement"}
           />
         </div>

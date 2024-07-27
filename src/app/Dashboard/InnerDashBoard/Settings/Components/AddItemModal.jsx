@@ -18,13 +18,16 @@ const AddItemModal = ({ items, edit, isOpen, onClose, onItemAdded }) => {
   const [itemDescription, setItemDescription] = useState("");
   const [itemImage, setItemImage] = useState("");
   const [imageUrl, setImageUrl] = useState("");
+  const [itemInventory, setitemInventory] = useState([]);
   const [errorMessage, setErrorMessage] = useState("");
 
   const [loading, setLoading] = useState(true);
 
   // State for inventory ingredients
   const [inventoryItems, setInventoryItems] = useState([]);
-  const [ingredients, setIngredients] = useState([{ ingredient: "", quantity: "" }]);
+  const [ingredients, setIngredients] = useState([
+    { ingredient: "", quantity: "" },
+  ]);
 
   const fetchInventoryItemsNames = async () => {
     try {
@@ -32,10 +35,12 @@ const AddItemModal = ({ items, edit, isOpen, onClose, onItemAdded }) => {
         restaurant_id: user.restaurantid,
       });
       if (data.success) {
-        const itemsNames = data.data.filter(item=>item.type==='Measurable').map((item) => ({
-          id: item._id,
-          name: item.item_name,
-        }));
+        const itemsNames = data.data
+          .filter((item) => item.type === "Measurable")
+          .map((item) => ({
+            id: item._id,
+            name: item.item_name,
+          }));
         setInventoryItems(itemsNames);
       }
     } catch (error) {
@@ -75,6 +80,7 @@ const AddItemModal = ({ items, edit, isOpen, onClose, onItemAdded }) => {
       setItemDescription(items.description ?? "");
       setItemImage(items.image ?? "");
       setImageUrl(items.image ?? "");
+      setitemInventory(items.ingredients ?? []);
     }
   }, [items]);
 
@@ -240,7 +246,11 @@ const AddItemModal = ({ items, edit, isOpen, onClose, onItemAdded }) => {
             </div>
           </div>
         )}
-        <div className={`${edit ? "w-full p-4" : "w-2/3 pl-4"} max-h-[500px] overflow-y-auto`}>
+        <div
+          className={`${
+            edit ? "w-full p-4" : "w-2/3 pl-4"
+          } max-h-[500px] overflow-y-auto`}
+        >
           <form onSubmit={handleSubmit} className="space-y-4">
             <div className="border-dashed border-2 border-gray-400 p-8 text-center cursor-pointer">
               <label htmlFor="itemImageInput" className="cursor-pointer">
@@ -311,12 +321,18 @@ const AddItemModal = ({ items, edit, isOpen, onClose, onItemAdded }) => {
               value={itemDescription}
               onChange={(e) => setItemDescription(e.target.value)}
             />
+            
             {ingredients.map((ingredient, index) => (
-              <div key={index} className="flex justify-center items-center gap-4">
+              <div
+                key={index}
+                className="flex justify-center items-center gap-4"
+              >
                 <select
                   className="w-[45%] px-4 py-2 border text-black rounded-md"
                   value={ingredient.ingredient}
-                  onChange={(e) => handleIngredientChange(index, "ingredient", e.target.value)}
+                  onChange={(e) =>
+                    handleIngredientChange(index, "ingredient", e.target.value)
+                  }
                 >
                   <option value="">Select Ingredient</option>
                   {inventoryItems.map((inventoryItem) => (
@@ -330,7 +346,9 @@ const AddItemModal = ({ items, edit, isOpen, onClose, onItemAdded }) => {
                   placeholder="Quantity in kg"
                   className="w-[45%] px-4 py-2 border rounded-md"
                   value={ingredient.quantity}
-                  onChange={(e) => handleIngredientChange(index, "quantity", e.target.value)}
+                  onChange={(e) =>
+                    handleIngredientChange(index, "quantity", e.target.value)
+                  }
                 />
                 <button
                   type="button"
@@ -353,7 +371,7 @@ const AddItemModal = ({ items, edit, isOpen, onClose, onItemAdded }) => {
               type="submit"
               className="w-full px-4 bg-pink-900 text-white py-3 rounded-md"
             >
-              Add Item
+              Save Item
             </button>
           </form>
         </div>
