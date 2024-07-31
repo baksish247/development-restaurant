@@ -20,7 +20,7 @@ function Leftsection({ orders, setordertobill,fetchorders }) {
     <div className="p-4">
       <div className="flex justify-between items-center mb-4">
         <h1 className="font-semibold text-xl">Orders</h1>
-        <button onClick={OpenCreateOrderMoodle} className="bg-[#441029] hover:bg-[#631543] transition-colors duration-200 drop-shadow text-white px-4 py-2 rounded">
+        <button onClick={OpenCreateOrderMoodle} className="bg-orange-500 hover:bg-orange-400 transition-colors duration-200 drop-shadow text-white px-4 py-2 rounded">
           Create an order
         </button>
       </div>

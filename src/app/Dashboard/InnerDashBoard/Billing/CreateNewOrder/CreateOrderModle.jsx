@@ -22,7 +22,7 @@ const CreateOrderMoodle = ({ openflag, onClose, fetchorders }) => {
   const { user } = useAuth();
   const cart = useSelector((state) => state.cart);
   const dispatch = useDispatch();
-
+  const [confirmorder, setconfirmorder] = useState(false)
   const [menuItems, setMenuItems] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -54,7 +54,6 @@ const CreateOrderMoodle = ({ openflag, onClose, fetchorders }) => {
   const handleRemoveItem = (item) => {
     if (window.confirm("Are you sure you want to delete this item?")) {
       dispatch(removeItem({ _id: item._id }));
-      toast.success("Item deleted successfully");
     }
   };
 
@@ -72,6 +71,7 @@ const CreateOrderMoodle = ({ openflag, onClose, fetchorders }) => {
   };
 
   const handlePlaceOrder = async (mode) => {
+    toast.loading("Placing order...")
     const customerId = "CUS_" + uuidv4();
     const orderId = "ORD_" + uuidv4();
     const cgst = 0; // Placeholder: Replace with actual CGST value
@@ -106,9 +106,13 @@ const CreateOrderMoodle = ({ openflag, onClose, fetchorders }) => {
         "/api/createnewcustomerorder",
         orderDetails
       );
+      toast.dismiss();
       if (response.data.success) {
         toast.success("Order placed successfully");
-        onClose();
+        setTimeout(() => {
+          toast.dismiss();
+          onClose();
+        }, 1000);
       } else {
         toast.error(response.data.error || "Failed to place order.");
       }
@@ -135,7 +139,7 @@ const CreateOrderMoodle = ({ openflag, onClose, fetchorders }) => {
     <div className="fixed inset-0 bg-black bg-opacity-50 backdrop-blur-sm flex items-center justify-center z-50">
       <div className="bg-white rounded-lg p-8 relative shadow-lg max-w-4xl w-full h-fit flex">
         <button
-          onClick={onClose}
+          onClick={()=>{dispatch(clearCart());onClose();}}
           className="absolute top-4 right-4 text-gray-500 hover:text-gray-700"
         >
           <FaTimes />
@@ -177,14 +181,14 @@ const CreateOrderMoodle = ({ openflag, onClose, fetchorders }) => {
                 <div className="flex justify-center items-center space-x-4">
                   <div className="flex items-center space-x-4">
                     <span
-                      className="bg-fuchsia-900 cursor-pointer px-2 rounded font-bold text-white"
+                      className="bg-orange-500 cursor-pointer px-2 rounded font-bold text-white"
                       onClick={() => handleUpdateQuantity(-1, item)}
                     >
                       -
                     </span>
                     <span>{item.quantity}</span>
                     <span
-                      className="bg-fuchsia-900 cursor-pointer px-2 rounded font-bold text-white"
+                      className="bg-orange-500 cursor-pointer px-2 rounded font-bold text-white"
                       onClick={() => handleUpdateQuantity(1, item)}
                     >
                       +
@@ -199,7 +203,8 @@ const CreateOrderMoodle = ({ openflag, onClose, fetchorders }) => {
           </div>
           <button
             onClick={() => setOrderMode("select")}
-            className="bg-red-500 text-white font-bold py-2 px-4 rounded absolute right-4 bottom-4"
+            disabled={cart.items.length==0}
+            className="bg-orange-500 disabled:bg-gray-500 disabled:cursor-not-allowed text-white font-bold py-2 px-4 rounded absolute right-4 bottom-4"
           >
             Place Order
           </button>
@@ -229,7 +234,7 @@ const CreateOrderMoodle = ({ openflag, onClose, fetchorders }) => {
               <button
                 onClick={() => {
                   setOrderMode("dinein");
-                  setTimeout(() => handlePlaceOrder("dinein"), 0); // Ensure the state is updated
+                  
                 }}
                 className="bg-amber-500 flex justify-center space-x-2 items-center  text-white font-bold py-2 px-4 rounded"
               >
@@ -258,8 +263,9 @@ const CreateOrderMoodle = ({ openflag, onClose, fetchorders }) => {
               className="px-4 py-2 border rounded w-full mb-4"
             />
             <button
-              onClick={() => handlePlaceOrder("dinein")}
-              className="bg-green-500 text-white font-bold py-2 px-4 rounded"
+              onClick={() => {handlePlaceOrder("dinein"); setconfirmorder(true)}}
+              disabled={confirmorder}
+              className="bg-orange-500 disabled:bg-zinc-500 disabled:cursor-not-allowed  text-white font-bold py-2 px-4 rounded"
             >
               Confirm Order
             </button>

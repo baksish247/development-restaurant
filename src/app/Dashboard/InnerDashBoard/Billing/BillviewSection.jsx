@@ -38,7 +38,7 @@ function BillviewSection({ orders, orderindex, restaurantinfo, fetchorder }) {
         </div>
       ) : (
         <>
-          <div className="ml-auto w-56 px-4 py-3 bg-zinc-200 rounded">
+          <div className="ml-auto w-56 px-4 py-3 bg-white drop-shadow-md rounded">
             Order Amount: ₹ {order?.initial_bill}
           </div>
 
@@ -48,7 +48,7 @@ function BillviewSection({ orders, orderindex, restaurantinfo, fetchorder }) {
                 Table No: {order?.table_number}
               </span>
               <span
-                className="text-red-500 hover:underline cursor-pointer"
+                className="text-orange-500 hover:underline cursor-pointer"
                 onClick={() => setopeneditModal(true)}
               >
                 Edit Order
@@ -62,11 +62,11 @@ function BillviewSection({ orders, orderindex, restaurantinfo, fetchorder }) {
                   return (
                     <div
                       key={`${i}-${j}`}
-                      className="bg-zinc-200 min-h-10 h-fit w-full rounded p-3 flex justify-between items-center"
+                      className="bg-white drop-shadow-md min-h-10 h-fit w-full rounded p-3 flex justify-between items-center"
                     >
                       <span>{item.food?.name}</span>
                       <span>Quantity: {item?.quantity}</span>
-                      <span>Price: ₹ {item?.food?.price}</span>
+                      <span>Price: ₹ {(parseFloat(item?.food?.price)*parseFloat(item?.quantity)).toFixed(2)}</span>
                     </div>
                   );
                 })
@@ -79,7 +79,7 @@ function BillviewSection({ orders, orderindex, restaurantinfo, fetchorder }) {
               onClick={() => {
                 setopenPaidModal(true);
               }}
-              className="bg-emerald-500 w-full hover:bg-green-500 transition-colors duration-200 text-white font-regular tracking-widest py-3 px-4 rounded focus:outline-none focus:shadow-outline"
+              className="bg-amber-500 w-full hover:bg-amber-400 transition-colors duration-200 text-white font-regular tracking-widest py-3 px-4 rounded focus:outline-none focus:shadow-outline"
             >
               Mark as Paid
             </button>
@@ -87,7 +87,7 @@ function BillviewSection({ orders, orderindex, restaurantinfo, fetchorder }) {
               onClick={() => {
                 setopenGenerateBillModal(true);
               }}
-              className="bg-[#441029] hover:bg-fuchsia-950 transition-colors duration-500 w-full text-white font-regular tracking-widest py-3 px-4 rounded focus:outline-none focus:shadow-outline"
+              className="bg-orange-500 hover:bg-orange-400 transition-colors duration-500 w-full text-white font-regular tracking-widest py-3 px-4 rounded focus:outline-none focus:shadow-outline"
             >
               Proceed to Bill
             </button>

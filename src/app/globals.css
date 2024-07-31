@@ -6,7 +6,7 @@
   padding: 0px;
 }
 body {
-  background: #f8f8f8;
+  background: #f6f6f6;
 }
 
 
@@ -22,7 +22,7 @@ body {
   bottom: -2px; /* Adjust to control the distance from text */
   width: 0;
   height: 2px; /* Adjust the thickness of the underline */
-  background-color: currentColor; /* Use the text color for the underline */
+  background-color: #FF9900; /* Use the text color for the underline */
   transition: width 0.3s ease-in-out; /* Smooth transition */
 }
 

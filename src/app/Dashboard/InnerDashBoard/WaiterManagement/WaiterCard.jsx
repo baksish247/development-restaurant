@@ -59,7 +59,7 @@ function WaiterCard({ item, handleSwitchChange }) {
         <div className="flex items-center gap-4">
           <Switch isChecked={isChecked} handleChange={handleChange} />
           <button
-            className="flex items-center text-[#441029] hover:underline cursor-pointer"
+            className="flex items-center text-zinc-800 hover:underline cursor-pointer"
             onClick={handleDetailsClick}
           >
             <span>{showDetails ? "Hide Details" : "See Details"}</span>
@@ -77,7 +77,7 @@ function WaiterCard({ item, handleSwitchChange }) {
             waiterDetails && (
               <>
                 {/* <h3 className="text-lg font-bold mb-2">Waiter Details</h3> */}
-                <div className="flex text-[#441029] hover:text-white transition-colors duration-300 ml-auto items-center px-4 rounded-lg bg-white hover:bg-[#441029] cursor-pointer border border-stone-400 drop-shadow-md py-1 w-fit justify-end">
+                <div className="flex text-zinc-800 hover:text-white transition-colors duration-300 ml-auto items-center px-4 rounded-lg bg-white hover:bg-orange-500 cursor-pointer border border-orange-700 drop-shadow-md py-1 w-fit justify-end">
                   <CiEdit />
                   &nbsp;Edit
                 </div>

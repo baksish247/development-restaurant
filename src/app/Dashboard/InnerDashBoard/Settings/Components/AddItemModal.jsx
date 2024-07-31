@@ -369,7 +369,7 @@ const AddItemModal = ({ items, edit, isOpen, onClose, onItemAdded }) => {
             {errorMessage && <div className="text-red-500">{errorMessage}</div>}
             <button
               type="submit"
-              className="w-full px-4 bg-pink-900 text-white py-3 rounded-md"
+              className="w-full px-4 bg-orange-500 text-white py-3 rounded-md"
             >
               Save Item
             </button>

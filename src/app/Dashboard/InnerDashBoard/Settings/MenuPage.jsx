@@ -172,7 +172,7 @@ function MenuPage() {
       </div>
       <button
         onClick={handleAddItem}
-        className="fixed bottom-4 right-4 bg-[#441029] text-white p-4 rounded-full shadow-lg flex items-center justify-center"
+        className="fixed bottom-4 right-4 bg-orange-500 hover:bg-orange-400 text-white p-4 rounded-full shadow-lg flex items-center justify-center"
       >
         <FaPlus className="text-lg" />
       </button>

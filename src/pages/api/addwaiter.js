@@ -4,10 +4,21 @@ import bcrypt from "bcrypt";
 import nodemailer from "nodemailer";
 
 // Function to generate a password based on the specified pattern
-const generatePassword = (username, age, profession) => {
-  const firstTwoLetters = username.substring(0, 4).toLowerCase();
-  const professionChar = profession.toLowerCase() === "waiter" ? "w" : "c";
-  return `${firstTwoLetters}${age}@${professionChar}`;
+// const generatePassword = (username, age, profession) => {
+//   const firstTwoLetters = username.substring(0, 4).toLowerCase();
+//   const professionChar = profession.toLowerCase() === "waiter" ? "w" : "c";
+//   return `${firstTwoLetters}${age}@${professionChar}`;
+// };
+const generatePassword = (username, age, gender, phone) => {
+  const initials = username.substring(0, 2).toLowerCase(); // First two letters of username
+  const genderIndicator = gender.charAt(0).toLowerCase(); // First letter of gender
+  const phoneLastFour = phone.slice(-4); // Last four digits of phone number
+  const specialCharacter = "$"; // Static special character for complexity
+  
+  // Generate a random 3-digit number
+  const randomThreeDigitNumber = Math.floor(100 + Math.random() * 900); // Ensures it's always 3 digits
+
+  return `${initials}${age}${genderIndicator}${specialCharacter}${phoneLastFour}${randomThreeDigitNumber}`;
 };
 
 // Function to send email with Nodemailer
@@ -57,7 +68,7 @@ const handler = async (req, res) => {
           }
       }
       else{if(formData.profession=="Waiter"){
-      const password = generatePassword(formData.name, formData.age, formData.profession);
+      const password = generatePassword(formData.name, formData.age, formData.gender, formData.phoneno);
       //console.log(password);
       const passwordHashed = await bcrypt.hash(password, 10);
 
@@ -75,7 +86,7 @@ const handler = async (req, res) => {
 
       const result = await newWaiter.save();
       if (result) {
-        await sendEmail(formData.email, formData.name, password);
+        await sendEmail(formData.email, formData.email, password);
         res.status(200).json({ success: true, data: result });
       } else {
         res.status(201).json({ success: false, error: "Could not save waiter" });

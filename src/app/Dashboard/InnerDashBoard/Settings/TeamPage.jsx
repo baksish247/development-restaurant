@@ -128,7 +128,7 @@ function TeamPage() {
           </div>
         )}
             <button
-              className="bg-[#441029] text-white px-4 flex items-center justify-center py-2 rounded-lg"
+              className="bg-orange-500 hover:bg-orange-400 text-white px-4 flex items-center justify-center py-2 rounded-lg"
               onClick={() => setOpenAddModal(true)}
             >
               Add Staff&nbsp;

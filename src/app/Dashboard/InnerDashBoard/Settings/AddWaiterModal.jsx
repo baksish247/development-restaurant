@@ -99,7 +99,7 @@ const AddWaiterModalForm = ({ onClose, restaurantid, currentWaiter }) => {
         <div className="relative bg-[#ffffff] p-4">
           <button
             onClick={onClose}
-            className="absolute top-2 right-2 text-gray-500 border-[1px] rounded-full border-[#440129] p-1 hover:bg-[#440129] hover:text-gray-200"
+            className="absolute top-2 right-2 text-gray-500 border-[1px] rounded-full border-orange-700 p-1 hover:bg-[#440129] hover:text-gray-200"
           >
             <IoMdClose />
           </button>
@@ -253,14 +253,14 @@ const AddWaiterModalForm = ({ onClose, restaurantid, currentWaiter }) => {
               <button
                 type="button"
                 onClick={() => formik.resetForm()}
-                className="bg-[#440129] text-white py-2 px-4 rounded-md mr-2"
+                className="bg-amber-500 text-white py-2 px-4 rounded-md mr-2"
                 disabled={loading}
               >
                 Reset
               </button>
               <button
                 type="submit"
-                className="bg-[#440129] text-white py-2 px-4 rounded-md flex items-center"
+                className="bg-orange-500 text-white py-2 px-4 rounded-md flex items-center"
                 disabled={loading}
               >
                 {loading ? (

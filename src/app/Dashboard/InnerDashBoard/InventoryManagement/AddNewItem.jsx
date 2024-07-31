@@ -137,13 +137,13 @@ const AddNewItem = ({
       <div className="bg-white p-6 rounded-md shadow-md max-w-2xl w-full mx-auto relative">
         <button
           onClick={onClose}
-          className="absolute top-2 right-2 text-gray-500 border-[1px] rounded-full border-[#440129] p-1 hover:bg-[#440129] hover:text-gray-200"
+          className="absolute top-2 right-2 text-gray-500 border-[1px] rounded-full border-orange-500 p-1 hover:bg-orange-400 hover:text-white"
         >
           <IoMdClose />
         </button>
         <button
               onClick={handleOpenModal}
-              className="bg-[#441029] absolute right-2 top-12 text-white px-4 py-2 rounded-md"
+              className="bg-amber-500 hover:bg-amber-400 absolute right-2 top-12 text-white px-4 py-2 rounded-md"
             >
               Add Item
             </button>

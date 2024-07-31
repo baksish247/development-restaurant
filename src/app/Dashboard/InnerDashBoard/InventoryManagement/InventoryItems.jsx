@@ -80,7 +80,7 @@ const InventoryItems = ({ user }) => {
   }
 
   return (
-    <div className="flex flex-col ">
+    <div className="flex flex-col bg-white">
       <div className=" overflow-x-hidden">
         <div className="p-1.5 min-w-full inline-block align-middle">
           <div className="border rounded-lg divide-y divide-gray-200">
@@ -92,7 +92,7 @@ const InventoryItems = ({ user }) => {
                   name="hs-table-with-pagination-search"
                   id="hs-table-with-pagination-search"
                   onChange={(e)=>handleSearchChange(e)}
-                  className="py-2 px-3 ps-9 block w-full border-gray-200 shadow-md rounded-lg text-sm focus:z-10 focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none"
+                  className="py-2 px-3 ps-9 block w-full bg-gray-100 border-gray-200 shadow-md rounded-lg text-sm focus:z-10 focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none"
                   placeholder="Search for items"
                 />
                 <div className="absolute inset-y-0 start-0 flex items-center pointer-events-none ps-3">
@@ -114,7 +114,7 @@ const InventoryItems = ({ user }) => {
                 </div>
                 
               </div>
-              <div className=""><button className="px-4 py-1 border rounded-lg shadow-md hover:bg-gray-200 border-black" onClick={(e)=>{setaddnew(true)}}>Add new +</button></div>
+              <div className=""><button className="px-4 py-1 border rounded-lg bg-gray-100 shadow-md hover:bg-gray-200 border-black" onClick={()=>{setaddnew(true)}}>Add new +</button></div>
             </div>
             <div className="lg:overflow-hidden  overflow-x-auto">
               <table className="min-w-full divide-y divide-gray-200">
@@ -230,7 +230,7 @@ const InventoryItems = ({ user }) => {
                   <button
                     key={i + 1}
                     type="button"
-                    className={`min-w-[40px] flex justify-center items-center text-gray-800 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 py-2.5 text-sm rounded-full ${
+                    className={`min-w-[40px] flex justify-center items-center text-gray-800 hover:bg-gray-300 focus:outline-none focus:bg-gray-100 py-2.5 text-sm rounded-full ${
                       currentPage === i + 1 ? "bg-gray-200" : ""
                     }`}
                     aria-current={currentPage === i + 1 ? "page" : undefined}

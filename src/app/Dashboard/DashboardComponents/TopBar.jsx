@@ -33,13 +33,13 @@ function TopBar({ title, tooglesidebar, sidebarOpen }) {
         {!sidebarOpen && (
           <HiOutlineMenuAlt4
             onClick={tooglesidebar}
-            className="size-10 border-rose-800 font-bold border-2 rounded-full p-2"
+            className="size-10 border-orange-600 font-bold border-2 rounded-full p-2"
           />
         )}</span>
         <span className="lg:hidden">
         <HiOutlineMenuAlt4
             onClick={tooglesidebar}
-            className="size-10 border-rose-800 font-bold border-2 rounded-full p-2"
+            className="size-10 border-orange-600 font-bold border-2 rounded-full p-2"
           />
         </span>
         <div>
