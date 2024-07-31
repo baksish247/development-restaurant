@@ -1,12 +1,12 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import ProfilePage from "./ProfilePage";
+import ProfilePage from "./profilePage";
 import BillingHistory from "./BillingHistory";
 import MenuPage from "./MenuPage";
 import TeamPage from "./TeamPage";
 import PlanPage from "./PlanPage";
 import NotificationsPage from "./Notifications";
-import ContactPage from "./ContactPage";
+import ContactPage from "./Contactpage";
 import { useAuth } from "@/app/Context/AuthContext";
 import { useRouter } from "next/navigation";
 
