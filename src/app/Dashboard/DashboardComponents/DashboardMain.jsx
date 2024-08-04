@@ -119,10 +119,10 @@ function DashboardMain() {
             url={"/Dashboard/InnerDashBoard/InventoryManagement"}
           />
           <DashboardCard
-            isactive={false}
+            isactive={true}
             imgurl={analytics_img}
             label={"Analytics"}
-            url={"/Dashboard/InnerDashBoard/TableManagement"}
+            url={"/Dashboard/InnerDashBoard/Analytics"}
           />
         </div>
       </section>

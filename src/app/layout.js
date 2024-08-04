@@ -21,7 +21,7 @@ export default function RootLayout({ children }) {
       <body className={`${poppins.className} font-poppins`}>
         <NextTopLoader
           showSpinner={false}
-          color="#AB0059"
+          color="#fbbf24"
           crawlSpeed={100}
           height={3}
         />

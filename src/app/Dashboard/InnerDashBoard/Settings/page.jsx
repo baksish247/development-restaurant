@@ -14,7 +14,7 @@ function Page() {
   const { user, loading } = useAuth();
   const router = useRouter();
   const [currentSection, setCurrentSection] = useState("Profile");
-
+  const sidebar = use
   useEffect(() => {
     if (!loading && !user) {
       router.push("/");

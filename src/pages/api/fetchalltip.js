@@ -4,7 +4,7 @@ const handler = async (req, res) => {
   try {
     if (req.method === "POST") {
       const { restaurant_id } = req.body;
-      //console.log(restaurant_id);
+      // console.log(restaurant_id);
 
       // Fetch all orders for the given restaurant_id
       const orders = await Transaction.find({ restaurant_id ,paymentstatus:"success"});
