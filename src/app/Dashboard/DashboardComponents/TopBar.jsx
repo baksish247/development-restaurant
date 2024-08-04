@@ -49,9 +49,9 @@ function TopBar({ title, tooglesidebar, sidebarOpen }) {
       </div>
  
       <ul className="flex justify-center space-x-10">
-        <Link className="cursor-pointer" href={"/"}>
+        <a className="cursor-pointer" href="/Support" target="_blank" >
           <li className="font-medium text-lg custom-underline">Support</li>
-        </Link>
+        </a>
 
         <li
           onClick={Logout}

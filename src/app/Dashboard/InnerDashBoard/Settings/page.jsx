@@ -14,7 +14,6 @@ function Page() {
   const { user, loading } = useAuth();
   const router = useRouter();
   const [currentSection, setCurrentSection] = useState("Profile");
-  const sidebar = use
   useEffect(() => {
     if (!loading && !user) {
       router.push("/");
@@ -50,8 +49,6 @@ function Page() {
         return <PlanPage />;
       case "Notifications":
         return <NotificationsPage />;
-      case "Contact":
-        return <ContactPage />;
       default:
         return <ProfilePage />;
     }
@@ -60,7 +57,7 @@ function Page() {
   return (
     <div className="px-4 mt-4 lg:px-10">
       <nav className="w-full bg-zinc-200 rounded-md flex lg:flex-nowrap flex-wrap justify-between lg:justify-start items-center">
-        {["Profile", "Menu", "Team", "Plan", "Notifications", "Contact"].map(
+        {["Profile", "Menu", "Team", "Plan", "Notifications"].map(
           (item) => (
             <span
               key={item}

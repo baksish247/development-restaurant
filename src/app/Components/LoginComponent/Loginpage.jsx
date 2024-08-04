@@ -102,7 +102,7 @@ function LoginPage() {
                 onChange={handleChange}
                 onBlur={handleBlur}
                 name="email"
-                className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-cyan-500"
+                className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
                 required=""
               />
               {errors.email && touched.email && (
@@ -123,7 +123,7 @@ function LoginPage() {
                 onChange={handleChange}
                 onBlur={handleBlur}
                 name="password"
-                className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-cyan-500"
+                className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
                 required=""
               />
               {errors.password && touched.password && (
@@ -133,14 +133,14 @@ function LoginPage() {
               )}
               <a
                 href="#"
-                className="block underline text-right text-xs text-cyan-600 mt-2"
+                className="block underline text-right text-xs text-orange-600 mt-2"
               >
                 Forgot Password?
               </a>
             </div>
             <button
               type="submit"
-              className="w-32 bg-gradient-to-r from-fuchsia-950 bg-[#441029] text-white py-2 rounded-lg mx-auto block focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-cyan-500 mt-4 mb-6"
+              className="w-32 bg-gradient-to-r from-indigo-700 bg-indigo-500 text-white py-2 rounded-lg mx-auto block focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500 mt-4 mb-6"
               disabled={isSubmitting}
             >
               {isSubmitting ? "Logging in..." : "Login"}

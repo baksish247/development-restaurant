@@ -78,7 +78,7 @@ function Menupage() {
   return (
     <div className="lg:p-10 p-4">
       <div className="flex justify-end relative w-fit ml-auto ">
-        <FaSearch className="absolute text-gray-500 left-2 z-20 top-3" />
+        <FaSearch className="absolute text-gray-500 left-2 z-10 top-3" />
         <input
           type="text"
           placeholder="Search..."

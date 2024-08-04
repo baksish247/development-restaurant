@@ -47,6 +47,9 @@ export default function InnerDashboardLayout({ children }) {
       case "Settings":
         settitle("Settings");
         break;
+      case "Analytics":
+        settitle("Analytics");
+        break;
       // Add more cases as needed
       default:
         settitle("Welcome");

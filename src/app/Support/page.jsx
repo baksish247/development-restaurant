@@ -66,7 +66,7 @@ function SupportPage() {
     <div className="min-h-screen bg-gray-100">
       <header className="w-full h-16 bg-white shadow-sm flex items-center justify-between px-10">
         <h1 className="text-xl font-bold text-gray-800">HungryMonk</h1>
-        <a href="/" className="text-blue-600">
+        <a href="/" className="text-indigo-600">
           Go back to main page
         </a>
       </header>
@@ -91,7 +91,7 @@ function SupportPage() {
             <select className="border border-gray-300 p-2 rounded">
               <option>General</option>
             </select>
-            <button className="bg-blue-600 text-white p-2 rounded">
+            <button className="bg-indigo-600 text-white p-2 rounded">
               Find query
             </button>
           </div>
@@ -114,9 +114,9 @@ function SupportPage() {
               </p>
             </div>
             <div className="flex flex-col items-center w-1/3">
-              <div className="bg-purple-100 p-4 rounded-full mb-2">
+              <div className="bg-green-100 p-4 rounded-full mb-2">
                 <svg
-                  className="w-8 h-8 text-purple-600"
+                  className="w-8 h-8 text-green-600"
                   fill="currentColor"
                   viewBox="0 0 20 20"
                 >
@@ -130,9 +130,9 @@ function SupportPage() {
               </p>
             </div>
             <div className="flex flex-col items-center w-1/3">
-              <div className="bg-blue-100 p-4 rounded-full mb-2">
+              <div className="bg-indigo-100 p-4 rounded-full mb-2">
                 <svg
-                  className="w-8 h-8 text-blue-600"
+                  className="w-8 h-8 text-indigo-600"
                   fill="currentColor"
                   viewBox="0 0 20 20"
                 >
@@ -154,12 +154,12 @@ function SupportPage() {
                   <Disclosure key={section.title}>
                     {({ open }) => (
                       <>
-                        <Disclosure.Button className="flex justify-between w-full px-4 py-2 text-sm font-medium text-left text-purple-900 rounded-lg hover:bg-purple-200 focus:outline-none focus-visible:ring focus-visible:ring-purple-500 focus-visible:ring-opacity-75">
+                        <Disclosure.Button className="flex justify-between w-full px-4 py-2 text-sm font-medium text-left text-indigo-900 rounded-lg hover:bg-indigo-200 focus:outline-none focus-visible:ring focus-visible:ring-indigo-500 focus-visible:ring-opacity-75">
                           <span>{section.title}</span>
                           {open ? (
-                            <MdKeyboardArrowUp className="w-5 h-5 text-purple-500" />
+                            <MdKeyboardArrowUp className="w-5 h-5 text-indigo-500" />
                           ) : (
-                            <MdKeyboardArrowDown className="w-5 h-5 text-purple-500" />
+                            <MdKeyboardArrowDown className="w-5 h-5 text-indigo-500" />
                           )}
                         </Disclosure.Button>
                         <Disclosure.Panel className="px-4 pt-4 pb-2 text-sm text-gray-500">
@@ -217,7 +217,7 @@ function SupportPage() {
             <p className="text-gray-600 mb-4">
               Having trouble finding what you're searching for?
             </p>
-            <button className="bg-blue-600 text-white px-4 py-2 rounded">
+            <button className="bg-indigo-600 text-white px-4 py-2 rounded">
               Connect to support
             </button>
           </div>

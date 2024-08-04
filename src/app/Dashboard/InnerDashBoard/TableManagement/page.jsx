@@ -40,6 +40,14 @@ function page() {
     <span>Served</span>
    </div>
    <div className=' space-x-2   flex justify-between items-center'>
+    <span className='h-4 w-4 bg-gray-200 rounded-full border  border-black'/>
+    <span>Bill Generated</span>
+   </div>
+   <div className=' space-x-2   flex justify-between items-center'>
+    <span className='h-4 w-4 bg-amber-100 rounded-full border  border-black'/>
+    <span>Updated</span>
+   </div>
+   <div className=' space-x-2   flex justify-between items-center'>
     <span className='h-4 w-4 bg-white rounded-full border  border-black'/>
     <span>Empty</span>
    </div>
