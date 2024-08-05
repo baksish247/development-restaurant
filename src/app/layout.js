@@ -26,8 +26,9 @@ export default function RootLayout({ children }) {
           crawlSpeed={100}
           height={3}
         />
-        <ReportButton/>
+        
         <AuthProvider>
+        <ReportButton/>
           <CartProvider>
           {children}</CartProvider></AuthProvider>
       </body>

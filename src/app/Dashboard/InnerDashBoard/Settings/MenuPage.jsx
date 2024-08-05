@@ -160,7 +160,7 @@ function MenuPage() {
           ))
         ) : (
           <div className="flex flex-col justify-center items-center">
-            <p className=" ">No orders found</p>
+            <p className=" ">No item found</p>
             <button
               onClick={handleAddItem}
               className=" outline-dashed mt-4 p-2 rounded outline-amber-500 text-amber-500 hover:text-white transition-colors duration-300  hover:bg-amber-500"
