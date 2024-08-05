@@ -305,7 +305,7 @@ const AddItemModal = ({ items, edit, isOpen, onClose, onItemAdded }) => {
     event.preventDefault();
     const restaurant_id = user.restaurantid;
     // Basic validation
-    if (!itemName || !itemPrice || !itemDescription || !itemImage) {
+    if (!itemName || !itemPrice  || !itemImage) {
       setErrorMessage("Please fill in all fields and provide an image.");
       return;
     }
