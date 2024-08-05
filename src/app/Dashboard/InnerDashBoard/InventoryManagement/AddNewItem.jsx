@@ -22,6 +22,7 @@ const AddNewItem = ({
   const [globalItems, setGlobalItems] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedItem, setSelectedItem] = useState(null);
+  const [btnclicked, setbtnclicked] = useState(false);
 
   useEffect(() => {
     const fetchGlobalItems = async () => {
@@ -44,13 +45,14 @@ const AddNewItem = ({
     },
     validationSchema: itemValidationSchema,
     onSubmit: async (values) => {
+      setbtnclicked(true);
       try {
         
         const response = await axios.post("/api/addinventoryitem", {
           restaurant_id: restaurant_id,
           item_name: selectedItem.item_name,
           item_code: selectedItem.item_code,
-          item_group: selectedItem.item_code,
+          item_group: selectedItem.item_group,
           item_photo: selectedItem.item_photo,
           on_hand_amount: values.amount,
           last_purchase_date: formattedDate,
@@ -94,7 +96,7 @@ const AddNewItem = ({
       restaurant_id: restaurant_id,
           item_name: itemData.itemName,
           item_group: itemData.group,
-          item_photo: "🍳",
+          item_photo: "🍛",
           on_hand_amount: itemData.amount,
           last_purchase_date: formattedDate,
           last_purchase_amount: itemData.amount,
@@ -134,7 +136,7 @@ const AddNewItem = ({
   return (
     <div className="fixed z-50 h-screen w-screen top-0 left-0 flex justify-center overflow-x-auto items-center bg-black/20 backdrop-blur-sm">
       <Toaster />
-      <div className="bg-white p-6 rounded-md shadow-md max-w-2xl w-full mx-auto relative">
+      <div className="bg-white min-h-[55%] p-6 rounded-md shadow-md max-w-2xl w-full mx-auto relative">
         <button
           onClick={onClose}
           className="absolute top-2 right-2 text-gray-500 border-[1px] rounded-full border-orange-500 p-1 hover:bg-orange-400 hover:text-white"
@@ -143,9 +145,9 @@ const AddNewItem = ({
         </button>
         <button
               onClick={handleOpenModal}
-              className="bg-amber-500 hover:bg-amber-400 absolute right-2 top-12 text-white px-4 py-2 rounded-md"
+              className="bg-amber-500 hover:bg-amber-400 absolute text-sm right-2 top-12 text-white px-4 py-2 rounded-md"
             >
-              Add Item
+              + New Item
             </button>
             <AddItemModal
               isOpen={isModalOpen}
@@ -153,11 +155,12 @@ const AddNewItem = ({
               onSave={handleSave}
             />
         {filteredItems.length == 0 && (
-          <div>
-            No inventory item available in global inventory
+          <div className="text-center mt-20">
+            You have all items available in global inventory in your restaurant inventory.
             <br />
-            Add your own item
-            
+            However, you can add a new item.
+            <br/>
+            Click on + New Item to introduce a new inventory item to the world.
           </div>
         )}
         {filteredItems.length > 0 && (
@@ -187,7 +190,7 @@ const AddNewItem = ({
               </ul>
             </div>
 
-            <div className="w-1/2 p-4">
+            <div className="w-1/2 p-4 mt-16">
               {selectedItem ? (
                 <form onSubmit={formik.handleSubmit}>
                   <div className="mb-4">
@@ -235,15 +238,15 @@ const AddNewItem = ({
                     </button>
                     <button
                       type="submit"
-                      className="bg-amber-500 text-white py-2 px-4 rounded-md"
-                      disabled={!selectedItem}
+                      className="bg-amber-500 text-white py-2 px-4 rounded-md disabled:cursor-not-allowed disabled:bg-amber-300"
+                      disabled={!selectedItem || btnclicked}
                     >
                       Save
                     </button>
                   </div>
                 </form>
               ) : (
-                <p className="text-gray-500">
+                <p className="text-gray-500 mt-20">
                   Select an item to view its details
                 </p>
               )}

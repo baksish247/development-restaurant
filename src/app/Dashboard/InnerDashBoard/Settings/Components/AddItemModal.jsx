@@ -6,8 +6,8 @@ import { useAuth } from "@/app/Context/AuthContext";
 import Spinner from "./Spinner"; // Assuming you have a Spinner component
 
 const AddItemModal = ({ items, edit, isOpen, onClose, onItemAdded }) => {
-  console.log(items);
   const { user } = useAuth();
+  
   const [globalMenuItems, setGlobalMenuItems] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -31,11 +31,13 @@ const AddItemModal = ({ items, edit, isOpen, onClose, onItemAdded }) => {
   ]);
   const [inventoryhashmap, setInventoryHashMap] = useState({})
   const fetchInventoryItemsNames = async () => {
+    
     try {
       const { data } = await axios.post("/api/fetchinventoryitems", {
         restaurant_id: user.restaurantid,
       });
       if (data.success) {
+        console.log(data.data)
         const itemsNames = data.data
           .filter((item) => item.type === "Measurable")
           .map((item) => ({
@@ -279,7 +281,7 @@ const AddItemModal = ({ items, edit, isOpen, onClose, onItemAdded }) => {
         <div
           className={`${
             edit ? "w-full p-4" : "w-2/3 pl-4"
-          } max-h-[500px] overflow-y-auto`}
+          } max-h-[500px] overflow-y-auto noscrollbar`}
         >
           <form onSubmit={handleSubmit} className="space-y-4">
             <div className="border-dashed border-2 border-gray-400 p-8 text-center cursor-pointer">

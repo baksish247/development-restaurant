@@ -80,7 +80,7 @@ const InventoryItems = ({ user }) => {
   }
 
   return (
-    <div className="flex flex-col bg-white">
+    <div className="flex rounded-xl flex-col bg-white">
       <div className=" overflow-x-hidden">
         <div className="p-1.5 min-w-full inline-block align-middle">
           <div className="border rounded-lg divide-y divide-gray-200">
