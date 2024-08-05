@@ -49,6 +49,7 @@ const AddItemModal = ({ isOpen, onClose, onSave }) => {
     'Bread',
     'Dairy',
     'Fruit',
+    'Grains',
     'Meat',
     'Mineral',
     'Nuts and Seeds',
