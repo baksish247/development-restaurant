@@ -4,6 +4,7 @@ import "./fonts.css";
 import { AuthProvider } from "./Context/AuthContext";
 import NextTopLoader from "nextjs-toploader";
 import CartProvider from "./redux/CartProvider";
+import ReportButton from "./Components/ReportButton";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -25,6 +26,7 @@ export default function RootLayout({ children }) {
           crawlSpeed={100}
           height={3}
         />
+        <ReportButton/>
         <AuthProvider>
           <CartProvider>
           {children}</CartProvider></AuthProvider>

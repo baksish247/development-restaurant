@@ -123,7 +123,7 @@ function ViewOrder({ onClose, selectedOrder, restaurantinfo ,fetchorder}) {
               )}
               <div className="mt-6 flex items-center  justify-between">
                 <div
-                  className="h-10 w-[40%] flex items-center justify-center sm:text-sm lg:text-base bg-[#441029] hover:bg-[#7a1e4b] hover:scale-95 cursor-pointer text-white rounded-lg"
+                  className="h-10 w-[40%] flex items-center justify-center sm:text-sm lg:text-base bg-orange-500 hover:bg-amber-500 hover:scale-95 cursor-pointer text-white rounded-lg"
                   onClick={() => {
                     seteditorder(true);
                   }}
@@ -131,7 +131,7 @@ function ViewOrder({ onClose, selectedOrder, restaurantinfo ,fetchorder}) {
                   Edit Order
                 </div>
                 <div
-                  className="h-10 w-[40%] flex items-center justify-center sm:text-sm lg:text-base bg-[#441029] hover:bg-[#7a1e4b] hover:scale-95 cursor-pointer text-white rounded-lg"
+                  className="h-10 w-[40%] flex items-center justify-center sm:text-sm lg:text-base bg-orange-500 hover:bg-amber-500 hover:scale-95 cursor-pointer text-white rounded-lg"
                   onClick={() => {
                     setgeneratebillorder(true);
                   }}

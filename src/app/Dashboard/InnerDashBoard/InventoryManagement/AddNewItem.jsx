@@ -235,7 +235,7 @@ const AddNewItem = ({
                     </button>
                     <button
                       type="submit"
-                      className="bg-[#441029] text-white py-2 px-4 rounded-md"
+                      className="bg-amber-500 text-white py-2 px-4 rounded-md"
                       disabled={!selectedItem}
                     >
                       Save

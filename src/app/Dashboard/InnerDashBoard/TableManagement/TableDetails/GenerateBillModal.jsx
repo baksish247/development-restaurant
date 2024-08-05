@@ -115,7 +115,7 @@ const GenerateBillModal = ({
             </div>
           )}
           <div
-            className="bg-[#440129] text-center py-2 text-white w-full h-10 rounded-xl hover:scale-95 duration-100 cursor-pointer hover:bg-[#4b3141]"
+            className="bg-amber-500 text-center py-2 text-white w-full h-10 rounded-xl hover:scale-95 duration-100 cursor-pointer hover:bg-orange-500"
             onClick={calculateFinalBill}
           >
             Apply
@@ -208,7 +208,7 @@ const GenerateBillModal = ({
               </div>
               <div className="mb-6 flex items-center justify-center">
                 <div
-                  className="bg-[#440129] h-10 text-center py-2 text-white duration-100 px-16 rounded-xl w-full hover:scale-95 hover:bg-[#4b3141]"
+                  className="bg-amber-500 cursor-pointer h-10 text-center py-2 text-white duration-100 px-16 rounded-xl w-full hover:scale-95 hover:bg-orange-500"
                   onClick={() => {
                     calculateFinalBill();
                     handleopenfinalbill();

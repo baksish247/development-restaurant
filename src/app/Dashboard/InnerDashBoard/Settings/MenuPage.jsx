@@ -163,7 +163,7 @@ function MenuPage() {
             <p className=" ">No orders found</p>
             <button
               onClick={handleAddItem}
-              className=" outline-dashed mt-4 p-2 rounded outline-[#441029] text-[#441029] hover:text-white transition-colors duration-300  hover:bg-[#441029]"
+              className=" outline-dashed mt-4 p-2 rounded outline-amber-500 text-amber-500 hover:text-white transition-colors duration-300  hover:bg-amber-500"
             >
               + Add items
             </button>
@@ -172,7 +172,7 @@ function MenuPage() {
       </div>
       <button
         onClick={handleAddItem}
-        className="fixed bottom-4 right-4 bg-orange-500 hover:bg-orange-400 text-white p-4 rounded-full shadow-lg flex items-center justify-center"
+        className="fixed bottom-20 right-5 bg-orange-500 hover:bg-orange-400 text-white w-14 h-14 rounded-full shadow-lg flex items-center justify-center"
       >
         <FaPlus className="text-lg" />
       </button>

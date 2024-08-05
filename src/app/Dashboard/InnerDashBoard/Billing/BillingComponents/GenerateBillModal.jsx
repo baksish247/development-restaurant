@@ -72,7 +72,7 @@ const GenerateBillModal = ({
         <div className="relative  bg-[#f9f9f9] max-h-[80%] overflow-y-auto w-[80%] md:w-[50%] lg:w-[32%] mx-auto  p-5 rounded-lg">
           <button
             onClick={onClose}
-            className="absolute top-2 right-2 text-gray-500 border-[1px] rounded-full border-[#440129] p-1 hover:bg-[#440129] hover:text-gray-200"
+            className="absolute top-2 right-2 text-gray-500 border-[1px] rounded-full border-amber-500 p-1 hover:bg-orange-500 hover:text-gray-200"
           >
             <IoMdClose />
           </button>

@@ -28,7 +28,7 @@ const Analytics = ({
   total_tip_collected = 0,
 }) => {
   return (
-    <div className="p-6 h-screen bg-gray-100 overflow-auto">
+    <div className="p-6 min-h-screen bg-gray-100">
       <div className="grid grid-cols-1 md:grid-cols-4 md:gap-6 space-y-6 md:space-y-0">
         {/* Today's Stats */}
         <div className="bg-white p-6 rounded-lg shadow-md md:col-span-3">

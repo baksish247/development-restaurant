@@ -41,6 +41,9 @@ export default function InnerDashboardLayout({ children }) {
       case "profile":
         settitle("Profile");
         break;
+      case "Billing":
+        settitle("Billing");
+        break;
       case "TableManagement":
         settitle("Table Management");
         break;
@@ -52,6 +55,9 @@ export default function InnerDashboardLayout({ children }) {
         break;
       case "PastOrders":
         settitle("Past Orders");
+        break;
+      case "InventoryManagement":
+        settitle("Inventory Management");
         break;
       // Add more cases as needed
       default:

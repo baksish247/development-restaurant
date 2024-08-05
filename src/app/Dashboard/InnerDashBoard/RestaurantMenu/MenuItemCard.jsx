@@ -67,7 +67,7 @@ function MenuItemCard({ item, onStatusChange }) {
           />
           {loading && (
             <div className="absolute flex justify-start items-center -left-24 space-x-1 top-1/2 transform -translate-y-1/2 ml-2">
-              <div className="w-4 h-4 border-2 border-[#441029] rounded-full border-t-transparent animate-spin"></div>
+              <div className="w-4 h-4 border-2 border-amber-500 rounded-full border-t-transparent animate-spin"></div>
               <p className="text-sm">updating</p>
             </div>
           )}

@@ -38,8 +38,8 @@ function BillviewSection({ orders, orderindex, restaurantinfo, fetchorder }) {
         </div>
       ) : (
         <>
-          <div className="ml-auto w-56 px-4 py-3 bg-white drop-shadow-md rounded">
-            Order Amount: ₹ {order?.initial_bill}
+          <div className="ml-auto w-fit px-4 py-3 bg-white drop-shadow-md rounded">
+            Order Amount: ₹ {parseFloat(order?.initial_bill)?.toFixed(2)??0}
           </div>
 
           <div className="relative pt-3">
@@ -58,15 +58,14 @@ function BillviewSection({ orders, orderindex, restaurantinfo, fetchorder }) {
             <div className="space-y-2 border gap-2 pt-4 h-[350px] m-2 p-2 overflow-auto">
               {order?.order_items?.map((orderItem, i) =>
                 orderItem.items.map((item, j) => {
-                  console.log(item);
                   return (
                     <div
                       key={`${i}-${j}`}
-                      className="bg-white drop-shadow-md min-h-10 h-fit w-full rounded p-3 flex justify-between items-center"
+                      className="bg-white drop-shadow-md min-h-10 h-fit w-full rounded p-3 grid grid-cols-4 items-center"
                     >
-                      <span>{item.food?.name}</span>
-                      <span>Quantity: {item?.quantity}</span>
-                      <span>Price: ₹ {(parseFloat(item?.food?.price)*parseFloat(item?.quantity)).toFixed(2)}</span>
+                      <span className="col-span-2">{item.food?.name}</span>
+                      <span>Qty: {item?.quantity}</span>
+                      <span className="text-right"> ₹ {(parseFloat(item?.food?.price)*parseFloat(item?.quantity)).toFixed(2)}</span>
                     </div>
                   );
                 })

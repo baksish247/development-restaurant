@@ -127,7 +127,7 @@ function TableCard({
           className="mx-auto my-auto px-4 py-1  rounded-md text-sm border-gray-300 shadow-inner shadow-gray-300 border-2">Reserve table</div>
         )}
         {table.orderdetails.order_status == "reserved" && (<div>
-          <div className="mx-auto my-auto text-center font-bold mt-2 rounded-md text-sm text-[#441029]">Reserved for guest</div>
+          <div className="mx-auto my-auto text-center font-medium mt-2 rounded-md text-sm text-orange-500">Reserved for guest</div>
           <div onClick={()=>{setopenViewModal(false);markunreserve()}} className="mx-3 text-center mt-4  rounded-md text-sm border-gray-300 shadow-inner shadow-gray-300 border-2">Mark as unreserved</div>
           </div>
         )}

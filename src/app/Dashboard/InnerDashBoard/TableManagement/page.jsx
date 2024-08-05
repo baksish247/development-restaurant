@@ -33,7 +33,7 @@ function page() {
    </div>
    <div className=' space-x-2   flex justify-between items-center'>
     <span className='h-4 w-4 bg-green-300 rounded-full border  border-black'/>
-    <span>Waiting For Bill</span>
+    <span>New</span>
    </div>
    <div className=' space-x-2   flex justify-between items-center'>
     <span className='h-4 w-4 bg-blue-300 rounded-full border  border-black'/>

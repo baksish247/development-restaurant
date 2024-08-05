@@ -92,12 +92,12 @@ function UpdateItemModal({ onClose, item, fetchitems }) {
           <div className="flex justify-end mt-4 space-x-4">
             <button
               onClick={handleupdateamount}
-              className="px-4 py-2 border-2 rounded-lg hover:bg-[#7a1e4b] hover:scale-95 bg-[#441029] text-white"
+              className="px-4 py-2 border-2 rounded-lg hover:bg-orange-500 hover:scale-95 bg-amber-500 text-white"
             >
               Save Changes
             </button>
             <button
-              className="px-8 py-2 border-2 rounded-lg hover:bg-[#7a1e4b] hover:scale-95 bg-[#441029] text-white"
+              className="px-8 py-2 border-2 rounded-lg hover:bg-orange-500 hover:scale-95 bg-amber-500 text-white"
               onClick={onClose}
             >
               Cancel

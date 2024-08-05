@@ -185,7 +185,7 @@ function TeamPage() {
                     <img
                       src={waiter.image}
                       alt="profilepic"
-                      className="h-10 w-10 bg-slate-100 rounded-full border-2 border-[#4410298d] object-cover"
+                      className="h-10 w-10 bg-slate-100 rounded-full border-2 border-amber-500 object-cover"
                     />
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
