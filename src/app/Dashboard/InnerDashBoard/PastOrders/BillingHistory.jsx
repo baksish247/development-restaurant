@@ -68,9 +68,8 @@ function BillingHistory({ user }) {
   return (
     <div>
       <div>
-        <p className="text-lg font-medium">Past Orders</p>
-        <p className="text-gray-500 text-sm mt-1">See all your completed orders here</p>
-        <div className="mt-4 flex space-x-4">
+       
+        <div className="mt-4 flex space-x-4 drop-shadow-md">
           <div>
             <label className="font-semibold mb-2">Filter by:</label>
             <select
@@ -86,7 +85,7 @@ function BillingHistory({ user }) {
             </select>
           </div>
           {filterType === "date" && (
-            <div>
+            <div> 
               <label className="font-semibold mb-2">Select Date:</label>
               <input
                 type="date"
@@ -100,7 +99,7 @@ function BillingHistory({ user }) {
       </div>
       {filteredOrders.length > 0 ? (
         <div>
-          <table className="w-[95%] mt-7">
+          <table className="w-[95%] mt-7 bg-white drop-shadow-md">
             <thead>
               <tr>
                 <th className="border-b px-4 py-3 bg-slate-400/10 text-left text-sm font-medium text-gray-700">

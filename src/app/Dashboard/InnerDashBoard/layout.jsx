@@ -50,6 +50,9 @@ export default function InnerDashboardLayout({ children }) {
       case "Analytics":
         settitle("Analytics");
         break;
+      case "PastOrders":
+        settitle("Past Orders");
+        break;
       // Add more cases as needed
       default:
         settitle("Welcome");

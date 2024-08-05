@@ -191,8 +191,8 @@ const InventoryItems = ({ user }) => {
                       <td className="px-6 py-4 text-center whitespace-nowrap text-sm text-gray-800">
                         {item.last_purchase_amount} kgs
                       </td>
-                      <td className="px-6 py-4 text-center whitespace-nowrap text-sm text-gray-800 flex items-center justify-start pl-10 w-28 mx-auto">
-                        {item.on_hand_amount} kgs
+                      <td className="px-6 py-4   whitespace-nowrap text-sm text-gray-800 flex items-center justify-start pl-10 w-28 mx-auto">
+                        {parseFloat(item.on_hand_amount).toFixed(2)} kgs
                         {item.low && (
                           <AiOutlineArrowDown className="text-red-500 ml-2" />
                         )}

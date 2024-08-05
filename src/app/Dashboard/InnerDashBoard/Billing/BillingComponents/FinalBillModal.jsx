@@ -264,8 +264,8 @@ function FinalBill({
           }
   
           .qr-code img {
-              height: 3in;
-              width: 3in;
+              height: 1in;
+              width: 1in;
               margin-bottom: 0.1in;
           }
   
@@ -274,6 +274,7 @@ function FinalBill({
               font-size: 0.7rem;
               font-weight: light;
           }
+          
       </style>
   </head>
   <body>
@@ -362,7 +363,7 @@ function FinalBill({
                   Like our services? Scan to treat our team.
               </p>
               <div class="qr-code">
-                  <img src="${qrcode}" alt="QR Code">
+                  <img src="${qrcode}" class="img" alt="QR Code">
               </div>
               <p class="footer-text">
                   THANK YOU! VISIT AGAIN
