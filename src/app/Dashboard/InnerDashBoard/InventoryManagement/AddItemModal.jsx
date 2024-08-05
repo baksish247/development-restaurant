@@ -44,23 +44,23 @@ const AddItemModal = ({ isOpen, onClose, onSave }) => {
   const [type, setType] = useState("Measurable");
   const [btnclicked, setbtnclicked] = useState(false);
   const options = [
-    'Vegetable',
+    'Baking',
+    'Beverages',
+    'Bread',
+    'Dairy',
     'Fruit',
     'Meat',
     'Mineral',
-    'Bread',
+    'Nuts and Seeds',
+    'Oil',
+    'Others',
+    'Packed food',
+    'Poultry',
     'Pulse',
     'Sauce',
-    'Poultry',
     'Seafood',
-    'Nuts and Seeds',
-    'Dairy',
-    'Oil',
-    'Beverages',
     'Sweetener',
-    'Baking',
-    'Packed food',
-    'Others'
+    'Vegetable'
   ];
 
   const measureoption=['Measurable','Immeasurable']

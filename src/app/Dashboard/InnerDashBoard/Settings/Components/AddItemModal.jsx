@@ -4,6 +4,42 @@ import { FaTimes, FaPlus, FaTrash } from "react-icons/fa";
 import axios from "axios";
 import { useAuth } from "@/app/Context/AuthContext";
 import Spinner from "./Spinner"; // Assuming you have a Spinner component
+import { IoMdArrowDropdown } from "react-icons/io";
+
+const CustomDropdown = ({ options, value, onChange }) => {
+  const [isOpen, setIsOpen] = useState(false);
+
+  const handleOptionClick = (option) => {
+    onChange(option);
+    setIsOpen(false);
+  };
+
+  return (
+    <div className="relative">
+      <button
+        type="button"
+        onClick={() => setIsOpen(!isOpen)}
+        className="mt-1 flex items-center  text-left w-full border border-gray-300 rounded-md p-2"
+      >
+        {value || 'Select an option'}
+        <span className="absolute right-2 "><IoMdArrowDropdown/></span>
+      </button>
+      {isOpen && (
+        <ul className="absolute z-10 mt-1 w-full border border-gray-300 rounded-md bg-white max-h-56 overflow-y-auto">
+          {options.map((option) => (
+            <li
+              key={option}
+              onClick={() => handleOptionClick(option)}
+              className="cursor-pointer p-2 hover:bg-gray-200"
+            >
+              {option}
+            </li>
+          ))}
+        </ul>
+      )}
+    </div>
+  );
+};
 
 const AddItemModal = ({ items, edit, isOpen, onClose, onItemAdded }) => {
   const { user } = useAuth();
@@ -24,6 +60,95 @@ const AddItemModal = ({ items, edit, isOpen, onClose, onItemAdded }) => {
   const [buttonclicked, setbuttonclicked] = useState(false)
   const [loading, setLoading] = useState(true);
 
+  const options = [
+    "Appetizer",
+    "Beers",
+    "Beverages",
+    "Biriyani",
+    "Bonda",
+    "Bourbon",
+    "Breakfast",
+    "Brandy",
+    "Burger",
+    "Chicken",
+    "Chicken Mandi",
+    "Chinese",
+    "Chutney",
+    "Coffee",
+    "Combo",
+    "Desserts",
+    "Dips",
+    "Donuts",
+    "Domestic",
+    "Dosa",
+    "Egg",
+    "Espresso",
+    "Fish",
+    "Frappe",
+    "Fries",
+    "Gin",
+    "Handi",
+    "Idly",
+    "Irish",
+    "Juice",
+    "Latte",
+    "Main Course",
+    "Maggie",
+    "Mashroom",
+    "Mocktail",
+    "Mughlai",
+    "Mutton",
+    "Mutton Mandi",
+    "Non-Coffee",
+    "Non-Vegetarian",
+    "Noodle",
+    "Others",
+    "Paneer",
+    "Pancakes",
+    "Pastry",
+    "Pasta",
+    "PavBhaji",
+    "Pizza",
+    "Poori",
+    "Pork",
+    "Prawn Mandi",
+    "Rice",
+    "Rolls",
+    "Rotis & Naan",
+    "Rava",
+    "Salad/Raita",
+    "Sandwiches",
+    "Scotch",
+    "Sea Food",
+    "Single Malt",
+    "Sizzlers",
+    "Smoothie",
+    "Snacks",
+    "Soup",
+    "Specials",
+    "Starters",
+    "Steak",
+    "Sweets",
+    "Tandoor & Kebab",
+    "Tea",
+    "Tequila",
+    "Thai Curries",
+    "Thali",
+    "Toast",
+    "Upma",
+    "Uttapam",
+    "Vegetarian",
+    "Veg Mandi",
+    "Vodka",
+    "Vada",
+    "Waffles",
+    "Wraps",
+    "Qorma",
+    "Restaurant Special"
+  ];
+
+  const vegchoice=['Veg','Non Veg']
+  
   // State for inventory ingredients
   const [inventoryItems, setInventoryItems] = useState([]);
   const [ingredients, setIngredients] = useState([
@@ -326,7 +451,7 @@ const AddItemModal = ({ items, edit, isOpen, onClose, onItemAdded }) => {
                 value={itemPrice}
                 onChange={(e) => setItemPrice(e.target.value)}
               />
-              <select
+              {/* <select
                 className="w-full px-4 py-2 border rounded-md"
                 value={itemCategory}
                 onChange={(e) => setItemCategory(e.target.value)}
@@ -336,15 +461,28 @@ const AddItemModal = ({ items, edit, isOpen, onClose, onItemAdded }) => {
                 <option value="Desserts">Desserts</option>
                 <option value="Beverages">Beverages</option>
                 <option value="Breads">Breads</option>
-              </select>
-              <select
+              </select> */}
+              {/* <label className="block text-sm font-medium text-gray-700">
+                Group
+              </label> */}
+              <CustomDropdown
+                options={options}
+                value={itemCategory}
+                onChange={setItemCategory}
+              />
+              <CustomDropdown
+                options={vegchoice}
+                value={itemType}
+                onChange={setItemType}
+              />
+              {/* <select
                 className="w-full px-4 py-2 border rounded-md"
                 value={itemType}
                 onChange={(e) => setItemType(e.target.value)}
               >
                 <option value="Veg">Veg</option>
                 <option value="Non Veg">Non Veg</option>
-              </select>
+              </select> */}
             </div>
             <textarea
               placeholder="Item Description"
