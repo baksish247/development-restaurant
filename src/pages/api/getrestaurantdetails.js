@@ -16,7 +16,7 @@ const handler = async (req, res) => {
       res.status(201).json({ success: false, message: "Method not allowed" });
     }
   } catch (err) {
-    //console.error(err);
+    console.error(err);
     res.status(202).json({ success: false, message: "Server Error" });
   }
 };
