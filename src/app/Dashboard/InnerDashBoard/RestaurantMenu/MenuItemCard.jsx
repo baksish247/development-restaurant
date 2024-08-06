@@ -8,6 +8,7 @@ import nonvegicon from "../../../assets/images/nonvegicon.png";
 import Image from "next/image";
 
 function MenuItemCard({ item, onStatusChange }) {
+  
   const [loading, setLoading] = useState(false);
 
   const handleSwitchChange = async (event) => {

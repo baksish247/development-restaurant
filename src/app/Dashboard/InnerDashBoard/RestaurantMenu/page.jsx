@@ -19,6 +19,8 @@ function Menupage() {
         const { data } = await axios.post("/api/fetchmenubyid", {
           restaurant_id: restaurantid,
         });
+        console.log(data);
+        
         if (data.success) {
           setFoodItems(data.data.food_items);
         }
