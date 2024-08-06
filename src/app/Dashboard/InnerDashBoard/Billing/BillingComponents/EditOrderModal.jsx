@@ -6,8 +6,8 @@ import { IoMdClose } from "react-icons/io";
 import axios from "axios";
 
 function EditOrderModal({ onClose, order, restaurantinfo , fetchorder}) {
-  console.log(order);
-  console.log(restaurantinfo)
+  //console.log(order);
+  //console.log(restaurantinfo)
   const [updatedQty, setUpdatedQty] = useState({});
   const [deleteitems, setDeleteItems] = useState([]);
 

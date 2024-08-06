@@ -13,8 +13,8 @@ function FinalBill({
   discountPercentage,
   discountdescription,
 }) {
-  console.log(restaurantinfo);
-  console.log(selectedOrder);
+  //console.log(restaurantinfo);
+  //console.log(selectedOrder);
   const [customerphone_no, setcustomerphone_no] = useState("")
   const date = new Date(selectedOrder.createdAt);
   const day = date.getDate().toString().padStart(2, "0");
@@ -23,7 +23,7 @@ function FinalBill({
   const hours = date.getHours().toString().padStart(2, "0");
   const minutes = date.getMinutes().toString().padStart(2, "0");
   const seconds = date.getSeconds().toString().padStart(2, "0");
-  console.log(restaurantinfo);
+  ///console.log(restaurantinfo);
   const hasFetchedBill = useRef(false);
   const [orderbill, setorderbill] = useState();
   const [qrcode, setqrcode] = useState("");
@@ -54,9 +54,9 @@ function FinalBill({
         discountdescription,
         total_amount,
       });
-      console.log(res);
+     // console.log(res);
       setorderbill(res.data.data);
-      console.log(res.data.data);
+      //console.log(res.data.data);
       toast.success("Mark the order as paid once the customer has paid.");
     } catch (e) {
       toast.error("Failed to generate bill");
@@ -164,7 +164,7 @@ function FinalBill({
       </div>
     );
     if(orderbill) {
-      console.log(orderbill)
+      //console.log(orderbill)
     }
   return (
     <>

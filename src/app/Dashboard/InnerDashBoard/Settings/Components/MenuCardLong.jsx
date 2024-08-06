@@ -28,7 +28,7 @@ function MenuCardLong({ item, onItemAdded, onItemDeleted, onItemEdited ,restaura
   };
 
   const handleDeleteItem = async () => {
-    console.log(item);
+   // console.log(item);
     if (confirm("Are you sure you want to delete this item?")) {
       setLoading(true);
    

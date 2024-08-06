@@ -7,7 +7,7 @@ function MakeOrderPaid({ order, onClose, fetchorder, restaurantinfo }) {
   const [paymentType, setPaymentType] = useState("");
   const [cashAmount, setCashAmount] = useState("");
   const [onlineAmount, setOnlineAmount] = useState("");
-  console.log(order);
+  //console.log(order);
   const handleConfirmPayment = async () => {
     if (!paymentType) {
       toast.error("Please select a payment type");
@@ -25,7 +25,7 @@ function MakeOrderPaid({ order, onClose, fetchorder, restaurantinfo }) {
         cashAmount: paymentType === "hybrid" ? cashAmount : null,
         onlineAmount: paymentType === "hybrid" ? onlineAmount : null,
       });
-      console.log(response);
+      //console.log(response);
       if (response.data.success) {
         const res = await axios.post("/api/updateinventoryafterpaid", {
           order_id: order.order_id,

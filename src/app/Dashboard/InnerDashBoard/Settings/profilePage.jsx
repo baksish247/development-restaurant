@@ -15,13 +15,13 @@ function ProfilePage() {
   const [editableDetails, setEditableDetails] = useState({});
   
   const fetchresdetails = async (resid) => {
-    console.log(resid.toString());
+   // console.log(resid.toString());
     
     try {
       const response = await axios.post(`/api/getrestaurantdetails`, {
         restaurantid: resid,
       });
-      console.log(response.data);
+     // console.log(response.data);
       
       if (response.data.success) {
         setresdetails(response.data.data);
@@ -35,7 +35,7 @@ function ProfilePage() {
   const { user } = useAuth();
   
   useEffect(() => {
-    console.log(user);
+   // console.log(user);
     
     fetchresdetails(user?.restaurantid);
   }, [user?.restaurantid]);

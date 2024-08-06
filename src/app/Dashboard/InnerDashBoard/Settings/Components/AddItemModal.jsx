@@ -163,7 +163,7 @@ const AddItemModal = ({ items, edit, isOpen, onClose, onItemAdded }) => {
         restaurant_id: user.restaurantid,
       });
       if (data.success) {
-        console.log(data.data);
+       // console.log(data.data);
         const itemsNames = data.data
   .filter((item) => item.type === "Measurable")
   .map((item) => ({

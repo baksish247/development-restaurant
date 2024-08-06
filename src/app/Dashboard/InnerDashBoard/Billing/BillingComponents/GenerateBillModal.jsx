@@ -57,7 +57,7 @@ const GenerateBillModal = ({
       sgstamount = parseFloat(restaurantinfo.sgst) * initial * 0.01;
       cgstamount = parseFloat(restaurantinfo.cgst) * initial * 0.01;
       total = (initial + cgstamount + sgstamount).toFixed(2);
-      console.log(sgstamount, cgstamount);
+      //console.log(sgstamount, cgstamount);
       setfinaltax((cgstamount + sgstamount).toFixed(2));
     } else {
       setfinaltax(selectedOrder.tax);

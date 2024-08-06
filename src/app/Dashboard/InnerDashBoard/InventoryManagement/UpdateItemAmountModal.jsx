@@ -6,7 +6,7 @@ import { IoMdClose } from "react-icons/io";
 import axios from "axios";
 
 function UpdateItemModal({ onClose, item, fetchitems }) {
-  console.log(item);
+  //console.log(item);
   const [amount, setamount] = useState("");
 
   const handleupdateamount = async () => {
@@ -17,7 +17,7 @@ function UpdateItemModal({ onClose, item, fetchitems }) {
           item_id: item._id,
           amount: amount,
         });
-        console.log(res);
+        //console.log(res);
         if (res.data.success) {
           toast.dismiss();
           fetchitems();

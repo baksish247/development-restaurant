@@ -43,13 +43,13 @@ const InventoryItems = ({ user }) => {
   const currentItems = items.slice(indexOfFirstItem, indexOfLastItem);
 
   const fetchitems = async () => {
-    console.log(user.restaurantid);
+    //console.log(user.restaurantid);
     try {
       const res = await axios.post("/api/fetchinventoryitems", {
         restaurant_id: user.restaurantid,
       });
       if (res.data.success) {
-        console.log(res.data.data);
+        //console.log(res.data.data);
         settotalPages(Math.ceil(res.data.data.length / itemsPerPage));
         setitems(res.data.data);
       }

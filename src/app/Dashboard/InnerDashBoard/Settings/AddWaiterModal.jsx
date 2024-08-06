@@ -50,7 +50,7 @@ const AddWaiterModalForm = ({ onClose, restaurantid, currentWaiter }) => {
             resetForm();
             onClose();
           }, 1000);
-          console.log(restaurantid)
+          //console.log(restaurantid)
         }
       } catch (e) {
         toast.error(`Error ${currentWaiter ? "updating" : "adding"} staff`);

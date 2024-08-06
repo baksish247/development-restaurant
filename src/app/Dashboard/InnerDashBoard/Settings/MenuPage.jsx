@@ -23,9 +23,9 @@ function MenuPage() {
         restaurant_id: restaurantid,
       });
       if (data.success) {
-        console.log("inventory items names:", data.data);
+        //console.log("inventory items names:", data.data);
         const items_names = data.data.map((item) => item.item_name);
-        console.log(items_names);
+       // console.log(items_names);
         return items_names;
       }
     } catch (error) {

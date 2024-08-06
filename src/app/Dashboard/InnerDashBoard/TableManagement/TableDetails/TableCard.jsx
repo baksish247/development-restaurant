@@ -37,7 +37,7 @@ function TableCard({
   const openViewOrderModal = () => {
     setopenViewModal(true);
     setselectedOrder(table.orderdetails[0]);
-    console.log(table.orderdetails[0]);
+   // console.log(table.orderdetails[0]);
   };
 
   const closeViewOrderModal = () => {
@@ -49,7 +49,7 @@ function TableCard({
     if(confirm('Are you sure you want to mark this as unreserved?')){
     toast.loading("Marking as unreserved");
     const res=await axios.post("/api/reservetable",{table_number:table.number,restaurant_id: restaurantid,reserve:false})
-    console.log(res.data);
+   // console.log(res.data);
     if(res.data.success){
       toast.dismiss();
       toast.success("Marked as unreserved");

@@ -6,7 +6,7 @@ const handler= async(req,res) => {
         if(req.method=="POST"){
             const {name,description,category,subcategory,image,resid}=req.body;
             const existing=await GlobalMenu.findOne({name:name});
-            console.log(existing)
+           // console.log(existing)
             if(!existing){
                 const newitem=new GlobalMenu({
                     name,description,category,subcategory,image

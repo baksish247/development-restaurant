@@ -8,7 +8,7 @@ import GenerateBillModal from "./GenerateBillModal";
 function ViewOrder({ onClose, selectedOrder, restaurantinfo ,fetchorder}) {
   const [editorder, seteditorder] = useState(false);
   const [generatebillorder, setgeneratebillorder] = useState(false);
-  console.log(restaurantinfo);
+  //console.log(restaurantinfo);
 
   // const handleOpenEditOrder = () => {
   //   seteditorder(true);

@@ -20,7 +20,7 @@ function MainTemplate({ user }) {
         restaurantid: user.restaurantid,
       });
       if (res_details.data.success) {
-        console.log(res_details.data.data)
+        //console.log(res_details.data.data)
         const numTables = res_details.data.data.nooftables;
         setnooftables(numTables);
         setcgst(res_details.data.data.cgst)
@@ -63,8 +63,8 @@ function MainTemplate({ user }) {
             }
             return table; // Keep the existing orderdetails if no match in reservetables
           });
-          console.log(updatedTablesArray)
-          console.log(finalTablesArray)
+         // console.log(updatedTablesArray)
+          //console.log(finalTablesArray)
           setalltables(finalTablesArray);
           setaddedorder(true);
         }

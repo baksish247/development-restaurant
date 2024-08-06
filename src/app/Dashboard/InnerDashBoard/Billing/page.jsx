@@ -15,7 +15,7 @@ function Page() {
   const setordertobill = (index) => {
     setorderindex(index);
     setIsPanelOpen(true); // Open the side panel when an order is selected
-    console.log(orders[index]);
+    //console.log(orders[index]);
   };
   const fetchorders = async (resid) => {
     const { data } = await axios.post("/api/fetchallordersbyid", {
@@ -31,7 +31,7 @@ function Page() {
         restaurantid: resid,
       });
       if (res_details.data.success) {
-        console.log(res_details.data.data);
+        //console.log(res_details.data.data);
         setrestaurantinfo({
           cgst: res_details.data.data.cgst,
           sgst: res_details.data.data.sgst,

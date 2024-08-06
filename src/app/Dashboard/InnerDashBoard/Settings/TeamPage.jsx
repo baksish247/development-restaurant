@@ -26,14 +26,14 @@ function TeamPage() {
 
   const fetchWaiters = async () => {
     try {
-      console.log(restaurantid)
+     // console.log(restaurantid)
       const response = await axios.post("/api/getwaiters", {
         restaurant_id: restaurantid,
       });
-      console.log(response.data)
+      //console.log(response.data)
       if (response.data.success) {
         setWaiters(response.data.data);
-        console.log(response.data.data);
+       // console.log(response.data.data);
       }
       setLoading(false);
     } catch (e) {

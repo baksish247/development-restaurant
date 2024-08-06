@@ -134,7 +134,7 @@ function page() {
   const getwaiterdetails = async (resid) => {
     const res = await axios.post("/api/getwaiters", { restaurant_id: resid });
     if (res.data.success) {
-      console.log(res.data.data);
+      //console.log(res.data.data);
       setnoofwaiters(res.data.data.length);
       const presentwaiters = res.data?.data.filter(
         (waiter) => waiter.ispresent === true
@@ -148,7 +148,7 @@ function page() {
         restaurant_id: resid,
       });
       if (orderres.data.success) {
-        console.log(orderres.data.data);
+        //console.log(orderres.data.data);
         const allOrders = orderres.data.data;
         const waiterNames = new Set(); // Use a Set to avoid duplicate names
 
@@ -159,12 +159,12 @@ function page() {
 
         // Convert Set to Array and store in state
         setAssignedWaiterNames(Array.from(waiterNames));
-        console.log(presentwaiters);
-        console.log(waiterNames);
+        //console.log(presentwaiters);
+        //console.log(waiterNames);
         const freewaiters = new Set();
         presentwaiters.forEach((waiter) => {
           if (!waiterNames.has(waiter.username)) {
-            console.log(waiter);
+            //console.log(waiter);
             freewaiters.add(waiter.username);
           }
         });
@@ -191,7 +191,7 @@ function page() {
       );
       const weeklsales = getWeeklyTotalSales(paidOrdersweekly);
       setweekwisesales(weeklsales);
-      console.log(weeklsales);
+      //console.log(weeklsales);
       // Step 2: Create a map to accumulate revenue by hour
       const revenueByHour = paidOrders.reduce((acc, order) => {
         const hour = new Date(order.createdAt).getHours();
@@ -241,7 +241,7 @@ function page() {
   const fetchtipamount = async(resid)=>{
     try {
       const { data } = await axios.post("/api/fetchalltip", { restaurant_id: resid });
-      console.log("tip",data);
+      //console.log("tip",data);
       
       settotaltip(data?.total || 0);
     } catch (error) {
