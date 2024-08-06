@@ -436,7 +436,7 @@ function FinalBill({
           item.items
             .map(
               (i) =>
-                `${i.food.name} x ${i.quantity} @ ${i.food.price} = ${
+                `${i.food.name.toUpperCase()} x ${i.quantity} @ ${i.food.price} = ${
                   i.quantity * i.food.price
                 }`
             )

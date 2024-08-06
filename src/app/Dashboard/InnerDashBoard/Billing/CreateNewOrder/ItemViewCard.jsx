@@ -49,7 +49,7 @@ function ItemViewCard({ item }) {
       className={`border-b border-gray-300 py-2 cursor-pointer flex justify-between space-x-4 items-center pr-1 `}
     >
       <div>
-        <p className="font-semibold">{item.name}</p>
+        <p className="font-semibold capitalize">{item.name}</p>
         <p>{item.description}</p>
       </div>
       <button className="outline px-2 rounded-md">

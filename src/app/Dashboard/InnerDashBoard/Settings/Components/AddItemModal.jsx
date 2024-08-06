@@ -5,6 +5,7 @@ import axios from "axios";
 import { useAuth } from "@/app/Context/AuthContext";
 import Spinner from "./Spinner"; // Assuming you have a Spinner component
 import { IoMdArrowDropdown } from "react-icons/io";
+import { CldUploadWidget } from "next-cloudinary";
 
 const CustomDropdown = ({ options, value, onChange }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -231,16 +232,24 @@ setInventoryHashMap(itemsMap);
     }
   }, [items, inventoryhashmap]);
 
-  const handleImageChange = async (event) => {
-    const file = event.target.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        resizeImage(reader.result, (resizedImage) => {
-          setItemImage(resizedImage || "");
-        });
-      };
-      reader.readAsDataURL(file);
+  // const handleImageChange = async (event) => {
+  //   const file = event.target.files[0];
+  //   if (file) {
+  //     const reader = new FileReader();
+  //     reader.onloadend = () => {
+  //       resizeImage(reader.result, (resizedImage) => {
+  //         setItemImage(resizedImage || "");
+  //       });
+  //     };
+  //     reader.readAsDataURL(file);
+  //   }
+  // };
+
+  const handleImageUpload = (result) => {
+    if (result.event === 'success') {
+      const url = result.info.secure_url;
+      setItemImage(url);
+      setImageUrl(url);
     }
   };
 
@@ -250,35 +259,35 @@ setInventoryHashMap(itemsMap);
     setItemImage(url);
   };
 
-  const resizeImage = (base64Str, callback) => {
-    const img = new Image();
-    img.src = base64Str;
-    img.onload = () => {
-      const MAX_WIDTH = 800;
-      const MAX_HEIGHT = 800;
-      let width = img.width;
-      let height = img.height;
+  // const resizeImage = (base64Str, callback) => {
+  //   const img = new Image();
+  //   img.src = base64Str;
+  //   img.onload = () => {
+  //     const MAX_WIDTH = 800;
+  //     const MAX_HEIGHT = 800;
+  //     let width = img.width;
+  //     let height = img.height;
 
-      if (width > height) {
-        if (width > MAX_WIDTH) {
-          height = Math.round((height *= MAX_WIDTH / width));
-          width = MAX_WIDTH;
-        }
-      } else {
-        if (height > MAX_HEIGHT) {
-          width = Math.round((width *= MAX_HEIGHT / height));
-          height = MAX_HEIGHT;
-        }
-      }
+  //     if (width > height) {
+  //       if (width > MAX_WIDTH) {
+  //         height = Math.round((height *= MAX_WIDTH / width));
+  //         width = MAX_WIDTH;
+  //       }
+  //     } else {
+  //       if (height > MAX_HEIGHT) {
+  //         width = Math.round((width *= MAX_HEIGHT / height));
+  //         height = MAX_HEIGHT;
+  //       }
+  //     }
 
-      const canvas = document.createElement("canvas");
-      canvas.width = width;
-      canvas.height = height;
-      const ctx = canvas.getContext("2d");
-      ctx.drawImage(img, 0, 0, width, height);
-      callback(canvas.toDataURL("image/jpeg", 0.7)); // Adjust the quality if needed
-    };
-  };
+  //     const canvas = document.createElement("canvas");
+  //     canvas.width = width;
+  //     canvas.height = height;
+  //     const ctx = canvas.getContext("2d");
+  //     ctx.drawImage(img, 0, 0, width, height);
+  //     callback(canvas.toDataURL("image/jpeg", 0.7)); // Adjust the quality if needed
+  //   };
+  // };
 
   const handleAddIngredient = () => {
     setIngredients([
@@ -329,7 +338,7 @@ setInventoryHashMap(itemsMap);
     await convert();
     try {
       await axios.post("/api/createnewcategoryitem", {
-        name: itemName,
+        name: itemName.toLowerCase(),
         restaurant_id: restaurant_id,
         price: itemPrice,
         category: itemCategory,
@@ -359,6 +368,17 @@ setInventoryHashMap(itemsMap);
       setbuttonclicked(false);
     }
   };
+
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [isOpen]);
 
   if (!isOpen) return null;
 
@@ -409,7 +429,7 @@ setInventoryHashMap(itemsMap);
                     }`}
                     onClick={() => handleItemClick(item)}
                   >
-                    <p className="font-semibold">{item.name}</p>
+                    <p className="font-semibold capitalize">{item.name}</p>
                     <p>{item.description}</p>
                   </div>
                 ))
@@ -432,16 +452,26 @@ setInventoryHashMap(itemsMap);
                     className="max-h-32 mx-auto"
                   />
                 ) : (
-                  "Add Item Images"
+                  <CldUploadWidget onUpload={handleImageUpload}>
+                      {({ open }) => (
+                        <button
+                          type="button"
+                          onClick={() => open()}
+                          className=" text-zinc-800 px-4 py-2 rounded-md"
+                        >
+                          + Upload Item Image
+                        </button>
+                      )}
+                    </CldUploadWidget>
                 )}
               </label>
-              <input
+              {/* <input
                 id="itemImageInput"
                 type="file"
                 accept="image/*"
                 className="hidden"
                 onChange={handleImageChange}
-              />
+              /> */}
               <input
                 type="text"
                 placeholder="Paste Image URL"
@@ -598,7 +628,7 @@ setInventoryHashMap(itemsMap);
                   >
                     <option value="">Select Ingredient</option>
                     {inventoryItems.map((item) => (
-                      <option key={item.id} value={item.id}>
+                      <option key={item.id} value={item.id} className="capitalize">
                         {item.name}
                       </option>
                     ))}

@@ -154,7 +154,7 @@ const GenerateBillModal = ({
                         <span key={j}>
                           {orderitems.items.map((item, k) => (
                             <div key={k} className="flex justify-between">
-                              <span>
+                              <span className="capitalize">
                                 {item.food.name}&nbsp;&nbsp;x {item.quantity}
                               </span>
                               <span>

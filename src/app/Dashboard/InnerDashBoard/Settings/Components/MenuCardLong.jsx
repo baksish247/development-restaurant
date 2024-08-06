@@ -56,13 +56,13 @@ function MenuCardLong({ item, onItemAdded, onItemDeleted, onItemEdited ,restaura
       <div className="flex justify-center items-center">
         <img 
           src={item?.image} 
-          className="w-full h-[150px] object-cover rounded-md" 
+          className="w-full h-[150px] object-cover rounded-md capitalize" 
           alt={item.name} 
         />
       </div>
       <div className="grid grid-cols-4 justify-items-stretch items-center my-2">
         <h3
-          className="font-semibold text-base text-zinc-800 col-span-3 truncate"
+          className="font-semibold text-base capitalize text-zinc-800 col-span-3 truncate"
           title={item.name}
         >
           {item.name}

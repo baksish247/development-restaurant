@@ -6,6 +6,7 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import Resizer from "react-image-file-resizer";
 import { IoMdClose } from "react-icons/io";
+import { CldUploadWidget } from "next-cloudinary";
 
 const waiterValidationSchema = Yup.object().shape({
   image: Yup.mixed().required("Image is required"),
@@ -74,21 +75,28 @@ const AddWaiterModalForm = ({ onClose, restaurantid, currentWaiter }) => {
     }
   }, [currentWaiter]);
 
-  const handleImageChange = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      Resizer.imageFileResizer(
-        file,
-        300,
-        300,
-        "JPEG",
-        100,
-        0,
-        (uri) => {
-          formik.setFieldValue("image", uri);
-        },
-        "base64"
-      );
+  // const handleImageChange = (e) => {
+  //   const file = e.target.files[0];
+  //   if (file) {
+  //     Resizer.imageFileResizer(
+  //       file,
+  //       300,
+  //       300,
+  //       "JPEG",
+  //       100,
+  //       0,
+  //       (uri) => {
+  //         formik.setFieldValue("image", uri);
+  //       },
+  //       "base64"
+  //     );
+  //   }
+  // };
+
+  const handleImageUpload = (result) => {
+    if (result.event === 'success') {
+      const url = result.info.secure_url;
+      formik.setFieldValue("image", url);
     }
   };
 
@@ -109,13 +117,24 @@ const AddWaiterModalForm = ({ onClose, restaurantid, currentWaiter }) => {
               <label className="block text-[#440129] font-semibold mb-2">
                 Image
               </label>
-              <input
+              {/* <input
                 type="file"
                 accept="image/*"
                 onChange={handleImageChange}
                 className="block w-full text-[#440129]"
                 disabled={loading}
-              />
+              /> */}
+              <CldUploadWidget onUpload={handleImageUpload}>
+                      {({ open }) => (
+                        <button
+                          type="button"
+                          onClick={() => open()}
+                          className=" text-white bg-zinc-700 px-4 py-1 rounded-md"
+                        >
+                          + Upload photo
+                        </button>
+                      )}
+                    </CldUploadWidget>
               {formik.values.image && (
                 <img
                   src={formik.values.image}

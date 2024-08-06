@@ -63,7 +63,7 @@ function BillviewSection({ orders, orderindex, restaurantinfo, fetchorder }) {
                       key={`${i}-${j}`}
                       className="bg-white drop-shadow-md min-h-10 h-fit w-full rounded p-3 grid grid-cols-4 items-center"
                     >
-                      <span className="col-span-2">{item.food?.name}</span>
+                      <span className="col-span-2 capitalize">{item.food?.name}</span>
                       <span>Qty: {item?.quantity}</span>
                       <span className="text-right"> ₹ {(parseFloat(item?.food?.price)*parseFloat(item?.quantity)).toFixed(2)}</span>
                     </div>

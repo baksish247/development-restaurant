@@ -104,7 +104,7 @@ const Analytics = ({
               <div className="space-y-2">
                 {mostsolditems[key].map((item, i) => (
                   <div key={i} className="p-2 border-b border-gray-200">
-                    <div className="font-medium">{item.name}</div>
+                    <div className="font-medium capitalize">{item.name}</div>
                     <div className="text-sm text-gray-600">Quantity: {item.totalQuantity}</div>
                   </div>
                 ))}

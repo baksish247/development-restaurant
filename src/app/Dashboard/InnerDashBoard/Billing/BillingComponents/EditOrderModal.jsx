@@ -118,7 +118,7 @@ function EditOrderModal({ onClose, order, restaurantinfo , fetchorder}) {
                   deleteitems.includes(item._id) ? "line-through" : ""
                 }`}
               >
-                <span>{item.food.name}</span>
+                <span className="capitalize">{item.food.name}</span>
                 <span>
                   <div className="flex items-center justify-center space-x-2">
                     <div className="flex rounded-md border-2 border-black shadow-inner justify-center text-center w-24 h-8 items-center">

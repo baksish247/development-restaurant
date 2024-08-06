@@ -175,7 +175,7 @@ const CreateOrderMoodle = ({ openflag, onClose, fetchorders }) => {
                 className="drop-shadow-lg flex border-b-2 justify-between items-center bg-white h-20 w-full p-2"
               >
                 <div>
-                  <p>Name: {item?.name}</p>
+                  <p>Name: <span className="capitalize">{item?.name}</span></p>
                   <p>Price: {item?.price}</p>
                 </div>
                 <div className="flex justify-center items-center space-x-4">
