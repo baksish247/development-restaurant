@@ -306,6 +306,7 @@ const AddItemModal = ({ items, edit, isOpen, onClose, onItemAdded }) => {
     const restaurant_id = user.restaurantid;
     // Basic validation
     if (!itemName || !itemPrice  || !itemImage) {
+      setbuttonclicked(false);
       setErrorMessage("Please fill in all fields and provide an image.");
       return;
     }
@@ -343,6 +344,8 @@ const AddItemModal = ({ items, edit, isOpen, onClose, onItemAdded }) => {
       onClose();
     } catch (error) {
       console.error("Error adding item:", error);
+    }finally{
+      setbuttonclicked(false);
     }
   };
 
