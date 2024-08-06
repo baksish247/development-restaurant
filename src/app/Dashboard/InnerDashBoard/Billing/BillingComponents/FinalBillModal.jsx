@@ -166,7 +166,7 @@ function FinalBill({
               background-color: #f5f5f5;
               margin: 0;
               padding: 0;
-              width: 4in; /* Set width for 4-inch thermal label printer */
+              width: 80mm; /* Set width for 4-inch thermal label printer */
               height: 100%; /* Set height for 6-inch thermal label printer */
           }
   
