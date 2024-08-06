@@ -126,7 +126,6 @@ function MenuPage() {
     "Noodle",
     "Sea Food",
     "Thai Curries",
-    "Chinese",
     "Beverages",
     "Appetizer",
     "Beers",

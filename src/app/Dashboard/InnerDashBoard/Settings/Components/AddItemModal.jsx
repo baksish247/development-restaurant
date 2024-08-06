@@ -21,8 +21,10 @@ const CustomDropdown = ({ options, value, onChange }) => {
         onClick={() => setIsOpen(!isOpen)}
         className="mt-1 flex items-center  text-left w-full border border-gray-300 rounded-md p-2"
       >
-        {value || 'Select an option'}
-        <span className="absolute right-2 "><IoMdArrowDropdown/></span>
+        {value || "Select an option"}
+        <span className="absolute right-2 ">
+          <IoMdArrowDropdown />
+        </span>
       </button>
       {isOpen && (
         <ul className="absolute z-10 mt-1 w-full border border-gray-300 rounded-md bg-white max-h-56 overflow-y-auto">
@@ -43,7 +45,7 @@ const CustomDropdown = ({ options, value, onChange }) => {
 
 const AddItemModal = ({ items, edit, isOpen, onClose, onItemAdded }) => {
   const { user } = useAuth();
-  
+
   const [globalMenuItems, setGlobalMenuItems] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -57,7 +59,7 @@ const AddItemModal = ({ items, edit, isOpen, onClose, onItemAdded }) => {
   const [imageUrl, setImageUrl] = useState("");
   const [itemInventory, setitemInventory] = useState([]);
   const [errorMessage, setErrorMessage] = useState("");
-  const [buttonclicked, setbuttonclicked] = useState(false)
+  const [buttonclicked, setbuttonclicked] = useState(false);
   const [loading, setLoading] = useState(true);
 
   const options = [
@@ -144,40 +146,43 @@ const AddItemModal = ({ items, edit, isOpen, onClose, onItemAdded }) => {
     "Waffles",
     "Wraps",
     "Qorma",
-    "Restaurant Special"
+    "Restaurant Special",
   ];
 
-  const vegchoice=['Veg','Non Veg']
-  
+  const vegchoice = ["Veg", "Non Veg"];
+
   // State for inventory ingredients
   const [inventoryItems, setInventoryItems] = useState([]);
   const [ingredients, setIngredients] = useState([
-    { ingredient: "",name:"", quantity: "" },
+    { ingredient: "", name: "", quantity: "" },
   ]);
-  const [inventoryhashmap, setInventoryHashMap] = useState({})
+  const [inventoryhashmap, setInventoryHashMap] = useState({});
   const fetchInventoryItemsNames = async () => {
-    
     try {
       const { data } = await axios.post("/api/fetchinventoryitems", {
         restaurant_id: user.restaurantid,
       });
       if (data.success) {
-        console.log(data.data)
+        console.log(data.data);
         const itemsNames = data.data
-          .filter((item) => item.type === "Measurable")
-          .map((item) => ({
-            id: item._id,
-            name: item.item_name,
-          }));
-        setInventoryItems(itemsNames);
-        const itemsMap = data.data
-          .filter((item) => item.type === "Measurable")
-          .reduce((acc, item) => {
-            acc[item._id] = item.item_name;
-            return acc;
-          }, {});
+  .filter((item) => item.type === "Measurable")
+  .map((item) => ({
+    id: item._id,
+    name: item.item_name,
+  }))
+  .sort((a, b) => a.name.localeCompare(b.name)); // Sort the items by name
 
-        setInventoryHashMap(itemsMap);
+setInventoryItems(itemsNames);
+
+const itemsMap = data.data
+  .filter((item) => item.type === "Measurable")
+  .reduce((acc, item) => {
+    acc[item._id] = item.item_name;
+    return acc;
+  }, {});
+
+setInventoryHashMap(itemsMap);
+
       }
     } catch (error) {
       console.error("Error fetching inventory items names:", error);
@@ -220,11 +225,11 @@ const AddItemModal = ({ items, edit, isOpen, onClose, onItemAdded }) => {
         items.ingredients?.map((ingredient) => ({
           ingredient: ingredient.ingredient,
           name: inventoryhashmap[ingredient.ingredient],
-          quantity: parseFloat(ingredient.quantity)*1000,
+          quantity: parseFloat(ingredient.quantity) * 1000,
         })) ?? []
       );
     }
-  }, [items,inventoryhashmap]);
+  }, [items, inventoryhashmap]);
 
   const handleImageChange = async (event) => {
     const file = event.target.files[0];
@@ -276,7 +281,10 @@ const AddItemModal = ({ items, edit, isOpen, onClose, onItemAdded }) => {
   };
 
   const handleAddIngredient = () => {
-    setIngredients([...ingredients, { ingredient: "",name:"", quantity: "" }]);
+    setIngredients([
+      ...ingredients,
+      { ingredient: "", name: "", quantity: "" },
+    ]);
   };
 
   const handleRemoveIngredient = (index) => {
@@ -285,19 +293,20 @@ const AddItemModal = ({ items, edit, isOpen, onClose, onItemAdded }) => {
   };
 
   const handleIngredientChange = (index, field, value) => {
-    if(field=='ingredient'){
-      const name=inventoryhashmap[value];
-    const newIngredients = ingredients.map((ingredient, i) =>
-      i === index ? { ...ingredient, ingredient: value ,name:name} : ingredient
-    );
-    setIngredients(newIngredients);
-  }
-  else{
-    const newIngredients = ingredients.map((ingredient, i) =>
-      i === index ? { ...ingredient, [field]: value } : ingredient
-    );
-    setIngredients(newIngredients);
-  }
+    if (field == "ingredient") {
+      const name = inventoryhashmap[value];
+      const newIngredients = ingredients.map((ingredient, i) =>
+        i === index
+          ? { ...ingredient, ingredient: value, name: name }
+          : ingredient
+      );
+      setIngredients(newIngredients);
+    } else {
+      const newIngredients = ingredients.map((ingredient, i) =>
+        i === index ? { ...ingredient, [field]: value } : ingredient
+      );
+      setIngredients(newIngredients);
+    }
   };
 
   const handleSubmit = async (event) => {
@@ -305,16 +314,18 @@ const AddItemModal = ({ items, edit, isOpen, onClose, onItemAdded }) => {
     event.preventDefault();
     const restaurant_id = user.restaurantid;
     // Basic validation
-    if (!itemName || !itemPrice  || !itemImage) {
+    if (!itemName || !itemPrice || !itemImage) {
       setbuttonclicked(false);
       setErrorMessage("Please fill in all fields and provide an image.");
       return;
     }
-    const convert=async()=>{
-      for(var i = 0; i < ingredients.length; i++){
-        ingredients[i].quantity=(parseFloat(ingredients[i].quantity)/1000.0).toFixed(3);
+    const convert = async () => {
+      for (var i = 0; i < ingredients.length; i++) {
+        ingredients[i].quantity = (
+          parseFloat(ingredients[i].quantity) / 1000.0
+        ).toFixed(3);
       }
-    }
+    };
     await convert();
     try {
       await axios.post("/api/createnewcategoryitem", {
@@ -339,12 +350,12 @@ const AddItemModal = ({ items, edit, isOpen, onClose, onItemAdded }) => {
       setItemDescription("");
       setItemImage("");
       setImageUrl("");
-      setIngredients([{ ingredient: "",name:"", quantity: "" }]);
+      setIngredients([{ ingredient: "", name: "", quantity: "" }]);
       setErrorMessage("");
       onClose();
     } catch (error) {
       console.error("Error adding item:", error);
-    }finally{
+    } finally {
       setbuttonclicked(false);
     }
   };
@@ -566,56 +577,65 @@ const AddItemModal = ({ items, edit, isOpen, onClose, onItemAdded }) => {
               <FaPlus /> Add Ingredient
             </button> */}
             <div className="mb-4">
-                <h3 className="font-semibold mb-2">Ingredients <span className="font-normal">(Enter quantity in grams only*)</span></h3>
-                {ingredients.map((ingredient, index) => (
-                  <div key={index} className="flex items-center mb-2">
-                    <select
-                      value={ingredient.ingredient}
-                      onChange={(e) =>
-                        handleIngredientChange(index, "ingredient", e.target.value)
-                      }
-                      className="px-4 border-2 py-3 rounded-md flex-1 mr-2"
-                    >
-                      <option value="">Select Ingredient</option>
-                      {inventoryItems.map((item) => (
-                        <option key={item.id} value={item.id}>
-                          {item.name}
-                        </option>
-                      ))}
-                    </select>
-                    <input
-                      type="text"
-                      placeholder="Quantity"
-                      value={ingredient.quantity}
-                      onChange={(e) =>
-                        handleIngredientChange(index, "quantity", e.target.value)
-                      }
-                      className="px-4 border-2 py-3 rounded-md w-[40%] mr-2"
-                    />
-                    <button
-                      type="button"
-                      onClick={() => handleRemoveIngredient(index)}
-                      className="text-red-500 hover:text-red-700"
-                    >
-                      <FaTrash />
-                    </button>
-                  </div>
-                ))}
-                <button
-                  type="button"
-                  onClick={handleAddIngredient}
-                  className="mt-2 text-blue-500 hover:text-blue-700 flex items-center"
-                >
-                  <FaPlus className="mr-1" /> Add Ingredient
-                </button>
-              </div>
+              <h3 className="font-semibold mb-2">
+                Ingredients{" "}
+                <span className="font-normal">
+                  (Enter quantity in grams only*)
+                </span>
+              </h3>
+              {ingredients.map((ingredient, index) => (
+                <div key={index} className="flex items-center mb-2">
+                  <select
+                    value={ingredient.ingredient}
+                    onChange={(e) =>
+                      handleIngredientChange(
+                        index,
+                        "ingredient",
+                        e.target.value
+                      )
+                    }
+                    className="px-4 border-2 py-3 rounded-md flex-1 mr-2"
+                  >
+                    <option value="">Select Ingredient</option>
+                    {inventoryItems.map((item) => (
+                      <option key={item.id} value={item.id}>
+                        {item.name}
+                      </option>
+                    ))}
+                  </select>
+                  <input
+                    type="text"
+                    placeholder="Quantity"
+                    value={ingredient.quantity}
+                    onChange={(e) =>
+                      handleIngredientChange(index, "quantity", e.target.value)
+                    }
+                    className="px-4 border-2 py-3 rounded-md w-[40%] mr-2"
+                  />
+                  <button
+                    type="button"
+                    onClick={() => handleRemoveIngredient(index)}
+                    className="text-red-500 hover:text-red-700"
+                  >
+                    <FaTrash />
+                  </button>
+                </div>
+              ))}
+              <button
+                type="button"
+                onClick={handleAddIngredient}
+                className="mt-2 text-blue-500 hover:text-blue-700 flex items-center"
+              >
+                <FaPlus className="mr-1" /> Add Ingredient
+              </button>
+            </div>
             {errorMessage && <div className="text-red-500">{errorMessage}</div>}
             <button
               type="submit"
               disabled={buttonclicked}
               className="w-full px-4 bg-amber-500 disabled:cursor-not-allowed disabled:bg-amber-600 text-white py-3 rounded-md"
             >
-              {buttonclicked ? "Saving Item":"Save Item"}
+              {buttonclicked ? "Saving Item" : "Save Item"}
             </button>
           </form>
         </div>
