@@ -12,8 +12,8 @@ const poppins = Poppins({
 });
 
 export const metadata = {
-  title: "Reataurant Dashboard",
-  description: "Balksish REstaurant Dashboard (baksish.in)",
+  title: "Restaurant Dashboard",
+  description: "Baksish Restaurant Dashboard",
 };
 
 export default function RootLayout({ children }) {
