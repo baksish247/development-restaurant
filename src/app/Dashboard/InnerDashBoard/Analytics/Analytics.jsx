@@ -39,7 +39,7 @@ const Analytics = ({
                 Orders: {total_order}
               </div>
               <div className="text-lg font-medium">
-                Revenue: <span className="font-semibold">₹ {parseFloat(total_revenue)?.toFixed(2}</span>
+                Revenue: <span className="font-semibold">₹ {parseFloat(total_revenue)?.toFixed(2)}</span>
               </div>
             </div>
             {total_tip_collected !== undefined && (
