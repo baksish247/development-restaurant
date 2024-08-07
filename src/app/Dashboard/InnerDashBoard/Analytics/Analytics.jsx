@@ -39,7 +39,7 @@ const Analytics = ({
                 Orders: {total_order}
               </div>
               <div className="text-lg font-medium">
-                Revenue: <span className="font-semibold">₹ {total_revenue}</span>
+                Revenue: <span className="font-semibold">₹ {parseFloat(total_revenue)?.toFixed(2}</span>
               </div>
             </div>
             {total_tip_collected !== undefined && (
@@ -94,7 +94,7 @@ const Analytics = ({
         </div>
 
         {/* Most Sold Items */}
-        <div className="bg-white p-4 rounded-lg shadow-md overflow-auto">
+        <div className="bg-white max-h-[600px] p-4 rounded-lg shadow-md overflow-auto">
           <h2 className="text-xl font-semibold mb-4">Most Sold Items</h2>
           {Object.keys(mostsolditems).map((key) => (
             <div key={key} className="mb-4">
