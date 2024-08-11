@@ -9,6 +9,7 @@ import NotificationsPage from "./Notifications";
 import ContactPage from "./Contactpage";
 import { useAuth } from "@/app/Context/AuthContext";
 import { useRouter } from "next/navigation";
+import Events from "./Events";
 
 function Page() {
   const { user, loading } = useAuth();
@@ -49,6 +50,8 @@ function Page() {
         return <PlanPage />;
       case "Notifications":
         return <NotificationsPage />;
+        case "Events":
+          return <Events />;
       default:
         return <ProfilePage />;
     }
@@ -57,7 +60,7 @@ function Page() {
   return (
     <div className="px-4 mt-4 lg:px-10">
       <nav className="w-full bg-zinc-200 rounded-md flex lg:flex-nowrap flex-wrap justify-between lg:justify-start items-center">
-        {["Profile", "Menu", "Team", "Plan", "Notifications"].map(
+        {["Profile", "Menu", "Team", "Plan", "Notifications","Events"].map(
           (item) => (
             <span
               key={item}
