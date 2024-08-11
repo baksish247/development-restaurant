@@ -52,7 +52,7 @@ const Analytics = ({
             )}
           </div>
           {/* Time vs Revenue Chart */}
-          <div className="bg-zinc-100 p-4 rounded-lg shadow-sm mt-4">
+          <div className="bg-zinc-100  p-4 rounded-lg shadow-sm mt-4">
             <h2 className="text-xl font-semibold mb-4">Time vs Revenue</h2>
             <div className="w-full h-[300px] overflow-x-auto">
               <LineChart
@@ -94,7 +94,11 @@ const Analytics = ({
         </div>
 
         {/* Most Sold Items */}
+<<<<<<< HEAD
         <div className="bg-white p-4 h-[600px] rounded-lg shadow-md overflow-auto">
+=======
+        <div className="bg-white p-4 rounded-lg max-h-[600px] shadow-md overflow-auto">
+>>>>>>> ef999a6ef3c3e171702bc0c6292ce50fb53cf098
           <h2 className="text-xl font-semibold mb-4">Most Sold Items</h2>
           {Object.keys(mostsolditems).map((key) => (
             <div key={key} className="mb-4">

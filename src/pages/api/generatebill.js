@@ -15,9 +15,12 @@ const handler = async (req, res) => {
         discountdescription,
         total_amount,
       } = req.body;
+      const currentTime = new Date();
       const order = await Orders.findOne({ order_id });
       let billno;
       if (order) {
+        const timeDifference = currentTime - order.createdAt;
+        const differenceInMinutes = Math.floor(timeDifference / (1000 * 60));
         const existingbill = await CompletedOrders.findOne({
           order_id: order_id,
         });
@@ -36,6 +39,7 @@ const handler = async (req, res) => {
               discount_description: discountdescription,
               total_bill: total_amount,
               order_status: "billgenerated",
+              time_taken_total:differenceInMinutes
             },{new:true}
           );
           if(u){
@@ -84,6 +88,7 @@ const handler = async (req, res) => {
             discount_description: discountdescription,
             total_bill: total_amount,
             order_status: "billgenerated",
+            time_taken_total:differenceInMinutes
           };
           const confirmorder = new CompletedOrders(u);
           const result = await confirmorder.save();

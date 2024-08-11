@@ -425,7 +425,8 @@ function FinalBill({
     }, 1000);
   };
 
-  const sendbilltophone = () => {
+    const sendbilltophone = async() => {
+      await axios.post('/api/sendbilltophone',{order_id:selectedOrder.order_id,phone:customerphone_no})
     const url = `https://wa.me/${customerphone_no}?text=${encodeURIComponent(
       `Hello! Here is your bill:\n\nRestaurant: ${
         restaurantinfo.restaurantname
@@ -626,17 +627,19 @@ function FinalBill({
               <span>Print Bill</span>
             </button>
           </div>
-          <div className="flex pb-4 justify-between items-center">
+          <div className="mb-2 w-full">
             <input
               type="tel"
               value={customerphone_no}
               onChange={(e) => setcustomerphone_no(e.target.value)}
               placeholder="Customer's Phone Number"
-              className="px-4 w-60 py-2 border border-gray-400 rounded-md focus:outline-none focus:ring-2 focus:ring-gray-400 mr-2"
+              className="px-4 w-full py-2 border text-center border-gray-400 rounded-md "
             />
+            </div>
+            <div className="text-center">
             <button
               onClick={sendbilltophone}
-              className="flex items-center space-x-1 px-4 py-2 border border-gray-400 bg-gray-100 rounded-md hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-400"
+              className="space-x-1  w-full py-2 text-white border  bg-amber-500 rounded-md hover:bg-amber-400 "
             >
               <span>Send e-bill</span>
             </button>
