@@ -11,21 +11,38 @@ jobs:
     steps:
       - name: Checkout source
         uses: actions/checkout@v4
+
       - name: Create .env file
-        run: echo "MONGO_PASSWORD=${{ secrets.MONGO_PASSWORD }}" >> .env && echo "SITE_URL=${{ secrets.SITE_URL }}" >> .env 
+        run: |
+          echo "MONGODB_URI=mongodb+srv://nandibibaswan19:${{ secrets.MONGO_PASSWORD }}@cluster0.rlr4xvv.mongodb.net/trial?retryWrites=true&w=majority&appName=Cluster0" >> .env
+          echo "NEXT_PUBLIC_QR_URL=${{ secrets.NEXT_PUBLIC_QR_URL }}" >> .env
+          echo "NEXT_PUBLIC_VERCEL_URL=${{ secrets.NEXT_PUBLIC_VERCEL_URL }}" >> .env
+          echo "JWT_SECRET_KEY=${{ secrets.JWT_SECRET_KEY }}" >> .env
+          echo "NODEMAILER_API_KEY=${{ secrets.NODEMAILER_API_KEY }}" >> .env
+          echo "EMAIL_USER=${{ secrets.EMAIL_USER }}" >> .env
+          echo "NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME=${{ secrets.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME }}" >> .env
+          echo "NEXT_PUBLIC_CLOUDINARY_API_KEY=${{ secrets.NEXT_PUBLIC_CLOUDINARY_API_KEY }}" >> .env
+          echo "CLOUDINARY_API_SECRET=${{ secrets.CLOUDINARY_API_SECRET }}" >> .env
+          echo "NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET=${{ secrets.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET }}" >> .env
+
       - name: Build Docker image
-        run: docker build -t baksish/customer .
+        run: docker build -t baksish/restaurant .
+
       - name: Login to DockerHub
-        run: docker login -u ${{secrets.DOCKER_USERNAME}} -p ${{secrets.DOCKER_PASSWORD}}
+        run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
+
       - name: Push Docker image to Docker Hub
-        run: docker push baksish/customer:latest
+        run: docker push baksish/restaurant:latest
+
   deploy:
     needs: build
     runs-on: self-hosted
     steps:
       - name: Pull Docker image from Docker Hub
-        run: docker pull baksish/customer:latest
-      - name: Delete Old Docker Image
-        run: docker rm -f customer
+        run: docker pull baksish/restaurant:latest
+
+      - name: Delete Old Docker Container
+        run: docker rm -f restaurant
+
       - name: Run Docker Container
-        run: docker run -d -p 3000:3000 --name customer baksish/customer
+        run: docker run -d -p 3000:3000 --env-file .env --name restaurant baksish/restaurant
