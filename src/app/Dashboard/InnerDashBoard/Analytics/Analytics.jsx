@@ -81,7 +81,7 @@ const Analytics = ({
                 <ReferenceLine
                   y={max_order_amount}
                   label={{
-                    value: `Max Order Amount (₹${max_order_amount})`,
+                    value: Max Order Amount (₹${max_order_amount}),
                     position: "top",
                     offset: 10,
                     style: { fontSize: "12px", fill: "red" },
@@ -94,7 +94,6 @@ const Analytics = ({
         </div>
 
         {/* Most Sold Items */}
-        <div className="bg-white p-4 h-[600px] rounded-lg shadow-md overflow-auto">
         <div className="bg-white p-4 rounded-lg max-h-[600px] shadow-md overflow-auto">
           <h2 className="text-xl font-semibold mb-4">Most Sold Items</h2>
           {Object.keys(mostsolditems).map((key) => (
