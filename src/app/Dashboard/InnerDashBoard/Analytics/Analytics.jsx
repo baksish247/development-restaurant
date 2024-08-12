@@ -81,7 +81,7 @@ const Analytics = ({
                 <ReferenceLine
                   y={max_order_amount}
                   label={{
-                    value: Max Order Amount (₹${max_order_amount}),
+                    value: `Max Order Amount (₹${max_order_amount})`,
                     position: "top",
                     offset: 10,
                     style: { fontSize: "12px", fill: "red" },
