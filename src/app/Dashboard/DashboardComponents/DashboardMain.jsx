@@ -14,8 +14,6 @@ import table_management_img from "../../assets/images/table_management.jpg";
 import waiter_management_img from "../../assets/images/waiter_management.jpg";
 import inventory_management_img from "../../assets/images/inventory_management.jpg";
 import analytics_img from "../../assets/images/analytics.jpg";
-import { IoSettingsSharp } from "react-icons/io5";
-import { BiSupport } from "react-icons/bi";
 import { HiMenu, HiX } from "react-icons/hi";
 
 function DashboardMain() {
@@ -47,7 +45,7 @@ function DashboardMain() {
       <Toaster />
       <nav className="lg:flex justify-between lg:px-20 items-center p-2">
         <div className="flex justify-between items-center w-full lg:w-auto">
-          <div className="flex justify-start space-x-2 items-center">
+          <div className="flex items-center space-x-2">
             <Image
               height={100}
               width={100}
@@ -65,36 +63,53 @@ function DashboardMain() {
             {isMenuOpen ? <HiX /> : <HiMenu />}
           </button>
         </div>
-        <ul
-          className={`lg:flex justify-center mr-4 space-x-10 z-50 items-center lg:static absolute right-0 top-14 bg-white rounded-md lg:bg-transparent p-5 lg:p-0 transition-transform ${
-            isMenuOpen ? "block" : "hidden"
-          } lg:block mt-4 lg:mt-0`}
-        >
-          <Link
-            className="cursor-pointer"
-            href={"/Dashboard/InnerDashBoard/PastOrders"}
-          >
-            <li className="font-medium text-lg custom-underline">
+        {isMenuOpen && <div className="bg-white drop-shadow-md h-32 p-3 text-left absolute list-none top-16 right-4 rounded-lg lg:hidden z-50">
+          <Link href={"/Dashboard/InnerDashBoard/PastOrders"}>
+            <li className="font-medium text-lg lg:custom-underline">
               Past Orders
             </li>
           </Link>
 
-          <Link className="cursor-pointer flex items-center" href={"/Support"}>
-            <li className="font-medium text-lg custom-underline">
-              Support
-            </li>
+          <Link href={"/Support"}>
+            <li className="font-medium text-lg lg:custom-underline">Support</li>
           </Link>
-          <Link
-            className="cursor-pointer flex items-center"
-            href={"/Dashboard/InnerDashBoard/Settings"}
-          >
-            <li className="font-medium text-lg custom-underline">
+
+          <Link href={"/Dashboard/InnerDashBoard/Settings"}>
+            <li className="font-medium text-lg lg:custom-underline">
               Settings
             </li>
           </Link>
+
+          <button
+            onClick={Logout}
+            className="cursor-pointer font-medium text-lg lg:custom-underline"
+          >
+            Logout
+          </button>
+          
+          </div>}
+        <ul
+          className={`lg:flex justify-center items-center space-x-10 z-50 lg:static absolute right-0 top-16 bg-white lg:bg-transparent p-5 lg:p-0 rounded-md lg:rounded-none transition-transform hidden`}
+        >
+          <Link href={"/Dashboard/InnerDashBoard/PastOrders"}>
+            <li className="font-medium text-lg lg:custom-underline">
+              Past Orders
+            </li>
+          </Link>
+
+          <Link href={"/Support"}>
+            <li className="font-medium text-lg lg:custom-underline">Support</li>
+          </Link>
+
+          <Link href={"/Dashboard/InnerDashBoard/Settings"}>
+            <li className="font-medium text-lg lg:custom-underline">
+              Settings
+            </li>
+          </Link>
+
           <li
             onClick={Logout}
-            className="cursor-pointer font-medium text-lg custom-underline"
+            className="cursor-pointer font-medium text-lg lg:custom-underline"
           >
             Logout
           </li>
