@@ -25,7 +25,7 @@ const handler = async (req, res) => {
           }
         }
 
-        res.status(200).json({ success: true, total: tsum.toFixed(2), data: orders });
+        res.status(200).json({ success: true, total: (tsum/100).toFixed(2), data: orders });
       } else {
         res.status(202).json({ success: false, data: "No orders found" });
       }
