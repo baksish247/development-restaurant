@@ -52,6 +52,9 @@ const completedOrders = new mongoose.Schema({
     time_taken_total:{
         type:String,
     },
+    customer_name:{
+        type:String
+    },
     customer_phone:{
         type: String,
     },
