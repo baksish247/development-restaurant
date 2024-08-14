@@ -9,6 +9,7 @@ const GenerateBillModal = ({
   closeaftergeneratebill,
   selectedOrder,
   restaurantinfo,
+  fetchorder
 }) => {
   //console.log(restaurantinfo);
   const [discountOption, setDiscountOption] = useState("no");
@@ -231,6 +232,7 @@ const GenerateBillModal = ({
                 selectedOrder={selectedOrder}
                 discountPercentage={discountPercentage}
                 discountdescription={discountdescription}
+                fetchorder={fetchorder}
               />
           </>
         )}

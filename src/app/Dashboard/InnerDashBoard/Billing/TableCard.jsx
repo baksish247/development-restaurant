@@ -41,7 +41,7 @@ function TableCard({ setordertobill, item, index }) {
             )}</span>
         <span className={`rounded-full  py-1 px-3 text-sm text-white ${
                           item?.order_status == "updated"
-                            ? "bg-[#e0f903]"
+                            ? "bg-[#dbc81a]"
                             : item?.order_status == "new"
                             ? "bg-[#0ace55]"
                             : item?.order_status == "served"
@@ -50,7 +50,7 @@ function TableCard({ setordertobill, item, index }) {
                             ? "bg-[#c42b2b]"
                             : item?.order_status == "billgenerated"
                             ? "bg-gray-600"
-                            : "bg-[#ffffff]"
+                            : "bg-[#584545]"
                         }`}>
           {item?.order_status === "updated"
                         ? "Recently updated"

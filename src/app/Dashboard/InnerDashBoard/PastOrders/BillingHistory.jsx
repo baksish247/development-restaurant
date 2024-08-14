@@ -2,13 +2,22 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import dayjs from "dayjs";
 import { HiDotsVertical } from "react-icons/hi";
+import { TbArrowBigRightLines } from "react-icons/tb";
+import ViewOrderDetailsModal from "./ViewOrderDetailsModal";
 
 function BillingHistory({ user }) {
   const [orders, setOrders] = useState([]);
   const [filteredOrders, setFilteredOrders] = useState([]);
   const [filterDate, setFilterDate] = useState(dayjs().format("YYYY-MM-DD"));
   const [filterType, setFilterType] = useState("today");
+  const [revenue, setrevenue] = useState("");
+  const [viewordermodal, setviewordermodal] = useState(false)
+  const [vieworder, setvieworder] = useState({})
 
+  const closeviewordermodal=()=>{
+    setviewordermodal(false)
+    setvieworder({})
+  }
   const fetchAllOrders = async () => {
     try {
       const res = await axios.post("/api/fetchcompletedorders", {
@@ -26,20 +35,30 @@ function BillingHistory({ user }) {
   }, []);
 
   const filterOrdersByDate = (date, ordersList = orders) => {
+    let amount = 0;
     const filtered = ordersList?.filter((order) => {
       const orderDate = dayjs(order.updatedAt).format("YYYY-MM-DD");
+      if (orderDate == date) {
+        amount += parseFloat(order.total_bill);
+      }
       return orderDate === date;
     });
+    setrevenue(amount);
     setFilteredOrders(filtered);
     setFilterDate(date);
   };
 
   const filterOrdersByRange = (days) => {
+    let amount = 0;
     const startDate = dayjs().subtract(days, "days");
-    const filtered = orders.filter((order) => {
+    const filtered = orders?.filter((order) => {
       const orderDate = dayjs(order.updatedAt);
+      if (orderDate.isAfter(startDate)) {
+        amount += parseFloat(order.total_bill);
+      }
       return orderDate.isAfter(startDate);
     });
+    setrevenue(amount);
     setFilteredOrders(filtered);
   };
 
@@ -67,9 +86,8 @@ function BillingHistory({ user }) {
 
   return (
     <div>
-      <div>
-       
-        <div className="mt-4 flex space-x-4 drop-shadow-md">
+      <div className=" flex justify-between items-center mt-4">
+        <div className=" flex space-x-4 drop-shadow-md">
           <div>
             <label className="font-semibold mb-2">Filter by:</label>
             <select
@@ -85,7 +103,7 @@ function BillingHistory({ user }) {
             </select>
           </div>
           {filterType === "date" && (
-            <div> 
+            <div>
               <label className="font-semibold mb-2">Select Date:</label>
               <input
                 type="date"
@@ -96,10 +114,15 @@ function BillingHistory({ user }) {
             </div>
           )}
         </div>
+        <div className="flex drop-shadow-md ">
+          <div className="border border-black bg-white rounded-md p-2">
+            Revenue : ₹ {parseFloat(revenue).toFixed(2)}
+          </div>
+        </div>
       </div>
       {filteredOrders.length > 0 ? (
         <div>
-          <table className="w-[95%] mt-7 bg-white drop-shadow-md">
+          <table className="w-[100%] mt-7 bg-white drop-shadow-md">
             <thead>
               <tr>
                 <th className="border-b px-4 py-3 bg-slate-400/10 text-left text-sm font-medium text-gray-700">
@@ -117,9 +140,7 @@ function BillingHistory({ user }) {
                 <th className="border-b px-4 py-3 bg-slate-400/10 text-left text-sm font-medium text-gray-700">
                   Tracking ID
                 </th>
-                <th className="border-b px-4 py-3 bg-slate-400/10 text-left text-sm font-medium text-gray-700">
-                  
-                </th>
+                <th className="border-b px-4 py-3 bg-slate-400/10 text-left text-sm font-medium text-gray-700"></th>
               </tr>
             </thead>
             <tbody>
@@ -142,8 +163,10 @@ function BillingHistory({ user }) {
                   <td className="border-b px-4 py-5 text-left text-sm">
                     {item.order_id}
                   </td>
-                  <td className="">
-                  <HiDotsVertical/>
+                  <td className="rounded hover:cursor-pointer text-xl">
+                    <TbArrowBigRightLines
+                      onClick={() => {setviewordermodal(true);setvieworder(item)}}
+                    />
                   </td>
                 </tr>
               ))}
@@ -155,6 +178,7 @@ function BillingHistory({ user }) {
           No orders found for the selected date.
         </p>
       )}
+      {viewordermodal && <ViewOrderDetailsModal onClose={closeviewordermodal} order={vieworder}/>}
     </div>
   );
 }

@@ -26,7 +26,7 @@ function page() {
    <>
    {/* <TopBar title="Table Management"/> */}
    <MainTemplate user={user}/>
-   <div className='flex justify-end space-x-4 absolute top-[75px] right-4'>
+   <div className='flex flex-wrap justify-end space-x-4 absolute top-[105px] right-4'>
    <div className=' space-x-2   flex justify-between items-center'>
     <span className='h-4 w-4 bg-red-300 rounded-full border  border-black'/>
     <span>Waiting For Bill</span>

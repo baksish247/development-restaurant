@@ -53,6 +53,20 @@ function Page() {
   };
 
   useEffect(() => {
+    const intervalId = setInterval(() => {
+      const resid = localStorage.getItem("restaurantid");
+      if (resid) {
+        fetchAllOrders(resid);
+      }
+    }, 100000);
+  
+    return () => {
+      clearInterval(intervalId);
+    };
+  }, []);
+  
+  
+  useEffect(() => {
     const resid = localStorage.getItem("restaurantid");
     if (resid) {
       fetchAllOrders(resid);

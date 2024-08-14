@@ -8,6 +8,7 @@ import toast, { Toaster } from "react-hot-toast";
 // import jsPDF from "jspdf";
 
 function FinalBill({
+  fetchorder,
   restaurantinfo,
   selectedOrder,
   discountPercentage,
@@ -15,6 +16,7 @@ function FinalBill({
 }) {
   //console.log(restaurantinfo);
   //console.log(selectedOrder);
+  fetchorder();
   const [customerphone_no, setcustomerphone_no] = useState("")
   const date = new Date(selectedOrder.createdAt);
   const day = date.getDate().toString().padStart(2, "0");

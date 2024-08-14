@@ -53,7 +53,7 @@ function WaiterCard({ item, handleSwitchChange }) {
           />
           <div>
             <p className="font-bold">{item?.username}</p>
-            <p>Current Assigned Table: 1</p>
+            <p>Current Assigned Table: {waiterDetails?.assignedTables?.join(', ')}</p>
           </div>
         </div>
         <div className="flex items-center gap-4">
