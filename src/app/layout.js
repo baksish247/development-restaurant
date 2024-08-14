@@ -12,8 +12,19 @@ const poppins = Poppins({
 });
 
 export const metadata = {
-  title: "Restaurant Dashboard",
-  description: "Baksish Restaurant Dashboard",
+  metadataBase: new URL("https://restaurant.baksish.in"),
+  title: {
+    default: "Baksish | Table to Kitchen tech",
+    template: "%s - RestaurantBaksish",
+  },
+  alternates: {
+    canonical: "https://www.restaurant.baksish.in",
+  },
+  description:
+    "Efficient restaurant management system featuring scan and order, inventory control, billing, and analytics. Streamline operations effortlessly.",
+  twitter: {
+    card: "summary_large_image",
+  },
 };
 
 export default function RootLayout({ children }) {
