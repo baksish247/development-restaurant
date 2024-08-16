@@ -10,6 +10,8 @@ import ContactPage from "./Contactpage";
 import { useAuth } from "@/app/Context/AuthContext";
 import { useRouter } from "next/navigation";
 import Events from "./Events";
+import Offers from "./Offers";
+import Resetpassword from "./Resetpassword";
 
 function Page() {
   const { user, loading } = useAuth();
@@ -50,8 +52,12 @@ function Page() {
         return <PlanPage />;
       case "Notifications":
         return <NotificationsPage />;
-        case "Events":
-          return <Events />;
+      case "Events":
+        return <Events />;
+      case "Offers":
+        return <Offers />;
+      case "Reset Password":
+        return <Resetpassword />;
       default:
         return <ProfilePage />;
     }
@@ -60,19 +66,26 @@ function Page() {
   return (
     <div className="px-4 mt-4 lg:px-10">
       <nav className="w-full bg-zinc-200 rounded-md flex lg:flex-nowrap flex-wrap justify-between lg:justify-start items-center">
-        {["Profile", "Menu", "Team", "Plan", "Notifications","Events"].map(
-          (item) => (
-            <span
-              key={item}
-              onClick={() => setCurrentSection(item)}
-              className={`font-medium text-zinc-700 hover:bg-white px-4 lg:px-6 border-transparent p-2 border-b-2 hover:border-zinc-800 cursor-pointer transition-colors ${
-                currentSection === item ? "border-zinc-800" : ""
-              }`}
-            >
-              {item}
-            </span>
-          )
-        )}
+        {[
+          "Profile",
+          "Menu",
+          "Team",
+          "Plan",
+          "Notifications",
+          "Events",
+          "Offers",
+          "Reset Password",
+        ].map((item) => (
+          <span
+            key={item}
+            onClick={() => setCurrentSection(item)}
+            className={`font-medium text-zinc-700 hover:bg-white px-4 lg:px-6 border-transparent p-2 border-b-2 hover:border-zinc-800 cursor-pointer transition-colors ${
+              currentSection === item ? "border-zinc-800" : ""
+            }`}
+          >
+            {item}
+          </span>
+        ))}
       </nav>
       <section className="p-2">{renderSection()}</section>
     </div>
