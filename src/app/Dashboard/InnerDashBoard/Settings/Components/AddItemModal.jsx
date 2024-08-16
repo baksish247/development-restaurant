@@ -63,6 +63,7 @@ const AddItemModal = ({ items, edit, isOpen, onClose, onItemAdded }) => {
   const [buttonclicked, setbuttonclicked] = useState(false);
   const [loading, setLoading] = useState(true);
 
+
   const options = [
     "Appetizer",
     "Beers",
@@ -78,7 +79,9 @@ const AddItemModal = ({ items, edit, isOpen, onClose, onItemAdded }) => {
     "Chinese",
     "Chutney",
     "Coffee",
-    "Combo",
+    "Cold Beverages",
+    "Combos",
+    "Coolers",
     "Desserts",
     "Dips",
     "Donuts",
@@ -86,11 +89,13 @@ const AddItemModal = ({ items, edit, isOpen, onClose, onItemAdded }) => {
     "Dosa",
     "Egg",
     "Espresso",
+    "Finger Foods",
     "Fish",
     "Frappe",
     "Fries",
     "Gin",
     "Handi",
+    "Hot Beverages",
     "Idly",
     "Irish",
     "Juice",
@@ -98,7 +103,9 @@ const AddItemModal = ({ items, edit, isOpen, onClose, onItemAdded }) => {
     "Main Course",
     "Maggie",
     "Mashroom",
+    "Milkshakes",
     "Mocktail",
+    "Momos",
     "Mughlai",
     "Mutton",
     "Mutton Mandi",
@@ -149,7 +156,6 @@ const AddItemModal = ({ items, edit, isOpen, onClose, onItemAdded }) => {
     "Qorma",
     "Restaurant Special",
   ];
-
   const vegchoice = ["Veg", "Non Veg"];
 
   // State for inventory ingredients

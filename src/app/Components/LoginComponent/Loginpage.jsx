@@ -132,7 +132,7 @@ function LoginPage() {
                 </div>
               )}
               <a
-                href="#"
+                href="/ForgotPassword"
                 className="block underline text-right text-xs text-orange-600 mt-2"
               >
                 Forgot Password?

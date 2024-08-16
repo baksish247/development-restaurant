@@ -31,7 +31,7 @@ function FinalBill({
   const [qrcode, setqrcode] = useState("");
   const fetchtipqr = async () => {
     const res = await axios.post("/api/getqrcodefortip", {
-      url: `${process.env.NEXT_PUBLIC_QR_URL}/id=${restaurantinfo.restaurantid}`,
+      url: `${process.env.NEXT_PUBLIC_QR_URL}?id=${restaurantinfo.restaurantid}`,
     });
     //console.log(res.data);
     setqrcode(res.data.qrCodeDataURL);

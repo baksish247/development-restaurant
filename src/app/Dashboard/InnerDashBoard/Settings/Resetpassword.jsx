@@ -3,8 +3,12 @@ import React, { useState } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
+import { useAuth } from "@/app/Context/AuthContext";
+import toast, { Toaster } from "react-hot-toast";
 
 function ResetPassword() {
+  const {user}=useAuth();
+  console.log(user);
   const [successMessage, setSuccessMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
@@ -31,19 +35,21 @@ function ResetPassword() {
     setSuccessMessage("");
     try {
       const response = await axios.post("/api/resetpassword", {
-        oldPassword: values.oldPassword,
-        newPassword: values.newPassword,
+        name:user.name,
+        resid:user.restaurantid,
+        password: values.oldPassword,
+        newpassword: values.newPassword,
       });
 
       if (response.data.success) {
-        setSuccessMessage("Password has been successfully reset.");
+        toast.success("Password has been successfully reset.");
         resetForm();
       } else {
-        setErrors({ oldPassword: "Failed to reset password. Please try again." });
+        toast.error(response.data.error);
       }
     } catch (error) {
       console.error("Error resetting password:", error);
-      setErrors({ oldPassword: "An error occurred while resetting your password." });
+      toast.error("An error occurred while resetting your password." );
     } finally {
       setIsLoading(false);
       setSubmitting(false);
@@ -52,6 +58,7 @@ function ResetPassword() {
 
   return (
     <div className="max-w-xl mx-auto mt-10">
+      <Toaster/>
       <Formik
         initialValues={{
           oldPassword: "",

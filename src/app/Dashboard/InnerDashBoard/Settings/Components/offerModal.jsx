@@ -5,6 +5,7 @@ import axios from "axios";
 import { useAuth } from "@/app/Context/AuthContext";
 import Spinner from "./Spinner"; // Assuming you have a Spinner component
 import { CldUploadWidget } from "next-cloudinary";
+import toast, { Toaster } from "react-hot-toast";
 
 const OfferModal = ({ offers, edit, isOpen, onClose, onOfferAdded }) => {
   const { user } = useAuth();
@@ -13,8 +14,8 @@ const OfferModal = ({ offers, edit, isOpen, onClose, onOfferAdded }) => {
   const [searchQuery, setSearchQuery] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
-  const [offerTitle, setOfferTitle] = useState("");
-  const [offerDescription, setOfferDescription] = useState("");
+  const [itemname, setitemname] = useState("");
+  const [itemDescription, setitemDescription] = useState("");
   const [offerName, setOfferName] = useState("");
   const [oldPrice, setOldPrice] = useState("");
   const [newPrice, setNewPrice] = useState("");
@@ -49,8 +50,8 @@ const OfferModal = ({ offers, edit, isOpen, onClose, onOfferAdded }) => {
 
   useEffect(() => {
     if (offers) {
-      setOfferTitle(offers.title ?? "");
-      setOfferDescription(offers.description ?? "");
+      setitemname(offers.title ?? "");
+      setitemDescription(offers.description ?? "");
       setOfferName(offers.offerName ?? "");
       setOldPrice(offers.price ?? "");
       setNewPrice(offers.newPrice ?? "");
@@ -79,7 +80,7 @@ const OfferModal = ({ offers, edit, isOpen, onClose, onOfferAdded }) => {
     setButtonClicked(true);
     event.preventDefault();
 
-    if (!offerTitle || !newPrice || !offerImage) {
+    if (!itemname || !newPrice || !offerImage) {
       setButtonClicked(false);
       setErrorMessage(
         "Please fill in all required fields and provide an image."
@@ -87,8 +88,8 @@ const OfferModal = ({ offers, edit, isOpen, onClose, onOfferAdded }) => {
       return;
     }
     const d = {
-      title: offerTitle,
-      description: offerDescription,
+      title: itemname,
+      description: itemDescription,
       offerName: offerName,
       oldPrice: oldPrice,
       newPrice: newPrice,
@@ -96,14 +97,15 @@ const OfferModal = ({ offers, edit, isOpen, onClose, onOfferAdded }) => {
       coupon: couponCode,
       image: offerImage,
       restaurant_id: user.restaurantid,
+      // offerid:offers._id?offers._id:null
     }
     console.log(d);
     
 
     try {
-      await axios.post("/api/createorupdateffer", {
-        title: offerTitle,
-        description: offerDescription,
+      const res=await axios.post("/api/createDailyOffers", {
+        itemname: itemname,
+        itemDescription: itemDescription,
         offerName: offerName,
         oldPrice: oldPrice,
         newPrice: newPrice,
@@ -112,13 +114,13 @@ const OfferModal = ({ offers, edit, isOpen, onClose, onOfferAdded }) => {
         image: offerImage,
         restaurant_id: user.restaurantid,
       });
-
-      // Notify parent component
-      if (onOfferAdded) onOfferAdded();
+      if (res.data.success) {
+        toast.success("Offer created successfully")
+      onOfferAdded();
 
       // Reset form and close modal
-      setOfferTitle("");
-      setOfferDescription("");
+      setitemname("");
+      setitemDescription("");
       setOfferName("");
       setOldPrice("");
       setNewPrice("");
@@ -128,8 +130,13 @@ const OfferModal = ({ offers, edit, isOpen, onClose, onOfferAdded }) => {
       setImageUrl("");
       setErrorMessage("");
       onClose();
+      } else {
+        toast.error("Failed to add offer.");
+      }
+
+      
     } catch (error) {
-      console.error("Error adding offer:", error);
+      toast.error("Failed to add offer.");
     } finally {
       setButtonClicked(false);
     }
@@ -155,8 +162,8 @@ const OfferModal = ({ offers, edit, isOpen, onClose, onOfferAdded }) => {
   );
 
   const handleItemClick = (item) => {
-    setOfferTitle(item.name);
-    setOfferDescription(item.description);
+    setitemname(item.name);
+    setitemDescription(item.description);
     setOfferName(""); // Reset offer name field
 
     setOldPrice(item.price); // Set old price to the item's price
@@ -170,6 +177,7 @@ const OfferModal = ({ offers, edit, isOpen, onClose, onOfferAdded }) => {
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 backdrop-blur-sm flex items-center justify-center z-50">
+      <Toaster/>
       <div className="bg-white rounded-lg p-8 relative shadow-lg max-w-4xl w-full h-fit flex">
         <button
           onClick={onClose}
@@ -194,7 +202,7 @@ const OfferModal = ({ offers, edit, isOpen, onClose, onOfferAdded }) => {
                 <div
                   key={item._id}
                   className={`border-b border-gray-300 py-2 cursor-pointer ${
-                    item.name === offerTitle ? "bg-gray-200" : ""
+                    item.name === itemname ? "bg-gray-200" : ""
                   }`}
                   onClick={() => handleItemClick(item)}
                 >
@@ -248,17 +256,17 @@ const OfferModal = ({ offers, edit, isOpen, onClose, onOfferAdded }) => {
             <div className="grid grid-cols-2 gap-4">
               <input
                 type="text"
-                placeholder="Offer Title"
-                value={offerTitle}
-                onChange={(e) => setOfferTitle(e.target.value)}
+                placeholder="Item Name"
+                value={itemname}
+                onChange={(e) => setitemname(e.target.value)}
                 className="w-full p-2 border rounded-md"
                 required
               />
               <input
                 type="text"
-                placeholder="Offer Description"
-                value={offerDescription}
-                onChange={(e) => setOfferDescription(e.target.value)}
+                placeholder="Item Description"
+                value={itemDescription}
+                onChange={(e) => setitemDescription(e.target.value)}
                 className="w-full p-2 border rounded-md"
               />
               <input

@@ -1,9 +1,11 @@
 // Dummy data for offers
 
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { IoMdArrowDropdown } from "react-icons/io";
 import OfferModal from "./Components/offerModal";
+import axios from "axios";
+import { useAuth } from "@/app/Context/AuthContext";
 const offers = {
   combo: [
     {
@@ -75,8 +77,8 @@ const CustomDropdown = ({ options, value, onChange }) => {
 function OfferCard({ offer }) {
   return (
     <div className="border border-gray-300 rounded-lg p-4 shadow-md mb-4">
-      <h2 className="text-lg font-semibold">{offer.title}</h2>
-      <p className="text-gray-600">{offer.description}</p>
+      <h2 className="text-lg font-semibold">{offer.itemname}</h2>
+      <p className="text-gray-600">{offer.itemDscription}</p>
       <p className="font-bold text-green-600">{offer.price}</p>
     </div>
   );
@@ -85,6 +87,19 @@ function OfferCard({ offer }) {
 function Offers() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editOffer, setEditOffer] = useState(null);
+  const [alloffers, setalloffers] = useState([])
+  const { user } = useAuth();
+  const fetchOrders=async()=>{
+    const res=await axios.post('/api/fetchDailyOffers',{
+      resid:user.restaurantid
+    })
+    if(res.data.success){
+      setalloffers(res.data.data);
+    }
+  }
+  useEffect(()=>{
+    fetchOrders();
+  },[])
 
   const handleAddOffer = () => {
     setEditOffer(null); // Ensure we are adding a new offer, not editing
@@ -120,25 +135,25 @@ function Offers() {
 
         <section className="mb-8">
           <h2 className="text-xl font-semibold mb-4">Combo Offers</h2>
-          {offers.combo.length > 0 ? (
-            offers.combo.map((offer) => (
-              <OfferCard key={offer.id} offer={offer} />
+          {alloffers.length > 0 ? (
+            alloffers.map((offer) => (
+              <OfferCard key={offer._id} offer={offer} />
             ))
           ) : (
             <p>No combo offers available.</p>
           )}
         </section>
 
-        <section>
+        {/* <section>
           <h2 className="text-xl font-semibold mb-4">Single Offers</h2>
           {offers.single.length > 0 ? (
             offers.single.map((offer) => (
-              <OfferCard key={offer.id} offer={offer} />
+              <OfferCard key={offer._id} offer={offer} />
             ))
           ) : (
             <p>No single offers available.</p>
           )}
-        </section>
+        </section> */}
       </div>
 
       <OfferModal
