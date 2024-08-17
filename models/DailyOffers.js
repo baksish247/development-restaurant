@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import FoodItems from './FoodItems';
 
 const dailyOffersSchema = new mongoose.Schema({
     itemname:{
@@ -28,6 +29,10 @@ const dailyOffersSchema = new mongoose.Schema({
     image:{
         type:String,
     },
+    food: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'FoodItems'
+      },
 }, { timestamps: true })
 
 export default mongoose.models.DailyOffers || mongoose.model("DailyOffers", dailyOffersSchema)

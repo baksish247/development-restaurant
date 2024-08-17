@@ -15,6 +15,9 @@ const foodItemsSchema = new mongoose.Schema(
     price: {
       type: String,
     },
+    oldPrice:{
+      type:String,
+    },
     category: {
       type: String,
     },

@@ -1,5 +1,6 @@
 import connDB from "../../../middleware/connDB";
 import DailyOffers from "../../../models/DailyOffers";
+import FoodItems from "../../../models/FoodItems";
 
 const handler = async (req, res) => {
   if (req.method === "POST") {
@@ -13,10 +14,11 @@ const handler = async (req, res) => {
         discount,
         coupon,
         image,
-        offerid
+        offerid,
+        food
       } = req.body;
 
-      const offer = await DailyOffers.findByIdAndUpdate(offerid,{
+      const offer = await DailyOffers.findByIdAndUpdate(offerid, {
         itemname,
         itemDescription,
         offerName,
@@ -25,16 +27,27 @@ const handler = async (req, res) => {
         discount,
         coupon,
         image,
+        food
       });
 
-
       if (offer) {
-        res.status(200).json({ success: true, data: offer });
-      } else {
+        const item=await FoodItems.findById(food);
+        if(item){
+          const old=item.price;
+          const updated=await FoodItems.findByIdAndUpdate(food,{price:newPrice,oldPrice:old});
+          if(updated){
+            res.status(200).json({ success: true, data: updated });
+          }else {
+            res.status(201).json({ success: false, error: "Could not save offer" });
+          }
+        }else 
+          res.status(201).json({ success: false, error: "Could not save offer" });
+        }
+        
+       else {
         res.status(201).json({ success: false, error: "Could not save offer" });
       }
     } catch (error) {
-      console.error("Error occurred while saving offer:", error.message);
       res.status(202).json({ success: false, error: error.message });
     }
   } else {
@@ -43,4 +56,3 @@ const handler = async (req, res) => {
 };
 
 export default connDB(handler);
-

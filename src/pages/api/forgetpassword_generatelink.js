@@ -63,7 +63,7 @@ const handler = async (req, res) => {
             res.status(201).json({success:false, error:"email not registered"})
           }
     } catch (e) {
-      console.log(e)
+      //console.log(e)
       res.status(201).json({ success: false, error: "error occured" });
     }
   } else {

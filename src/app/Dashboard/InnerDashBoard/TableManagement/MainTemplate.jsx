@@ -70,7 +70,7 @@ function MainTemplate({ user }) {
         }
       }
     } catch (err) {
-      console.log(err);
+      //console.log(err);
     }
   };
 

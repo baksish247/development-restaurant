@@ -7,7 +7,7 @@ import Spinner from "./Spinner"; // Assuming you have a Spinner component
 import { CldUploadWidget } from "next-cloudinary";
 import toast, { Toaster } from "react-hot-toast";
 
-const OfferModal = ({ offers, edit, isOpen, onClose, onOfferAdded }) => {
+const OfferModal = ({ offers, edit, isOpen, onClose, onOfferAdded ,fetchOffers}) => {
   const { user } = useAuth();
 
   const [globalMenuItems, setGlobalMenuItems] = useState([]);
@@ -25,6 +25,7 @@ const OfferModal = ({ offers, edit, isOpen, onClose, onOfferAdded }) => {
   const [imageUrl, setImageUrl] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [buttonClicked, setButtonClicked] = useState(false);
+  const [fooditem, setfooditem] = useState(null)
 
   const fetchGlobalMenuItems = async () => {
     try {
@@ -50,15 +51,16 @@ const OfferModal = ({ offers, edit, isOpen, onClose, onOfferAdded }) => {
 
   useEffect(() => {
     if (offers) {
-      setitemname(offers.title ?? "");
-      setitemDescription(offers.description ?? "");
+      setitemname(offers.itemname ?? "");
+      setitemDescription(offers.itemDescription ?? "");
       setOfferName(offers.offerName ?? "");
-      setOldPrice(offers.price ?? "");
+      setOldPrice(offers.oldPrice ?? "");
       setNewPrice(offers.newPrice ?? "");
       setOfferDiscount(offers.discount ?? "");
-      setCouponCode(offers.couponCode ?? "");
+      setCouponCode(offers.coupon ?? "");
       setOfferImage(offers.image ?? "");
       setImageUrl(offers.image ?? "");
+      setfooditem(offers.food??null);
     }
   }, [offers]);
 
@@ -99,10 +101,45 @@ const OfferModal = ({ offers, edit, isOpen, onClose, onOfferAdded }) => {
       restaurant_id: user.restaurantid,
       // offerid:offers._id?offers._id:null
     }
-    console.log(d);
+    //console.log(d);
     
 
     try {
+      if(offers){
+        const res=await axios.post("/api/updateDailyOffers", {
+          itemname: itemname,
+          itemDescription: itemDescription,
+          offerName: offerName,
+          oldPrice: oldPrice,
+          newPrice: newPrice,
+          discount: offerDiscount,
+          coupon: couponCode,
+          image: offerImage,
+          offerid:offers._id,
+          food:fooditem
+        });
+        if (res.data.success) {
+          toast.success("Offer updated successfully")
+        onOfferAdded();
+  
+        // Reset form and close modal
+        setitemname("");
+        setitemDescription("");
+        setOfferName("");
+        setOldPrice("");
+        setNewPrice("");
+        setOfferDiscount("");
+        setCouponCode("");
+        setOfferImage("");
+        setImageUrl("");
+        setErrorMessage("");
+        setfooditem(null);
+        onClose();
+        } else {
+          toast.error("Failed to add offer.");
+        }
+      }
+      else{
       const res=await axios.post("/api/createDailyOffers", {
         itemname: itemname,
         itemDescription: itemDescription,
@@ -113,6 +150,7 @@ const OfferModal = ({ offers, edit, isOpen, onClose, onOfferAdded }) => {
         coupon: couponCode,
         image: offerImage,
         restaurant_id: user.restaurantid,
+        food:fooditem
       });
       if (res.data.success) {
         toast.success("Offer created successfully")
@@ -129,15 +167,17 @@ const OfferModal = ({ offers, edit, isOpen, onClose, onOfferAdded }) => {
       setOfferImage("");
       setImageUrl("");
       setErrorMessage("");
+      setfooditem(null);
       onClose();
       } else {
         toast.error("Failed to add offer.");
       }
 
-      
+    }
     } catch (error) {
-      toast.error("Failed to add offer.");
+      toast.error("Failed to make changes");
     } finally {
+      fetchOffers();
       setButtonClicked(false);
     }
   };
@@ -162,6 +202,8 @@ const OfferModal = ({ offers, edit, isOpen, onClose, onOfferAdded }) => {
   );
 
   const handleItemClick = (item) => {
+    //console.log(item)
+    setfooditem(item._id);
     setitemname(item.name);
     setitemDescription(item.description);
     setOfferName(""); // Reset offer name field

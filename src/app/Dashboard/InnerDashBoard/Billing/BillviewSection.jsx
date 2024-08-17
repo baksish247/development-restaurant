@@ -7,6 +7,7 @@ import { FiUpload } from "react-icons/fi";
 import { TiTick } from "react-icons/ti";
 import toast, { Toaster } from "react-hot-toast";
 import axios from "axios";
+import ViewOrderNotes from "./BillingComponents/ViewOrderNotes";
 
 function BillviewSection({ orders, orderindex, restaurantinfo, fetchorder }) {
   const [estimatedtime, setestimatedtime] = useState("");
@@ -32,20 +33,24 @@ function BillviewSection({ orders, orderindex, restaurantinfo, fetchorder }) {
     setopenPaidModal(false);
   };
 
-  const markserved=async()=>{
-    try{
-    const res=await axios.post('/api/markasserved',{
-      order_id:order.order_id
-    })
-    if(res.data.success){
-      alert('Order marked as served successfully')
+  const [openviewOrderNotesModal, setopenviewOrderNotesModal] = useState(false);
+  const closeviewOrderNotesModal=()=>{
+    setopenviewOrderNotesModal(false);
+  }
+  const markserved = async () => {
+    try {
+      const res = await axios.post("/api/markasserved", {
+        order_id: order.order_id,
+      });
+      if (res.data.success) {
+        alert("Order marked as served successfully");
+      }
+    } catch (err) {
+      alert("Failed to mark order as served");
+    } finally {
+      fetchorder(restaurantinfo.restaurantid);
     }
-  }catch(err){
-    alert('Failed to mark order as served')
-  }finally{
-    fetchorder(restaurantinfo.restaurantid)
-  }
-  }
+  };
 
   const updateestimatedtime = async () => {
     try {
@@ -65,7 +70,7 @@ function BillviewSection({ orders, orderindex, restaurantinfo, fetchorder }) {
             : orderestimate_time,
       });
       if (res.data.success) {
-        alert("Wait time updated successfully.");
+        toast("Wait time updated successfully.");
       } else {
         alert(res.data.error);
       }
@@ -73,7 +78,7 @@ function BillviewSection({ orders, orderindex, restaurantinfo, fetchorder }) {
       alert("Failed to update wait time.");
     } finally {
       setestimatedtime("");
-      fetchorder(restaurantinfo.restaurantid)
+      fetchorder(restaurantinfo.restaurantid);
     }
   };
 
@@ -127,7 +132,16 @@ function BillviewSection({ orders, orderindex, restaurantinfo, fetchorder }) {
                   Edit Order
                 </span>
               </div>
-
+              <div className="mt-3 sticky flex items-center justify-between px-2">
+                <span>
+                  <div>Name : {order?.customer_name?order?.customer_name:""}</div>
+                  <div>Phone : {order?.customer_phone?order?.customer_phone:""}</div>
+                </span>
+                <span className="text-white bg-orange-500 px-3 py-1 rounded-md cursor-pointer"
+                  onClick={() => setopenviewOrderNotesModal(true)}>
+                    View order notes
+                </span>
+              </div>
               <div className="space-y-2 border gap-2 pt-4 h-[350px] m-2 p-2 overflow-auto">
                 {order?.order_items?.map((orderItem, i) =>
                   orderItem.items.map((item, j) => {
@@ -154,15 +168,22 @@ function BillviewSection({ orders, orderindex, restaurantinfo, fetchorder }) {
                 )}
               </div>
             </div>
-            {(order.order_status == "new" || order.order_status == "updated") && <div className="relative">
-              <button 
-                type="button"
-                onClick={markserved}
-                className="absolute right-3 bg-green-400 flex items-center justify-center px-5 py-1 rounded-md">
-              <span><TiTick /></span>&nbsp;Mark as Served
-              </button>
-            </div>}
-            <div className="buttons mx-2 mt-12 flex flex-col items-center space-y-4">
+            {(order.order_status == "new" ||
+              order.order_status == "updated") && (
+              <div className="relative">
+                <button
+                  type="button"
+                  onClick={markserved}
+                  className="absolute right-3 bg-green-400 flex items-center justify-center px-5 py-1 rounded-md"
+                >
+                  <span>
+                    <TiTick />
+                  </span>
+                  &nbsp;Mark as Served
+                </button>
+              </div>
+            )}
+            <div className="buttons mx-2 mb-8 mt-12 flex flex-col items-center space-y-4">
               <button
                 onClick={() => {
                   setopenPaidModal(true);
@@ -203,6 +224,12 @@ function BillviewSection({ orders, orderindex, restaurantinfo, fetchorder }) {
             onClose={closeGenerateBillModal}
             selectedOrder={order}
             restaurantinfo={restaurantinfo}
+          />
+        )}
+        {openviewOrderNotesModal && (
+          <ViewOrderNotes
+            onClose={closeviewOrderNotesModal}
+            order={order}
           />
         )}
       </div>

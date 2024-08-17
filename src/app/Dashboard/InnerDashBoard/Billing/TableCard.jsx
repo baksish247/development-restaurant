@@ -11,12 +11,12 @@ function TableCard({ setordertobill, item, index }) {
       item.order_status == "updated"
     ) {
       if (completed) {
-        console.log(hours, minutes, seconds)
+        //console.log(hours, minutes, seconds)
         return (
             <div className="text-center text-red-600">Customer waiting</div>
         );
       } else {
-        console.log(hours, minutes, seconds)
+        //console.log(hours, minutes, seconds)
         return (
           <div className="text-red-700">
                 {parseInt(hours) != 0 ? hours : ""}
@@ -70,7 +70,7 @@ function TableCard({ setordertobill, item, index }) {
           <span className="font-semibold">Waiter Alloted: </span>
           <span>{item?.waiter_name || "No waiter alloted"}</span>
         </div>
-        {!item?.waiter_name && (
+        {(!item?.waiter_name && (item?.order_status == "new" || item?.order_status == "updated"))&& (
           <span className="border border-red-700 animate-ping duration-10000 h-2 w-2 mr-2 rounded-full bg-red-700"></span>
         )}
       </div>

@@ -3,9 +3,11 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import { IoMdArrowDropdown } from "react-icons/io";
-import OfferModal from "./Components/offerModal";
+import { FaEdit, FaTrash } from 'react-icons/fa';
+import OfferModal from "./Components/AddOfferModal";
 import axios from "axios";
 import { useAuth } from "@/app/Context/AuthContext";
+import toast, { Toaster } from "react-hot-toast";
 const offers = {
   combo: [
     {
@@ -74,22 +76,63 @@ const CustomDropdown = ({ options, value, onChange }) => {
   );
 };
 
-function OfferCard({ offer }) {
+// function OfferCard({ offer }) {
+//   return (
+//     <div className="border border-gray-300 rounded-lg p-4 shadow-md mb-4">
+//       <h2 className="text-lg font-semibold">{offer.itemname}</h2>
+//       <p className="text-gray-600">{offer.itemDescription}</p>
+//       <p className="font-bold text-green-600">{offer.price}</p>
+//     </div>
+//   );
+// }
+
+
+function OfferCard({ offer, onEdit, onDelete }) {
   return (
-    <div className="border border-gray-300 rounded-lg p-4 shadow-md mb-4">
-      <h2 className="text-lg font-semibold">{offer.itemname}</h2>
-      <p className="text-gray-600">{offer.itemDscription}</p>
-      <p className="font-bold text-green-600">{offer.price}</p>
+    <div className="-z-20 border border-gray-300 rounded-lg p-3 shadow-md mb-3 bg-white flex items-center space-x-4">
+      <img 
+        src={offer.image} 
+        alt={offer.itemname} 
+        className="rounded-md w-32 h-32 object-cover" 
+      />
+      <div className="flex-1">
+        <h2 className="text-lg font-bold text-gray-800">{offer.itemname}</h2>
+        <p className="text-md text-gray-600">{offer.itemDescription}</p>
+          <p className="text-md mt-2 text-gray-500">Offer : {offer.offerName}</p>
+          <p className="text-md  text-gray-500">Coupon : {offer.coupon}</p>
+        <div className="flex justify-start space-x-4 items-center mt-2">
+          <p className="line-through text-gray-400">₹{offer.oldPrice}</p>
+          <p className="text-md font-semibold text-green-600">₹{offer.newPrice}</p>
+        </div>
+      </div>
+      <div className="flex flex-col space-y-2">
+        <button
+          onClick={() => onEdit(offer)}
+          className="text-blue-500 hover:text-blue-700 transition text-xl duration-150"
+          aria-label="Edit"
+        >
+          <FaEdit />
+        </button>
+        <button
+          onClick={() => onDelete(offer)}
+          className="text-red-500 hover:text-red-700 text-xl transition duration-150"
+          aria-label="Delete"
+        >
+          <FaTrash />
+        </button>
+      </div>
     </div>
   );
 }
+
+
 
 function Offers() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editOffer, setEditOffer] = useState(null);
   const [alloffers, setalloffers] = useState([])
   const { user } = useAuth();
-  const fetchOrders=async()=>{
+  const fetchOffers=async()=>{
     const res=await axios.post('/api/fetchDailyOffers',{
       resid:user.restaurantid
     })
@@ -98,7 +141,7 @@ function Offers() {
     }
   }
   useEffect(()=>{
-    fetchOrders();
+    fetchOffers();
   },[])
 
   const handleAddOffer = () => {
@@ -113,7 +156,7 @@ function Offers() {
 
   const handleOfferAdded = (newOffer) => {
     // Logic to add the new offer to state or send it to an API
-    console.log("New offer added:", newOffer);
+    //console.log("New offer added:", newOffer);
   };
 
   const handleEditOffer = (offer) => {
@@ -121,8 +164,31 @@ function Offers() {
     setIsModalOpen(true);
   };
 
+  const deleteOffer=async(offer)=>{
+    try{
+    if(confirm('Are you sure you want to delete this offer')){
+      toast.loading('Deleting offer');
+      const res=await axios.post('/api/deleteDailyOffers',{
+        offerid:offer._id
+      })
+      toast.dismiss();
+      if(res.data.success){
+      toast.success("Order deleted successfully")
+      fetchOffers();
+      }
+      else{
+        toast.error("Failed to delete offer");
+      }
+      
+    }
+  }catch(e){
+    toast.error("Failed to delete offer");
+  }
+  }
+
   return (
-    <div className="relative p-6">
+    <div className="relative py-4">
+      <Toaster/>
       <button
         onClick={handleAddOffer}
         className="fixed right-6 bottom-20 bg-orange-400 text-white rounded-full p-2 px-4 drop-shadow-lg border border-gray-300 text-3xl hover:scale-95 duration-300"
@@ -133,34 +199,25 @@ function Offers() {
       <div className="pt-4">
         <h1 className="text-2xl font-bold mb-6">Today's Offers</h1>
 
-        <section className="mb-8">
-          <h2 className="text-xl font-semibold mb-4">Combo Offers</h2>
+        <section className="mb-20">
+          {/* <h2 className="text-xl font-semibold mb-4">Combo Offers</h2> */}
           {alloffers.length > 0 ? (
             alloffers.map((offer) => (
-              <OfferCard key={offer._id} offer={offer} />
+              <OfferCard key={offer._id} offer={offer} onEdit={handleEditOffer} onDelete={deleteOffer}/>
             ))
           ) : (
-            <p>No combo offers available.</p>
+            <p>No offers available.</p>
           )}
         </section>
 
-        {/* <section>
-          <h2 className="text-xl font-semibold mb-4">Single Offers</h2>
-          {offers.single.length > 0 ? (
-            offers.single.map((offer) => (
-              <OfferCard key={offer._id} offer={offer} />
-            ))
-          ) : (
-            <p>No single offers available.</p>
-          )}
-        </section> */}
       </div>
 
       <OfferModal
         isOpen={isModalOpen}
         onClose={handleCloseModal}
         onOfferAdded={handleOfferAdded}
-        offer={editOffer}
+        offers={editOffer}
+        fetchOffers={fetchOffers}
       />
     </div>
   );

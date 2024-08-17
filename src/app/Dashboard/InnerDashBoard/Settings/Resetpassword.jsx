@@ -8,7 +8,7 @@ import toast, { Toaster } from "react-hot-toast";
 
 function ResetPassword() {
   const {user}=useAuth();
-  console.log(user);
+  //console.log(user);
   const [successMessage, setSuccessMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 

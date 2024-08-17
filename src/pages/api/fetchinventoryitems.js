@@ -15,7 +15,7 @@ const handler=async(req,res)=>{
             }
         }
     } catch (error) {
-        console.log(error);
+        //console.log(error);
         
         res.status(201).json({success:false,error:"Server Error"})
     }

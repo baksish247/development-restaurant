@@ -6,12 +6,11 @@ const handler = async (req, res) => {
     try {
         //console.log(req.body);
       const {order_id} = req.body;
-      console.log(req.body);
       const order = await Orders.findOneAndUpdate({order_id:order_id}, {
         order_status: "served",
         served_at: new Date(),
       });
-      console.log(order)
+
       if (!order) {
         return res.status(200).json({success:false, message: "Order not found" });
       }else{
